@@ -21,4 +21,10 @@ typedef	struct s_pipeline
 	struct s_pipeline	*next;
 }	t_pipeline;
 
+typedef struct s_pipe
+{
+	int	**fds;
+	int	n;
+}	t_fds;
+
 #endif

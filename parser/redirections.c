@@ -12,31 +12,43 @@
 
 #include <minishell.h>
 
-static int	redirect(t_list **tokens);
+static int	set_redirections(t_pipeline **plist, t_list **tokens, t_fds *fds,
+		int i);
 
-int	perform_redirections(t_list **tokens)
+int	perform_redirections(t_pipeline **plist, t_list **tokens)
 {
+	t_fds	*fds;
+	int		i;
+
+	fds = NULL;
+	if (there_is_pipe_token(*tokens))
+		fds = count_and_open_pipes(*tokens);
+	i = 0;
+	*plist = new_plist();
 	while (*tokens)
 	{
-		if (is_redir_token(*tokens))
-			if (redirect(tokens) == EOF)
-				return (EOF);
-		advance(tokens);
+		if (set_redirections(plist, tokens, fds, i) == EOF)
+			return ;
+		i++;
 	}
-	return (true);
+	close_pipes(fds->fds, fds->n);
+	clear_pipes(fds);
 }
 
-static int	redirect(t_list **tokens)
+static int	set_redirections(t_pipeline **plist, t_list **tokens, t_fds *fds,
+		int i)
 {
-	t_tokentype	type;
-
-	type = peek_type(*tokens);
-	if (p_match(tokens, REDIR_IN))
-		return (perform_redir_input(tokens));
-	else if (p_match(tokens, REDIR_OUT) || p_match(tokens, REDIR_OUT_APPEND))
-		return (perform_redir_output(tokens, type));
-	advance(tokens);
-	return (redir_heredoc(tokens));
+	if (is_not_valid_pipeline(*tokens))
+		return (print_syntax_error(*tokens), EOF);
+	if (peek_type(tokens) == WORD)
+		if (set_cmd_and_args(plist, tokens, fds, i) == EOF)
+			return (EOF);
+	if (is_redir_token(*tokens))
+		if (set_input_and_output_streams(plist, tokens, fds, i) == EOF)
+			return (EOF);
+	go_to_next_cmd(tokens);
+	*plist = (*plist)->next;
+	
 }
 
 void	print_syntax_error(t_list *tokens)

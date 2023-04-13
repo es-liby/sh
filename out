@@ -45,10 +45,3 @@ t_tokentype	peek_type(t_list *token)
 		return (NIL);
 	return (token->type);
 }
-
-t_tokentype	peek_previous_type(t_list *token)
-{
-	if (token == NULL || token->prev == NULL)
-		return (NIL);
-	return (token->prev->type);
-}

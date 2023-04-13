@@ -34,7 +34,7 @@ SCANNER_OBJS = $(patsubst scanner/%.c,obj/scanner/%.o,$(SCANNER_SRCS))
 
 #	the source files of the parser
 PARSER_SRCS = $(addprefix parser/,parser.c expand.c quote_sequence.c redirections.c \
-redir.c heredoc.c)
+redir.c cmd_and_args.c heredoc.c)
 PARSER_OBJS = $(patsubst parser/%.c,obj/parser/%.o,$(PARSER_SRCS))
  
 # #	the source files of envvar

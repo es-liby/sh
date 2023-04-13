@@ -12,63 +12,41 @@
 
 #include <minishell.h>
 
-static int	getfd_of_file(char *outfile, t_tokentype type);
-
-int	perform_redir_input(t_list **tokens)
+int	set_input_stream(t_pipeline **plist, t_list **tokens, t_fds *fds, int i)
 {
-	char	*outfile;
-	int		fd;
-	
-	if (peek_type(*tokens) != WORD)
-		return (print_syntax_error(*tokens), EOF);
-	outfile = (char *)(*tokens)->content;
-	fd = ft_open(outfile, O_RDONLY);
-	if (fd == -1)
-		return (EOF);
-	if (ft_dup2(fd, 0) == -1)
-		return (EOF);
-	close(fd);
-	advance(tokens);
-	return (true);
-}
-
-int	perform_redir_output(t_list **tokens, t_tokentype type)
-{
-	char	*outfile;
+	char	*infile;
 	int		fd;
 
 	if (peek_type(*tokens) != WORD)
 		return (print_syntax_error(*tokens), EOF);
-	outfile = (char *)(*tokens)->content;
-	printf("here\n");
-	fd = getfd_of_file(outfile, type);
-	printf("here\n");
-	if (fd == -1)
+	infile = (char *)(*tokens)->content;
+	fd = ft_open(infile, O_RDONLY);
+	if (fd == EOF)
 		return (EOF);
-	printf("here\n");
-	if (ft_dup2(fd, 1) == -1)
-		return (EOF);
-	close(fd);
+	(*plist)->in_stream = fd;
 	advance(tokens);
+	if (is_redir_token(*tokens))
+		return (set_input_and_output_streams(plist, tokens, fds, i));
 	return (true);
 }
 
-static int	getfd_of_file(char *outfile, t_tokentype type)
+int	set_output_stream(t_pipeline **plist, t_list **tokens, t_fds *fds, int i)
 {
-	int	fd;
+	char	*outfile;
+	int		fd;
 
-	if (type == REDIR_OUT)
+	if (peek_type(*tokens) != WORD)
+		return (print_syntax_error(*tokens), EOF);
+	outfile = (char *)(*tokens)->content;
+	if (peek_previous_type(*tokens) == REDIR_OUT)
 		fd = ft_open(outfile, O_WRONLY | O_TRUNC | O_CREAT);
 	else
 		fd = ft_open(outfile, O_WRONLY | O_APPEND | O_CREAT);
-	return (fd);
-}
-
-int	is_redir_token(t_list *token)
-{
-	t_tokentype	type;
-
-	type = peek_type(token);
-	return (type == REDIR_IN || type == REDIR_OUT || type == REDIR_OUT_APPEND
-		|| type == HEREDOC);
+	if (fd == EOF)
+		return (EOF);
+	(*plist)->out_stream = fd;
+	advance(tokens);
+	if (is_redir_token(*tokens))
+		return (set_input_and_output_streams(plist, tokens, fds, i));
+	return (true);
 }

@@ -25,12 +25,30 @@ int	ft_open(char *file, int flags)
 	return (fd);
 }
 
-int	ft_dup2(int fd1, int fd2)
+void	ft_dup2(int fd1, int fd2)
 {
 	if (dup2(fd1, fd2) == -1)
 	{
 		perror("dup2");
-		return(ERROR);
+		exit(EXIT_FAILURE);
 	}
 	return (true);
+}
+
+void	ft_pipe(int *fd)
+{
+	if (pipe(fd) == -1)
+	{
+		perror("pipe");
+		exit(EXIT_FAILURE);
+	}
+}
+
+void	ft_close(int fd)
+{
+	if (close(fd) == -1)
+	{
+		perror("close");
+		exit(EXIT_FAILURE);
+	}
 }
