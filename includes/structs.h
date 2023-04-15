@@ -26,6 +26,7 @@ typedef struct s_pipe
 {
 	int	**fds;
 	int	n;
+	int	pipe_counter;
 }	t_fds;
 
 #endif

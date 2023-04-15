@@ -32,7 +32,7 @@ $(NAME): $(OBJS)
 
 $(OBJ_DIR)%.o: %.c $(HEADER)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-	@printf "%-150s\r" "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)"
+	@printf "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
 
 clean:
 	$(RM) $(OBJS)

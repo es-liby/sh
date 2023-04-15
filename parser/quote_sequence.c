@@ -6,12 +6,11 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 14:01:47 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/15 15:19:46 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/15 18:23:30 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
 
 char	*get_sequence_inside_squote(char **ptr)
 {

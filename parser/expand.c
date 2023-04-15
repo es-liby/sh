@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 11:50:44 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/15 15:19:56 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/15 18:02:42 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ static void	expand(t_list *token)
 	while (*ptr)
 	{
 		sub_seq = get_sub_sequence(&ptr);
-		if (*ptr == '\'' || *ptr == '"')
-			ptr++;
 		if (sub_seq == NULL)
 			continue ;
 		new_content = ft_strjoin(new_content, sub_seq);

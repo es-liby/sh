@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:52:07 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/15 17:07:15 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/15 17:21:29 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,8 @@ void	printenvvar(void)
 
 int	main(int argc, char *argv[], char *envp[])
 {
-	int fd = open ("/dev/urandom", O_RDONLY);
-	dup2(fd, 0);
 	(void)argv;
-	//atexit(f);
+	atexit(f);
 	if (argc != 1)
 	{
 		ft_fprintf(2, "Usage: ./minishell\n");
@@ -108,7 +106,7 @@ void	prompt(void)
 		//printlist(tokens);
 		parser(&tokens, &plist);
 		//printlist(tokens);
-		//printplist(plist);
+		printplist(plist);
 		unlink_and_close_heredoc_file(plist);
 		clear_plist(&plist);
 		//testprint(tokens);

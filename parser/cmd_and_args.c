@@ -3,9 +3,9 @@
 static int	set_args(t_pipeline **plist, t_list **tokens);
 static void	args_after_cmd(t_pipeline **plist, t_list **tokens);
 static int	search_and_set_args(t_pipeline **plist, t_list *tokens);
-static void	set_pipe(t_pipeline **plist, t_fds *fds, int i);
+static void	set_pipe(t_pipeline **plist, t_fds *fds);
 
-int	set_cmd_and_args(t_pipeline **plist, t_list **tokens, t_fds *fds, int i)
+int	set_cmd_and_args(t_pipeline **plist, t_list **tokens, t_fds *fds)
 {
 	if ((*plist)->cmd == NULL)
 	{
@@ -15,7 +15,7 @@ int	set_cmd_and_args(t_pipeline **plist, t_list **tokens, t_fds *fds, int i)
 	if (set_args(plist, tokens) == EOF)
 		return (EOF);
 	if (fds != NULL)
-		set_pipe(plist, fds, i);
+		set_pipe(plist, fds);
 	return (true);
 }
 
@@ -64,8 +64,11 @@ static int	search_and_set_args(t_pipeline **plist, t_list *tokens)
 	return (true);
 }
 
-static void	set_pipe(t_pipeline **plist, t_fds *fds, int i)
+static void	set_pipe(t_pipeline **plist, t_fds *fds)
 {
+	int	i;
+
+	i = fds->pipe_counter;
 	if (i == 0)
 		(*plist)->out_stream = fds->fds[i][1];
 	else if (i > 0 && i < fds->n)

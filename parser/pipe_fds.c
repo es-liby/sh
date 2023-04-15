@@ -31,6 +31,7 @@ static t_fds	*alloc_fds_of_pipe(int n)
 	while (++i < n)
 		fds->fds[i] = ft_calloc(2, sizeof(int));
 	fds->n = n;
+	fds->pipe_counter = 0;
 	return (fds);
 }
 

@@ -34,8 +34,8 @@ SCANNER_OBJS = $(patsubst scanner/%.c,obj/scanner/%.o,$(SCANNER_SRCS))
 
 #	the source files of the parser
 PARSER_SRCS = $(addprefix parser/,parser.c expand.c quote_sequence.c set_members.c \
-redir.c getquote_seq.c cmd_and_args.c heredoc.c io_streams.c pipe_fds.c plist_utils.c \
-pipeline.c)
+perform_redir_io.c getquote_seq.c cmd_and_args.c heredoc.c io_streams.c pipe_fds.c plist_utils.c \
+complete_pipeline.c heredoc_utils.c print.c)
 PARSER_OBJS = $(patsubst parser/%.c,obj/parser/%.o,$(PARSER_SRCS))
  
 #	the source files of utils
@@ -64,31 +64,23 @@ $(NAME): $(MAIN_OBJ) $(UTILS_OBJS) $(SCANNER_OBJS) $(PARSER_OBJS)
 	@make -C $(SRC_DIR)ft_fprintf
 	@make -C $(SRC_DIR)get_next_line
 	@$(CC) $^ $(LIBS) $(LINKS) -o $@
-	@printf "\n"
-#	@printf "\n\t$(RED)--------------------------------------------$(RESET)\n"
-#	@printf "\t$(BOLD)---------> Build $(RED)minishell$(RESET)$(SGR0)\n"
-#	@printf "\t$(RED)--------------------------------------------$(RESET)\n"
 
 $(OBJ_DIR)%.o: %.c $(DEPENDENCIES)
 	@mkdir -p $(OBJ_DIR) $(LIB_DIR) $(DIRS)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-	@printf "%-150s\r" "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)"
+	@printf "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
 
 $(OBJ_DIR)scanner/%.o: scanner/%.c
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-	@printf "%-150s\r" "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)"
+	@printf "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
 
 $(OBJ_DIR)utils/%.o: utils/%.c $(DEPENDENCIES) $(MAIN)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-	@printf "%-150s\r" "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)"
+	@printf "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
 
 $(OBJ_DIR)parser/%.o: parser/%.c $(DEPENDENCIES) $(MAIN)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-	@printf "%-150s\r" "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)"
-
-# $(OBJ_DIR)utils/envvar/%.o: utils/envvar/%.c $(DEPENDENCIES) $(MAIN)
-# 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-# 	@printf "$(BOLD)$(BLUE)\t\tCompiling$(SGR0)\r"
+	@printf "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
 
 clean:
 	@$(RM) $(OBJ_DIR) 
