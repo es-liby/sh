@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:52:07 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/15 17:21:29 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/15 21:56:19 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int	main(int argc, char *argv[], char *envp[])
 	}
 	g_gbl.envlist = envcpy(envp);
 	g_gbl.exit_status = 0;
-	g_gbl.heredoc_file = NULL;
+	g_gbl.heredoc_files = NULL;
 	prompt();
 	ft_lstclear(&g_gbl.envlist, free);
 	exit(EXIT_SUCCESS);
@@ -107,26 +107,9 @@ void	prompt(void)
 		parser(&tokens, &plist);
 		//printlist(tokens);
 		printplist(plist);
-		unlink_and_close_heredoc_file(plist);
+		remove_and_clear_heredoc_files();
 		clear_plist(&plist);
 		//testprint(tokens);
 		ft_lstclear(&tokens, free);
 	}
-}
-
-void	unlink_and_close_heredoc_file(t_pipeline *plist)
-{
-	if (g_gbl.heredoc_file == NULL)
-		return ;
-	if (unlink(g_gbl.heredoc_file) == -1)
-		exit(EXIT_FAILURE);
-	while (plist && plist->in_stream < 3)
-		plist = plist->next;
-	while (plist)
-	{
-		ft_close(plist->in_stream);
-		plist = plist->next;
-	}
-	free(g_gbl.heredoc_file);
-	g_gbl.heredoc_file = NULL;
 }

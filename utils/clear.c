@@ -13,3 +13,17 @@ void	clear_plist(t_pipeline **plist)
 		free(tmp);
 	}
 }
+
+void	remove_and_clear_heredoc_files(void)
+{
+	t_list	*tmp_ptr;
+
+	tmp_ptr = g_gbl.heredoc_files;
+	while (tmp_ptr)
+	{
+		if (unlink(tmp_ptr->content) == -1)
+			exit(EXIT_FAILURE);
+		advance(&tmp_ptr);
+	}
+	ft_lstclear(&g_gbl.heredoc_files, free);
+}

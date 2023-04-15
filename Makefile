@@ -1,5 +1,5 @@
 CC := cc
-# CFLAGS := -fsanitize=address -Wall -Werror -Wextra -g
+# CFLAGS := -fsanitize=address #-Wall -Werror -Wextra -g
 CFLAGS := -Wall -Werror -Wextra -g
 INCLUDE := -I includes/
 LINKS := -lreadline

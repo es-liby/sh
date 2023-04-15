@@ -8,7 +8,7 @@ typedef struct s_global
 {
 	int		exit_status;
 	t_list	*envlist;
-	 char	*heredoc_file;
+	t_list	*heredoc_files;
 }	t_global;
 
 extern t_global	g_gbl;

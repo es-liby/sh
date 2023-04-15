@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 01:17:21 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/15 18:19:12 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/15 21:52:48 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ int	redir_heredoc(t_pipeline **plist, t_list **tokens, t_fds *fds)
 		expanded = 1;
 	read_and_write_line_to_heredoc_file(*tokens, fd, expanded);
 	advance(tokens);
-	if (peek_type(*tokens) == HEREDOC)
-		unlink_and_close_heredoc_file(*plist);
 	if (is_redir_token(*tokens))
 		return (set_input_and_output_streams(plist, tokens, fds));
 	return (true);
@@ -59,7 +57,7 @@ static int	get_fd_of_heredoc_file(void)
 		nbr++;
 	}
 	fd = ft_open(file, O_WRONLY | O_TRUNC | O_CREAT);
-	g_gbl.heredoc_file = file;
+	ft_lstadd_back(&g_gbl.heredoc_files, ft_lstnew(file, WORD));
 	return (fd);
 }
 
