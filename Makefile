@@ -33,20 +33,15 @@ sequence.c)
 SCANNER_OBJS = $(patsubst scanner/%.c,obj/scanner/%.o,$(SCANNER_SRCS))
 
 #	the source files of the parser
-PARSER_SRCS = $(addprefix parser/,parser.c expand.c quote_sequence.c redirections.c \
-redir.c cmd_and_args.c heredoc.c)
+PARSER_SRCS = $(addprefix parser/,parser.c expand.c quote_sequence.c set_members.c \
+redir.c getquote_seq.c cmd_and_args.c heredoc.c io_streams.c pipe_fds.c plist_utils.c \
+pipeline.c)
 PARSER_OBJS = $(patsubst parser/%.c,obj/parser/%.o,$(PARSER_SRCS))
  
-# #	the source files of envvar
-# ENVVAR_SRCS = $(addprefix utils/envvar/,envvar.c envcpy.c getval.c getvar.c qmark.c)
-# ENVVAR_OBJS = $(patsubst utils/envvar/%.c,obj/utils/envvar/%.o,$(ENVVAR_SRCS))
-
 #	the source files of utils
-UTILS_SRCS = $(addprefix utils/,utils.c envcpy.c getenvvar.c std.c)
+UTILS_SRCS = $(addprefix utils/,utils.c clear.c envcpy.c getenvvar.c std.c)
 UTILS_OBJS = $(patsubst utils/%.c,obj/utils/%.o,$(UTILS_SRCS))
 
-#DEPENDENCIES = $(SCANNER_SRCS) $(PARSER_SRCS) $(UTILS_SRCS) $(LIBFT_SRCS) \
-$(FPRINTF_SRCS) $(GNL_SRCS) $(HEADERS)
 DEPENDENCIES = $(SCANNER_SRCS) $(LIBFT_SRCS) $(FPRINTF_SRCS) $(GNL_SRCS) \
 $(HEADERS)
 

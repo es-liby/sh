@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   word_token.c                                       :+:      :+:    :+:   */
+/*   plist_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/07 15:31:39 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/15 01:09:20 by iabkadri         ###   ########.fr       */
+/*   Created: 2023/04/15 17:15:31 by iabkadri          #+#    #+#             */
+/*   Updated: 2023/04/15 17:15:35 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-
-t_tokentype	getword_token(char **pipeline, char **lexeme)
+void	addback(t_pipeline **plist, t_pipeline *new)
 {
-	char	*ptr;
-
-	*lexeme = NULL;
-	ptr = *pipeline;
-	while (is_not_end_of_sequence(*ptr))
-	{
-		*lexeme = get_sequence(&ptr, lexeme);
-		if (*lexeme == NULL)
-			return (NIL);
-	}
-	*pipeline = ptr;
-	return (WORD);
+	if (*plist == NULL)
+		*plist = new;
+	else
+		last_plist(*plist)->next = new;
 }
 
-int	is_not_end_of_sequence(char c)
+t_pipeline	*last_plist(t_pipeline *plist)
 {
-	return (!ft_isspace(c) && !ispipe_opt(c) && !isredir_opt(c) && c != '\0');
+	while (plist && plist->next)
+		plist = plist->next;
+	return (plist);
 }

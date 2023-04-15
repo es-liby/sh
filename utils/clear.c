@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-void	clear(t_pipeline **plist)
+void	clear_plist(t_pipeline **plist)
 {
 	t_pipeline	*tmp;
 
@@ -10,5 +10,6 @@ void	clear(t_pipeline **plist)
 		*plist = (*plist)->next;
 		free(tmp->cmd);
 		free(tmp->args);
+		free(tmp);
 	}
 }

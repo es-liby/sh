@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 02:41:17 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/11 18:29:04 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/15 15:38:50 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ char	*getenvvar_value(const char *envvar)
 
 	++envvar;	//	skip the $ character
 	if (*envvar == '?')
-		return (ft_itoa(e_gbl.exit_status));
-	envlist = e_gbl.envlist;
+		return (ft_itoa(g_gbl.exit_status));
+	if (*envvar == '\0' || ft_isblank(*envvar))
+		return (ft_strdup("$"));
+	envlist = g_gbl.envlist;
 	while (envlist)
 	{
 		entry_ptr = (char *)(envlist->content);
@@ -74,6 +76,11 @@ char	*find_variable_and_get_value(char **ptr)
 	return (value);
 }
 
+int	is_valid_variable_char(char c)
+{
+	return (ft_isalnum(c) || c == '_');
+}
+
 char	*find_variable(char **ptr)
 {
 	char	*variable;
@@ -82,8 +89,7 @@ char	*find_variable(char **ptr)
 	len = 0;
 	if ((*ptr)[len] == '$')
 		len++;
-	while ((*ptr)[len] && (*ptr)[len] != '"' && (*ptr)[len] != '\''
-		&& (*ptr)[len] != '\n' && (*ptr)[len] != '$')
+	while (is_valid_variable_char((*ptr)[len]))
 		len++;
 	variable = ft_substr(*ptr, 0, len);
 	*ptr += len;

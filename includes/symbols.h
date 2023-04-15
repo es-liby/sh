@@ -16,6 +16,7 @@ typedef enum e_tokentype
 	REDIR_OUT_APPEND,
 	HEREDOC,
 	ARGS,
+	END,
 	NIL
 }	t_tokentype;
 

@@ -6,13 +6,16 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 23:02:22 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/12 01:31:25 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/15 14:40:14 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	set_input_stream(t_pipeline **plist, t_list **tokens, t_fds *fds, int i)
+static int	get_fd_of_output_file(char *outfile, t_list *token);
+
+int	perform_redir_input(t_pipeline **plist, t_list **tokens, t_fds *fds,
+	int pipe_counter)
 {
 	char	*infile;
 	int		fd;
@@ -26,11 +29,12 @@ int	set_input_stream(t_pipeline **plist, t_list **tokens, t_fds *fds, int i)
 	(*plist)->in_stream = fd;
 	advance(tokens);
 	if (is_redir_token(*tokens))
-		return (set_input_and_output_streams(plist, tokens, fds, i));
+		return (set_input_and_output_streams(plist, tokens, fds, pipe_counter));
 	return (true);
 }
 
-int	set_output_stream(t_pipeline **plist, t_list **tokens, t_fds *fds, int i)
+int	perform_redir_output(t_pipeline **plist, t_list **tokens, t_fds *fds,
+	int pipe_counter)
 {
 	char	*outfile;
 	int		fd;
@@ -38,15 +42,32 @@ int	set_output_stream(t_pipeline **plist, t_list **tokens, t_fds *fds, int i)
 	if (peek_type(*tokens) != WORD)
 		return (print_syntax_error(*tokens), EOF);
 	outfile = (char *)(*tokens)->content;
-	if (peek_previous_type(*tokens) == REDIR_OUT)
-		fd = ft_open(outfile, O_WRONLY | O_TRUNC | O_CREAT);
-	else
-		fd = ft_open(outfile, O_WRONLY | O_APPEND | O_CREAT);
+	fd = get_fd_of_output_file(outfile, *tokens);
 	if (fd == EOF)
 		return (EOF);
 	(*plist)->out_stream = fd;
 	advance(tokens);
 	if (is_redir_token(*tokens))
-		return (set_input_and_output_streams(plist, tokens, fds, i));
+		return (set_input_and_output_streams(plist, tokens, fds, pipe_counter));
 	return (true);
+}
+
+int	is_redir_token(t_list *token)
+{
+	t_tokentype	type;
+
+	type = peek_type(token);
+	return (type == REDIR_IN || type == REDIR_OUT || type == REDIR_OUT_APPEND
+		|| type == HEREDOC);
+}
+
+static int	get_fd_of_output_file(char *outfile, t_list *token)
+{
+	int	fd;
+
+	if (peek_previous_type(token) == REDIR_OUT)
+		fd = ft_open(outfile, O_WRONLY | O_TRUNC | O_CREAT);
+	else
+		fd = ft_open(outfile, O_WRONLY | O_APPEND | O_CREAT);
+	return (fd);
 }

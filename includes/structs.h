@@ -6,16 +6,17 @@
 
 typedef struct s_global
 {
-	int				exit_status;
-	t_list			*envlist;
+	int		exit_status;
+	t_list	*envlist;
+	 char	*heredoc_file;
 }	t_global;
 
-extern t_global	e_gbl;
+extern t_global	g_gbl;
 
 typedef	struct s_pipeline
 {
-	const char			*cmd;
-	const char			*args;
+	char				*cmd;
+	char				*args;
 	int					in_stream;
 	int					out_stream;
 	struct s_pipeline	*next;

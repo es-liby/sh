@@ -5,7 +5,7 @@
 # include <libft.h>
 
 /*	scanner.c	*/
-void			scanner(t_list **tokens, char *cmdline);
+int				scanner(t_list **tokens, char *cmdline);
 int				operator_not_supported(char c);
 
 /*	redir_token.c	*/

@@ -5,149 +5,162 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/12 00:24:06 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/12 02:09:39 by iabkadri         ###   ########.fr       */
+/*   Created: 2023/04/14 01:17:21 by iabkadri          #+#    #+#             */
+/*   Updated: 2023/04/15 15:35:08 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void	readline_from_heredoc(char *label, int fd);
-static void	readline_without_expanding(char *label, int fd);
-static void	readline_with_expanding(char *label, int fd);
-static char	*expand_line(char *line);
-static char	*runprompt_and_getline(void);
-static void	write_line_to_heredoc_file(char *line, int fd);
-static int	is_end_of_heredoc(char *line, char *label);
-static char	*get_heredoc_file(void);
+static int	get_fd_of_heredoc_file(void);
+static void	read_and_write_line_to_heredoc_file(t_list *tokens, int fd,
+		int expanded);
+static void	writeline_to_heredoc_file_with_expanding(char *line, int fd);
+static void	writeline_to_heredoc_file_without_expanding(char *line, int fd);
+static bool	is_end_of_heredoc(char *line, char *label);
+static bool	label_is_quoted(char *label);
 
-int	redir_heredoc(t_list **tokens)
+char	*get_sub_sequence_of_heredoc(char **line);
+static char	*get_quote_duplicate_and_advance_line(char **line);
+
+int	redir_heredoc(t_pipeline **plist, t_list **tokens, t_fds *fds, int i)
 {
-	char	*label;
-	char	*file;
 	int		fd;
+	bool	expanded;
 
 	if (peek_type(*tokens) != WORD)
 		return (print_syntax_error(*tokens), EOF);
-	label = (char *)(*tokens)->content;
-	file = get_heredoc_file();
-	fd = ft_open(file, O_WRONLY | O_TRUNC | O_CREAT);
-	readline_from_heredoc(label, fd);
-	if (ft_dup2(fd, 0) == -1)
+	fd = get_fd_of_heredoc_file();
+	if (fd == EOF)
 		return (EOF);
-	close(fd);
-	unlink(file);
-	free(file);
+	(*plist)->in_stream = fd;
+	expanded = 0;
+	if (label_is_quoted((char *)(*tokens)->content))
+		expanded = 1;
+	read_and_write_line_to_heredoc_file(*tokens, fd, expanded);
 	advance(tokens);
+	if (peek_type(*tokens) == HEREDOC)
+		unlink_and_close_heredoc_file(*plist);
+	if (is_redir_token(*tokens))
+		return (set_input_and_output_streams(plist, tokens, fds, i));
 	return (true);
 }
 
-static void	readline_from_heredoc(char *label, int fd)
+static bool	label_is_quoted(char *label)
 {
-	if (*label == '\'' || *label == '"')
-		readline_without_expanding(label, fd);
-	else
-		readline_with_expanding(label, fd);
+	return (*label == '\'' || *label == '"');
 }
 
-static void	readline_without_expanding(char *label, int fd)
+static int	get_fd_of_heredoc_file(void)
 {
-	char	*line;
-	char	*label_value;
+	char		*file;
+	char		*nbr_str;
+	int			fd;
+	static int	nbr;
 
-	label_value = ft_strtrim(label, &(*label));
-	line = runprompt_and_getline();
-	while (line)
+	while (true)
 	{
-		if (is_end_of_heredoc(line, label_value))
+		nbr_str = ft_itoa(nbr);
+		file = ft_strdup("/tmp/.heredoc_");
+		file = ft_strjoin(file, nbr_str);
+		free(nbr_str);
+		if (access(file, F_OK) == -1)
 			break ;
-		write_line_to_heredoc_file(line, fd);
-		free(line);
-		line = runprompt_and_getline();
+		free(file);
+		nbr++;
 	}
-	free(line);
-	free(label_value);
+	fd = ft_open(file, O_WRONLY | O_TRUNC | O_CREAT);
+	g_gbl.heredoc_file = file;
+	return (fd);
 }
 
-static void	readline_with_expanding(char *label, int fd)
+static void	read_and_write_line_to_heredoc_file(t_list *tokens, int fd, int expanded)
 {
+	char	*label;
 	char	*line;
-	char	*expanded_line;
 
-	line = runprompt_and_getline();
+	label = (char *)tokens->content;
+	ft_fprintf(1, "> ");
+	line = get_next_line(0);
 	while (line)
 	{
 		if (is_end_of_heredoc(line, label))
 			break ;
-		expanded_line = expand_line(line);
+		if (expanded == 0)
+			writeline_to_heredoc_file_with_expanding(line, fd);
+		else
+			writeline_to_heredoc_file_without_expanding(line, fd);
 		free(line);
-		write_line_to_heredoc_file(expanded_line, fd);
-		free(expanded_line);
-		line = runprompt_and_getline();
+		ft_fprintf(1, "> ");
+		line = get_next_line(0);
 	}
 	free(line);
 }
 
-static char	*expand_line(char *line)
+static void	writeline_to_heredoc_file_without_expanding(char *line, int fd)
+{
+	size_t	len;
+
+	len = ft_strlen(line);
+	write(fd, line, len);
+}
+
+static void	writeline_to_heredoc_file_with_expanding(char *line, int fd)
 {
 	char	*expanded_line;
-	char	*sub_seq;
+	char	*ptr;
+	size_t	len;
 
 	expanded_line = NULL;
 	while (*line)
 	{
-		sub_seq = get_sub_sequence(&line);
-		if (sub_seq == NULL)
+		ptr = get_sub_sequence_of_heredoc(&line);
+		if (ptr == NULL)
 			continue ;
-		expanded_line = ft_strjoin(expanded_line, sub_seq);
-		free(sub_seq);
+		expanded_line = ft_strjoin(expanded_line, ptr);
+		free(ptr);
 	}
-	return (expanded_line);
+	len = ft_strlen(expanded_line);
+	write(fd, expanded_line, len);
+	free(expanded_line);
 }
 
-static char	*runprompt_and_getline(void)
+char	*get_sub_sequence_of_heredoc(char **line)
 {
-	char	*line;
+	char	*sub_seq;
 
-	ft_fprintf(1, "> ");
-	line = get_next_line(0);
-	return (line);
+	sub_seq = NULL;
+	if (**line == '\'' || **line == '"')
+		return (get_quote_duplicate_and_advance_line(line));
+	else if (**line == '$')
+		sub_seq = find_variable_and_get_value(line);
+	else
+		sub_seq = get_word(line);
+	return (sub_seq);
 }
 
-static void	write_line_to_heredoc_file(char *line, int fd)
+static char	*get_quote_duplicate_and_advance_line(char **line)
 {
-	size_t	size;
+	char	quote_char;
 
-	size = ft_strlen(line);
-	write(fd, line, size);
+	quote_char = **line;
+	++*line;
+	if (quote_char == '\'')
+		return (ft_strdup("'"));
+	return (ft_strdup("\""));
 }
 
-static int	is_end_of_heredoc(char *line, char *label)
+static bool	is_end_of_heredoc(char *line, char *label)
 {
-	size_t	len;
+	char	*orig_label;
+	size_t	line_len;
+	size_t	label_len;
 
-	len = ft_strlen(label);
-	if (ft_strncmp(line, label, len - 1) == 0 && line[len] == '\n')
-		return (true);
-	return (false);
-}
-
-static char	*get_heredoc_file(void)
-{
-	static int	nbr;
-	char		*nbr_str;
-	char		*file;
-
-	while (true)
-	{
-		file = ft_strdup("/tmp/heredoc_");
-		nbr_str = ft_itoa(nbr);
-		file = ft_strjoin(file, nbr_str);
-		free(nbr_str);
-		if (access(file, F_OK) != 0)
-			break ;
-		nbr++;
-		free(file);
-	}
-	return (file);
+	orig_label = ft_strtrim(label, "'\"");
+	line_len = ft_strlen(line);
+	label_len = ft_strlen(orig_label);
+	if (ft_strncmp(line, orig_label, line_len - 1) == 0 && line[line_len - 1] == '\n'
+		&& line_len - 1 == label_len && line_len != 1)
+		return (free(orig_label), true);
+	return (free(orig_label), false);
 }

@@ -6,31 +6,32 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:03:44 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/11 22:57:09 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/15 16:55:49 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 static t_tokentype	get_next_token(char **pipeline, char **lexeme);
-static t_tokentype	gettype_of_token(char *s);
+static t_tokentype	gettype_of_token(char c);
 static void			fill_funcs(t_tokentype (*funcs[])(char **, char **));
 
-void	scanner(t_list **tokens, char *pipeline)
+int	scanner(t_list **tokens, char *pipeline)
 {
 	char		*lexeme;
 	t_tokentype	type;
 
 	if (check_for_syntax_error(pipeline) == EOF)
-		return ;
+		return (NIL);
 	*tokens = NULL;
 	type = get_next_token(&pipeline, &lexeme);
-	while (type != NIL)
+	while (type != END && type != NIL)
 	{
 		addtoken(tokens, lexeme, type);
 		type = get_next_token(&pipeline, &lexeme);
 	}
-}
+	return (type);
+} 
 
 static t_tokentype	get_next_token(char **pipeline, char **lexeme)
 {
@@ -38,21 +39,23 @@ static t_tokentype	get_next_token(char **pipeline, char **lexeme)
 	t_tokentype	type;
 
 	if (**pipeline == '\0')
-		return (NIL);
+		return (END);
 	while (**pipeline && ft_isblank(**pipeline) && !isopt(**pipeline))
 		++*pipeline;
 	fill_funcs(funcs);
-	type = gettype_of_token(*pipeline);
-	if (type != NIL)
-		return ((funcs[type])(pipeline, lexeme));
-	return (NIL);
+	type = gettype_of_token(**pipeline);
+	if (type == END)
+		return (END);
+	return ((funcs[type])(pipeline, lexeme));
 }
 
-static t_tokentype	gettype_of_token(char *s)
+static t_tokentype	gettype_of_token(char c)
 {
-	if (isredir_opt(*s))
+	if (c == '\0' || c == '#')
+		return (END);
+	if (isredir_opt(c))
 		return (REDIR);
-	if (ispipe_opt(*s))
+	if (ispipe_opt(c))
 		return (PIPE);
 	return (WORD);
 }

@@ -35,14 +35,17 @@
 /*	main.c	*/
 void	prompt(void);
 void	printlist(t_list *lst);
+void	unlink_and_close_heredoc_file(t_pipeline *plist);
 //void	treeprint(t_ptree *ptree);
 
 /*	utils.c	*/
 void	advance_pipeline(char **pipeline, int size);
 
 /*	std.c	*/
-int	ft_open(char *file, int flags);
-int	ft_dup2(int fd1, int fd2);
+int		ft_open(char *file, int flags);
+void	ft_dup2(int fd1, int fd2);
+void	ft_pipe(int *fd);
+void	ft_close(int fd);
 
 /*	getenvvar.c	*/
 char	*getenvvar_value(const char *envvar);
@@ -51,5 +54,8 @@ char	*find_variable(char **ptr);
 
 /*	envcpy.c	*/
 t_list	*envcpy(char *envp[]);
+
+/*	clear.c	*/
+void	clear_plist(t_pipeline **plist);
 
 #endif

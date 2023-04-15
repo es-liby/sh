@@ -9,7 +9,7 @@ int	set_cmd_and_args(t_pipeline **plist, t_list **tokens, t_fds *fds, int i)
 {
 	if ((*plist)->cmd == NULL)
 	{
-		(*plist)->cmd = (char *)(*tokens)->content;
+		(*plist)->cmd = ft_strdup((char *)(*tokens)->content);
 		advance(tokens);
 	}
 	if (set_args(plist, tokens) == EOF)
@@ -70,9 +70,9 @@ static void	set_pipe(t_pipeline **plist, t_fds *fds, int i)
 		(*plist)->out_stream = fds->fds[i][1];
 	else if (i > 0 && i < fds->n)
 	{
-		(*plist)->in_stream = fds->fds[i][0];
+		(*plist)->in_stream = fds->fds[i - 1][0];
 		(*plist)->out_stream = fds->fds[i][1];
 	}
 	if (i == fds->n)
-		(*plist)->in_stream = fds->fds[i][0];
+		(*plist)->in_stream = fds->fds[i - 1][0];
 }

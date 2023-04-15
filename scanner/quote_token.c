@@ -6,20 +6,13 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 16:01:10 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/10 16:56:39 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/14 22:45:33 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 static char	*join_subptr_with_tmp(char *tmp, char *ptr, size_t len);
-
-t_tokentype	getquote_token(char **pipeline, char **lexeme)
-{
-	(void)lexeme;
-	quote(pipeline, **pipeline);
-	return (WORD);
-}
 
 char	*del_quotes(char *ptr, char c)
 {
