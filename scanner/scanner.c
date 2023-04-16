@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:03:44 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/15 16:55:49 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/16 03:03:35 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ int	scanner(t_list **tokens, char *pipeline)
 	char		*lexeme;
 	t_tokentype	type;
 
-	if (check_for_syntax_error(pipeline) == EOF)
-		return (NIL);
 	*tokens = NULL;
 	type = get_next_token(&pipeline, &lexeme);
 	while (type != END && type != NIL)
@@ -30,6 +28,8 @@ int	scanner(t_list **tokens, char *pipeline)
 		addtoken(tokens, lexeme, type);
 		type = get_next_token(&pipeline, &lexeme);
 	}
+	if (type == NIL)
+		return (ft_lstclear(tokens, free), NIL);
 	return (type);
 } 
 
@@ -63,7 +63,7 @@ static t_tokentype	gettype_of_token(char c)
 int	operator_not_supported(char c)
 {
 	if (c != '&' && c != ';' && c != '(' && c != ')'
-		&& c != '{' && c != '}')
+		&& c != '{' && c != '}' && c != '\\')
 		return (false);
 	ft_fprintf(2, "Operator not supported: %c\n", c);
 	return (true);

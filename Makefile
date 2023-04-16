@@ -1,7 +1,8 @@
 CC := cc
 # CFLAGS := -fsanitize=address #-Wall -Werror -Wextra -g
 CFLAGS := -Wall -Werror -Wextra -g
-INCLUDE := -I includes/
+INCLUDE := -I includes/ -I/goinfre/iabkadri/.brew/opt/readline/include
+LDFLAGS=""
 LINKS := -lreadline
 RM := rm -rf
 MAKEFLAGS := --no-print-directory
@@ -16,7 +17,7 @@ DIRS = $(addprefix $(OBJ_DIR),scanner/ parser/ utils/ utils/envvar/ libft/ ft_fp
 
 HEADERS = $(addprefix includes/,minishell.h scanner.h parser.h structs.h symbols.h libft.h \
 ft_fprintf.h get_next_line.h)
-LIBS = $(addprefix $(LIB_DIR),libft.a libftfprintf.a libgnl.a)
+LIBS = $(addprefix $(LIB_DIR),libft.a libftfprintf.a libgnl.a) -L/goinfre/iabkadri/.brew/opt/readline/lib
 
 
 LIBFT_SRCS = $(wildcard $(SRC_DIR)libft/*.c)

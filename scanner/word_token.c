@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:31:39 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/15 01:09:20 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/16 03:06:20 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ t_tokentype	getword_token(char **pipeline, char **lexeme)
 
 int	is_not_end_of_sequence(char c)
 {
-	return (!ft_isspace(c) && !ispipe_opt(c) && !isredir_opt(c) && c != '\0');
+	return (!ft_isspace(c) && !ispipe_opt(c) && !isredir_opt(c)
+		&& c != '\0');
 }

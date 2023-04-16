@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:52:07 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/15 21:56:19 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/16 03:01:12 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ void	prompt(void)
 		pipeline = readline("\x1B[33msh$>\x1B[0m ");
 		if (pipeline == NULL)
 			break ;
+		if (!*pipeline)
+			add_history(pipeline);
 		if (scanner(&tokens, pipeline) == NIL)
 		{
 			free(pipeline);

@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:15:53 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/15 18:22:49 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/15 22:54:42 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	perform_redirections_and_set_cmds(t_pipeline **plist, t_list **tokens)
 		if (set_iostreams_and_cmds(&new, tokens, fds) == EOF)
 			return (close_pipes(fds), clear_plist(&new), EOF);
 		addback(plist, new);
-		fds->pipe_counter++;
+		if (fds)
+			fds->pipe_counter++;
 	}
 	close_pipes(fds);
 	return (true);
