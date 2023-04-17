@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 18:28:59 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/15 14:39:02 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/17 18:01:46 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	parser(t_list **tokens, t_pipeline **plist)
 {
-	t_list		*tmp_ptr_tokens;;
+	t_list		*tmp_ptr_tokens;
 
 	tmp_ptr_tokens = *tokens;
 	*plist = NULL;

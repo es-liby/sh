@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:31:37 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 15:31:38 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/17 16:51:07 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,10 @@ void	handle_signals(void)
 static void	sigint_handler(int sig)
 {
 	(void)sig;
-	write(1, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", STDIN_FILENO);
-	if (g_gbl.sigint != ON)
-		rl_redisplay();
-	g_gbl.sigint = OFF;
+	close(STDIN_FILENO);
+	g_gbl.exit_status = 1;
 }
 
 void	handle_signals_for_heredoc(void)

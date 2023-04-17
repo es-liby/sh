@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cmd_and_args.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/17 18:14:53 by iabkadri          #+#    #+#             */
+/*   Updated: 2023/04/17 18:15:04 by iabkadri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 static int	set_args(t_pipeline **plist, t_list **tokens);
 static void	args_after_cmd(t_pipeline **plist, t_list **tokens);
 static int	search_and_set_args(t_pipeline **plist, t_list *tokens);
-static void	set_pipe(t_pipeline **plist, t_fds *fds);
+static void	set_pipe(t_pipeline **plist);
 
-int	set_cmd_and_args(t_pipeline **plist, t_list **tokens, t_fds *fds)
+int	set_cmd_and_args(t_pipeline **plist, t_list **tokens)
 {
 	if ((*plist)->cmd == NULL)
 	{
@@ -14,8 +26,8 @@ int	set_cmd_and_args(t_pipeline **plist, t_list **tokens, t_fds *fds)
 	}
 	if (set_args(plist, tokens) == EOF)
 		return (EOF);
-	if (fds != NULL)
-		set_pipe(plist, fds);
+	if (g_gbl.fds != NULL)
+		set_pipe(plist);
 	return (true);
 }
 
@@ -64,10 +76,12 @@ static int	search_and_set_args(t_pipeline **plist, t_list *tokens)
 	return (true);
 }
 
-static void	set_pipe(t_pipeline **plist, t_fds *fds)
+static void	set_pipe(t_pipeline **plist)
 {
-	int	i;
+	t_fds	*fds;
+	int		i;
 
+	fds = g_gbl.fds;
 	i = fds->pipe_counter;
 	if (i == 0)
 		(*plist)->out_stream = fds->fds[i][1];

@@ -36,11 +36,12 @@ SCANNER_OBJS = $(patsubst scanner/%.c,obj/scanner/%.o,$(SCANNER_SRCS))
 #	the source files of the parser
 PARSER_SRCS = $(addprefix parser/,parser.c expand.c quote_sequence.c set_members.c \
 perform_redir_io.c getquote_seq.c cmd_and_args.c heredoc.c io_streams.c pipe_fds.c plist_utils.c \
-complete_pipeline.c heredoc_utils.c print.c)
+complete_pipeline.c heredoc_utils.c readlines_heredoc.c print.c)
 PARSER_OBJS = $(patsubst parser/%.c,obj/parser/%.o,$(PARSER_SRCS))
  
 #	the source files of utils
-UTILS_SRCS = $(addprefix utils/,utils.c clear.c envcpy.c handle_signals.c getenvvar.c std.c)
+UTILS_SRCS = $(addprefix utils/,utils.c clear.c envcpy.c handle_signals.c getenvvar.c \
+getenvvar_utils.c std.c debug.c)
 UTILS_OBJS = $(patsubst utils/%.c,obj/utils/%.o,$(UTILS_SRCS))
 
 DEPENDENCIES = $(SCANNER_SRCS) $(LIBFT_SRCS) $(FPRINTF_SRCS) $(GNL_SRCS) \
@@ -75,11 +76,11 @@ $(OBJ_DIR)scanner/%.o: scanner/%.c
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 	@printf "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
 
-$(OBJ_DIR)utils/%.o: utils/%.c $(DEPENDENCIES) $(MAIN)
+$(OBJ_DIR)utils/%.o: utils/%.c
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 	@printf "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
 
-$(OBJ_DIR)parser/%.o: parser/%.c $(DEPENDENCIES) $(MAIN)
+$(OBJ_DIR)parser/%.o: parser/%.c
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 	@printf "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
 

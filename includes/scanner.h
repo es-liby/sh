@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scanner.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/17 18:13:05 by iabkadri          #+#    #+#             */
+/*   Updated: 2023/04/17 18:13:34 by iabkadri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SCANNER_H
 # define SCANNER_H
 
@@ -5,8 +17,8 @@
 # include <libft.h>
 
 /*	scanner.c	*/
-int				scanner(t_list **tokens, char *cmdline);
-int				operator_not_supported(char c);
+int			scanner(t_list **tokens, char *cmdline);
+int			operator_not_supported(char c);
 
 /*	redir_token.c	*/
 t_tokentype	getredir_token(char **pipeline, char **token);
@@ -28,8 +40,6 @@ char		*quote(char **ptr, char c);
 /*	envvar_token.c	*/
 t_tokentype	getenvvar_token(char **pipeline, char **token);
 int			isenvvar_opt(char c);
-/*	braces.c	*/
-t_tokentype	surronded_by_braces(char *ptre);
 
 /*	word_token.c	*/
 t_tokentype	getword_token(char **pipeline, char **token);
@@ -43,6 +53,5 @@ void		addtoken(t_list **tokens, char *token, t_tokentype type);
 int			s_match(char **ptr, char c);
 int			isopt(char c);
 int			ft_isblank(char c);
-int			check_for_syntax_error(char *pipeline);
 
 #endif

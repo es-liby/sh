@@ -6,13 +6,33 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 18:03:50 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 15:10:20 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/17 17:37:25 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 static char	*get_quote_duplicate_and_advance_line(char **line);
+
+void	writeline_to_heredoc_file_with_expanding(char *line, int fd)
+{
+	char	*expanded_line;
+	char	*ptr;
+
+	expanded_line = NULL;
+	while (*line)
+	{
+		ptr = get_sub_sequence_of_heredoc(&line);
+		if (ptr == NULL)
+			continue ;
+		expanded_line = ft_strjoin(expanded_line, ptr);
+		free(ptr);
+	}
+	if (expanded_line != NULL)
+		ft_fprintf(fd, "%s", expanded_line);
+	write(fd, "\n", 1);
+	free(expanded_line);
+}
 
 char	*get_sub_sequence_of_heredoc(char **line)
 {
@@ -46,43 +66,4 @@ void	writeline_to_heredoc_file_without_expanding(char *line, int fd)
 	len = ft_strlen(line);
 	write(fd, line, len);
 	write(fd, "\n", 1);
-}
-
-void	writeline_to_heredoc_file_with_expanding(char *line, int fd)
-{
-	char	*expanded_line;
-	char	*ptr;
-	size_t	len;
-
-	expanded_line = NULL;
-	while (*line)
-	{
-		ptr = get_sub_sequence_of_heredoc(&line);
-		if (ptr == NULL)
-			continue ;
-		expanded_line = ft_strjoin(expanded_line, ptr);
-		free(ptr);
-	}
-	len = ft_strlen(expanded_line);
-	write(fd, expanded_line, len);
-	write(fd, "\n", 1);
-	free(expanded_line);
-}
-
-bool	is_end_of_heredoc(char *line, char *label)
-{
-	char	*orig_label;
-	size_t	line_len;
-	size_t	label_len;
-
-	if (*label == '\0')
-		return (false);
-	orig_label = ft_strtrim(label, "'\"");
-	if (*orig_label == '\0')
-		return (false);
-	line_len = ft_strlen(line);
-	label_len = ft_strlen(orig_label);
-	if (!ft_strcmp(line, orig_label))
-		return (free(orig_label), true);
-	return (free(orig_label), false);
 }

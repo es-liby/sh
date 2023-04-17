@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clear.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/17 17:51:08 by iabkadri          #+#    #+#             */
+/*   Updated: 2023/04/17 18:04:25 by iabkadri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 void	clear_plist(t_pipeline **plist)
@@ -12,24 +24,4 @@ void	clear_plist(t_pipeline **plist)
 		free(tmp->args);
 		free(tmp);
 	}
-}
-
-void	remove_and_clear_heredoc_files(void)
-{
-	t_list	*tmp_ptr;
-
-	tmp_ptr = g_gbl.heredoc_files;
-	while (tmp_ptr)
-	{
-		if (unlink(tmp_ptr->lexeme) == -1)
-			exit(EXIT_FAILURE);
-		advance(&tmp_ptr);
-	}
-	tmp_ptr = g_gbl.heredoc_files;
-	while (tmp_ptr)
-	{
-		printf("heredoc_file: %s\n", (char *)tmp_ptr->lexeme);
-		advance(&tmp_ptr);
-	}
-	ft_lstclear(&g_gbl.heredoc_files, free);
 }

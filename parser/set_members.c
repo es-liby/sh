@@ -6,49 +6,45 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:15:53 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 11:25:30 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/17 18:06:13 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int			set_iostreams_and_cmds(t_pipeline **plist, t_list **tokens,
-		t_fds *fds);
+static int			set_iostreams_and_cmds(t_pipeline **plist, t_list **tokens);
 static int			there_is_pipe_token(t_list *tokens);
 static bool			go_to_next_cmd(t_list **tokens);
 static int			is_not_valid_pipeline(t_list *tokens);
 
 int	perform_redirections_and_set_cmds(t_pipeline **plist, t_list **tokens)
 {
-	t_fds		*fds;
 	t_pipeline	*new;
 
-	fds = NULL;
 	if (there_is_pipe_token(*tokens))
-		fds = count_and_open_pipes(*tokens);
+		g_gbl.fds = count_and_open_pipes(*tokens);
 	while (*tokens)
 	{
 		new = new_plist();
-		if (set_iostreams_and_cmds(&new, tokens, fds) == EOF)
-			return (close_pipes(fds), clear_plist(&new), EOF);
+		if (set_iostreams_and_cmds(&new, tokens) == EOF)
+			return (close_pipes(g_gbl.fds), clear_plist(&new), EOF);
 		addback(plist, new);
-		if (fds)
-			fds->pipe_counter++;
+		if (g_gbl.fds)
+			g_gbl.fds->pipe_counter++;
 	}
-	close_pipes(fds);
+	close_pipes(g_gbl.fds);
 	return (true);
 }
 
-static int	set_iostreams_and_cmds(t_pipeline **plist, t_list **tokens,
-	t_fds *fds)
+static int	set_iostreams_and_cmds(t_pipeline **plist, t_list **tokens)
 {
 	if (is_not_valid_pipeline(*tokens))
 		return (syn_err(*tokens), EOF);
 	if (peek_type(*tokens) == WORD)
-		if (set_cmd_and_args(plist, tokens, fds) == EOF)
+		if (set_cmd_and_args(plist, tokens) == EOF)
 			return (EOF);
 	if (is_redir_token(*tokens))
-		if (set_input_and_output_streams(plist, tokens, fds) == EOF)
+		if (set_input_and_output_streams(plist, tokens) == EOF)
 			return (EOF);
 	if (go_to_next_cmd(tokens) == false)
 		return (EOF);

@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 17:02:23 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/16 03:06:18 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/17 17:52:01 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*get_sequence(char **ptr, char **lexeme)
 static char	*join_word(char **ptr, char **lexeme)
 {
 	char	*word;
-	
+
 	word = ft_getword(ptr);
 	if (word == NULL)
 		return (NULL);

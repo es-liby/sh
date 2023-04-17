@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 01:54:35 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 13:34:23 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/17 18:09:07 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,14 @@ char		*advance_ptr_and_return_nil_dup(char **ptr);
 
 /*	set_memebers.c	*/
 int			perform_redirections_and_set_cmds(t_pipeline **plist,
-		t_list **tokens);
+				t_list **tokens);
 
 /*	cmd_and_args.c	*/
-int			set_cmd_and_args(t_pipeline **plist, t_list **tokens, t_fds *fds);
-int			set_input_and_output_streams(t_pipeline **plist, t_list **tokens,
-		t_fds *fds);
+int			set_cmd_and_args(t_pipeline **plist, t_list **tokens);
+int			set_input_and_output_streams(t_pipeline **plist, t_list **tokens);
 
 /*	io_streams.c	*/
-int			set_input_and_output_streams(t_pipeline **plist, t_list **tokens,
-		t_fds *fds);
+int			set_input_and_output_streams(t_pipeline **plist, t_list **tokens);
 
 /*	pipe_fds.c	*/
 t_fds		*count_and_open_pipes(t_list *tokens);
@@ -66,23 +64,26 @@ void		close_pipes(t_fds *fds);
 void		clear_pipes(t_fds *fds);
 
 /*	perform_redir_io.c	*/
-int			perform_redir_input(t_pipeline **plist, t_list **tokens, t_fds *fds);
-int			perform_redir_output(t_pipeline **plist, t_list **tokens, t_fds *fds);
+int			perform_redir_input(t_pipeline **plist, t_list **tokens);
+int			perform_redir_output(t_pipeline **plist, t_list **tokens);
 int			is_redir_token(t_list *token);
 
-int			set_cmd_and_args(t_pipeline **plist, t_list **tokens, t_fds *fds);
+int			set_cmd_and_args(t_pipeline **plist, t_list **tokens);
 
 /*	heredoc.c	*/
-int			redir_heredoc(t_pipeline **plist, t_list **tokens, t_fds *fds);
+int			redir_heredoc(t_pipeline **plist, t_list **tokens);
 
 /*	heredoc_utils.c	*/
 char		*get_sub_sequence_of_heredoc(char **line);
 void		writeline_to_heredoc_file_without_expanding(char *line, int fd);
 void		writeline_to_heredoc_file_with_expanding(char *line, int fd);
-bool		is_end_of_heredoc(char *line, char *label);
+
+/*	readlines_heredoc.c	*/
+int			read_and_write_line_to_heredoc_file(t_list *tokens, int fd,
+				int expanded);
 
 /*	../utils/heredoc_signals.c	*/
-void			handle_signals_for_heredoc(void);
+void		handle_signals_for_heredoc(void);
 
 /*	print.c	*/
 void		syn_err(t_list *tokens);

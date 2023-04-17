@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/17 17:43:43 by iabkadri          #+#    #+#             */
+/*   Updated: 2023/04/17 18:18:10 by iabkadri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -29,7 +41,12 @@
 /*	main.c	*/
 void	prompt(void);
 void	unlink_heredoc_file(void);
-void	printlist(t_list *lst);
+
+/*	debug.c	*/
+void	printplist(t_pipeline *plist);
+void	printlist(t_list *tokens);
+void	testprint(t_list *tokens);
+void	printenvvar(void);
 
 /*	utils.c	*/
 void	advance_pipeline(char **pipeline, int size);
@@ -42,6 +59,8 @@ void	ft_close(int fd);
 
 /*	getenvvar.c	*/
 char	*getenvvar_value(const char *envvar);
+
+/*	getenvvar_utils.c	*/
 char	*find_variable_and_get_value(char **ptr);
 char	*find_variable(char **ptr);
 

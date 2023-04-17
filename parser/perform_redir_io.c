@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 23:02:22 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 15:29:49 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/17 18:08:30 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	get_fd_of_output_file(char *outfile, t_list *token);
 
-int	perform_redir_input(t_pipeline **plist, t_list **tokens, t_fds *fds)
+int	perform_redir_input(t_pipeline **plist, t_list **tokens)
 {
 	char	*infile;
 	int		fd;
@@ -28,11 +28,11 @@ int	perform_redir_input(t_pipeline **plist, t_list **tokens, t_fds *fds)
 	(*plist)->in_stream = fd;
 	advance(tokens);
 	if (is_redir_token(*tokens))
-		return (set_input_and_output_streams(plist, tokens, fds));
+		return (set_input_and_output_streams(plist, tokens));
 	return (true);
 }
 
-int	perform_redir_output(t_pipeline **plist, t_list **tokens, t_fds *fds)
+int	perform_redir_output(t_pipeline **plist, t_list **tokens)
 {
 	char	*outfile;
 	int		fd;
@@ -46,7 +46,7 @@ int	perform_redir_output(t_pipeline **plist, t_list **tokens, t_fds *fds)
 	(*plist)->out_stream = fd;
 	advance(tokens);
 	if (is_redir_token(*tokens))
-		return (set_input_and_output_streams(plist, tokens, fds));
+		return (set_input_and_output_streams(plist, tokens));
 	return (true);
 }
 

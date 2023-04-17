@@ -6,12 +6,11 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:31:39 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/16 03:06:20 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/17 17:51:52 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
 
 t_tokentype	getword_token(char **pipeline, char **lexeme)
 {

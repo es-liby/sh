@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:34:01 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 15:25:48 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/17 17:43:28 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <symbols.h>
-
 
 typedef struct s_list
 {

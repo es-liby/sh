@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:14:40 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/11 23:02:15 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/17 18:00:25 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_tokentype	getredir_token(char **pipeline, char **lexeme)
 		type = redir_input(pipeline, lexeme);
 	else if (s_match(pipeline, '>'))
 		type = redir_output(pipeline, lexeme);
-	return type;
+	return (type);
 }
 
 static t_tokentype	redir_input(char **pipeline, char **lexeme)

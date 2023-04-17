@@ -6,56 +6,36 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 01:17:21 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 15:29:49 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/17 18:15:22 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-//void	signal_heredoc_handler(int sig)
-//{
-//	if (sig == (int)SIGINT)
-//	{
-//		rl_on_new_line();
-//		rl_replace_line("", 0);
-//		close (0);
-//		g_t_global.signal_c = 1;
-//		g_t_global.exit_status = 1;
-//	}
-//}
-
-static int	read_and_write_line_to_heredoc_file(t_list *tokens, int fd,
-		int expanded);
 static bool	label_is_quoted(char *label);
 static char	*get_heredoc_file(int *fd);
 static void	set_heredoc_file(t_pipeline *plist, char *file, int fd);
-static char	*get_heredoc_file(int *fd);
 
-int	readlines_from_heredoc_prompt(t_pipeline **plist, t_list **tokens, t_fds *fds)
+int	readlines_from_heredoc_prompt(t_pipeline **plist, t_list **tokens)
 {
 	char	*file;
 	int		expanded;
 	int		fd;
-	
+
 	if (peek_type(*tokens) != WORD)
 		return (syn_err(*tokens), EOF);
 	file = get_heredoc_file(&fd);
 	if (file == NULL)
 		return (EOF);
 	expanded = label_is_quoted((char *)(*tokens)->lexeme);
-	//if (fork() == 0)
-	//{
-		if (read_and_write_line_to_heredoc_file(*tokens, fd, expanded) == EOF)
-			return (EOF);
-	//	exit(EXIT_SUCCESS);
-	//}
-	//wait(0);
+	if (read_and_write_line_to_heredoc_file(*tokens, fd, expanded) == EOF)
+		return (EOF);
 	if (g_gbl.sigint == ON)
 		return (free(file), EOF);
 	set_heredoc_file(*plist, file, fd);
 	advance(tokens);
 	if (is_redir_token(*tokens))
-		return (set_input_and_output_streams(plist, tokens, fds));
+		return (set_input_and_output_streams(plist, tokens));
 	return (true);
 }
 
@@ -91,59 +71,6 @@ static void	set_heredoc_file(t_pipeline *plist, char *file, int fd)
 		g_gbl.heredoc_file = file;
 	}
 	plist->in_stream = fd;
-}
-
-//int	redir_heredoc(t_pipeline **plist, t_list **tokens, t_fds *fds)
-//{
-//	int		fd;
-//	bool	expanded;
-
-//	if (peek_type(*tokens) != WORD)
-//		return (syn_err(*tokens), EOF);
-//	fd = get_fd_of_heredoc_file();
-//	if (fd == EOF)
-//		return (EOF);
-//	(*plist)->in_stream = fd;
-//	expanded = 0;
-//	if (label_is_quoted((char *)(*tokens)->lexeme))
-//		expanded = 1;
-//	read_and_write_line_to_heredoc_file(*tokens, fd, expanded);
-//	advance(tokens);
-//	if (is_redir_token(*tokens))
-//		return (set_input_and_output_streams(plist, tokens, fds));
-//	return (true);
-//}
-
-static int	read_and_write_line_to_heredoc_file(t_list *tokens, int fd, int expanded)
-{
-	char	*label;
-	char	*line;
-
-	label = (char *)tokens->lexeme;
-	while (true)
-	{
-		handle_signals_for_heredoc();
-		line = readline("> ");
-		if (line == NULL)
-			break ;
-		if (*line == '\0')
-		{
-			free(line);
-			continue ;
-		}
-		if (g_gbl.sigint == ON)
-			return (free(line), EOF);
-		if (is_end_of_heredoc(line, label))
-			break ;
-		if (expanded == 0)
-			writeline_to_heredoc_file_with_expanding(line, fd);
-		else
-			writeline_to_heredoc_file_without_expanding(line, fd);
-		free(line);
-		line = readline("> ");
-	}
-	//close(0);
-	return (free(line), true);
 }
 
 static bool	label_is_quoted(char *label)
