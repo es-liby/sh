@@ -6,9 +6,11 @@
 
 typedef struct s_global
 {
-	int		exit_status;
-	t_list	*envlist;
-	t_list	*heredoc_files;
+	int				exit_status;
+	t_list			*envlist;
+	t_list			*heredoc_files;
+	char			*heredoc_file;
+	unsigned int	sigint : 1;
 }	t_global;
 
 extern t_global	g_gbl;

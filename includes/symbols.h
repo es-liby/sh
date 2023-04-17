@@ -10,6 +10,7 @@ typedef enum e_tokentype
 	REDIR_OUT,
 	REDIR_OUT_APPEND,
 	HEREDOC,
+	ENVVAR,
 	END,
 	NIL
 }	t_tokentype;

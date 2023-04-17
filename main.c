@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:52:07 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/16 03:01:12 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/17 01:35:19 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,11 +94,17 @@ void	prompt(void)
 
 	while (true)
 	{
+		if (g_gbl.sigint == ON)
+		{
+			dup2(STDIN_FILENO, 0);
+			g_gbl.sigint = OFF;
+		}
 		pipeline = readline("\x1B[33msh$>\x1B[0m ");
 		if (pipeline == NULL)
 			break ;
 		if (!*pipeline)
 			add_history(pipeline);
+		g_gbl.sigint = OFF;
 		if (scanner(&tokens, pipeline) == NIL)
 		{
 			free(pipeline);
@@ -109,7 +115,7 @@ void	prompt(void)
 		parser(&tokens, &plist);
 		//printlist(tokens);
 		printplist(plist);
-		remove_and_clear_heredoc_files();
+		//remove_and_clear_heredoc_files();
 		clear_plist(&plist);
 		//testprint(tokens);
 		ft_lstclear(&tokens, free);

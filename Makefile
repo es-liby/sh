@@ -2,7 +2,6 @@ CC := cc
 # CFLAGS := -fsanitize=address #-Wall -Werror -Wextra -g
 CFLAGS := -Wall -Werror -Wextra -g
 INCLUDE := -I includes/ -I/goinfre/iabkadri/.brew/opt/readline/include
-LDFLAGS=""
 LINKS := -lreadline
 RM := rm -rf
 MAKEFLAGS := --no-print-directory
@@ -36,7 +35,7 @@ SCANNER_OBJS = $(patsubst scanner/%.c,obj/scanner/%.o,$(SCANNER_SRCS))
 #	the source files of the parser
 PARSER_SRCS = $(addprefix parser/,parser.c expand.c quote_sequence.c set_members.c \
 perform_redir_io.c getquote_seq.c cmd_and_args.c heredoc.c io_streams.c pipe_fds.c plist_utils.c \
-complete_pipeline.c heredoc_utils.c print.c)
+complete_pipeline.c heredoc_utils.c print.c heredoc_signals.c)
 PARSER_OBJS = $(patsubst parser/%.c,obj/parser/%.o,$(PARSER_SRCS))
  
 #	the source files of utils
