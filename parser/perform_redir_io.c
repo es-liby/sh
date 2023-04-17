@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir.c                                            :+:      :+:    :+:   */
+/*   perform_redir_io.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 23:02:22 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/15 18:18:12 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/17 11:25:30 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	perform_redir_input(t_pipeline **plist, t_list **tokens, t_fds *fds)
 	int		fd;
 
 	if (peek_type(*tokens) != WORD)
-		return (print_syntax_error(*tokens), EOF);
+		return (syn_err(*tokens), EOF);
 	infile = (char *)(*tokens)->content;
 	fd = ft_open(infile, O_RDONLY);
 	if (fd == EOF)
@@ -38,7 +38,7 @@ int	perform_redir_output(t_pipeline **plist, t_list **tokens, t_fds *fds)
 	int		fd;
 
 	if (peek_type(*tokens) != WORD)
-		return (print_syntax_error(*tokens), EOF);
+		return (syn_err(*tokens), EOF);
 	outfile = (char *)(*tokens)->content;
 	fd = get_fd_of_output_file(outfile, *tokens);
 	if (fd == EOF)

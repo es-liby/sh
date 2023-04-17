@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 01:54:35 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/16 23:31:05 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/17 13:34:23 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,10 @@ void		writeline_to_heredoc_file_without_expanding(char *line, int fd);
 void		writeline_to_heredoc_file_with_expanding(char *line, int fd);
 bool		is_end_of_heredoc(char *line, char *label);
 
-/*	heredoc_signals.c	*/
-int			handle_signals_for_heredoc(void);
+/*	../utils/heredoc_signals.c	*/
+void			handle_signals_for_heredoc(void);
 
 /*	print.c	*/
-void		print_syntax_error(t_list *tokens);
+void		syn_err(t_list *tokens);
 
 #endif

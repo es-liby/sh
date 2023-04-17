@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 18:03:50 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/15 18:10:19 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/17 13:36:03 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	writeline_to_heredoc_file_without_expanding(char *line, int fd)
 
 	len = ft_strlen(line);
 	write(fd, line, len);
+	write(fd, "\n", 1);
 }
 
 void	writeline_to_heredoc_file_with_expanding(char *line, int fd)
@@ -64,6 +65,7 @@ void	writeline_to_heredoc_file_with_expanding(char *line, int fd)
 	}
 	len = ft_strlen(expanded_line);
 	write(fd, expanded_line, len);
+	write(fd, "\n", 1);
 	free(expanded_line);
 }
 
@@ -76,8 +78,8 @@ bool	is_end_of_heredoc(char *line, char *label)
 	orig_label = ft_strtrim(label, "'\"");
 	line_len = ft_strlen(line);
 	label_len = ft_strlen(orig_label);
-	if (ft_strncmp(line, orig_label, line_len - 1) == 0 && line[line_len - 1] == '\n'
-		&& line_len - 1 == label_len && line_len != 1)
+	if (ft_strncmp(line, orig_label, line_len) == 0
+		&& line_len == label_len)
 		return (free(orig_label), true);
 	return (free(orig_label), false);
 }

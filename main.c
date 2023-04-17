@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 14:52:07 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 01:35:19 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/17 13:23:40by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	printenvvar(void)
 int	main(int argc, char *argv[], char *envp[])
 {
 	(void)argv;
-	atexit(f);
+	//atexit(f);
 	if (argc != 1)
 	{
 		ft_fprintf(2, "Usage: ./minishell\n");
@@ -91,20 +91,20 @@ void	prompt(void)
 	t_list		*tokens;
 	t_pipeline	*plist;
 	char		*pipeline;
+	int			stdin_dup;
 
+	stdin_dup = dup(STDIN_FILENO);
 	while (true)
 	{
-		if (g_gbl.sigint == ON)
-		{
-			dup2(STDIN_FILENO, 0);
-			g_gbl.sigint = OFF;
-		}
+		if (isatty(STDIN_FILENO) == 0)
+			dup2(stdin_dup, STDIN_FILENO);
+		handle_signals();
 		pipeline = readline("\x1B[33msh$>\x1B[0m ");
 		if (pipeline == NULL)
 			break ;
+		g_gbl.sigint = OFF;
 		if (!*pipeline)
 			add_history(pipeline);
-		g_gbl.sigint = OFF;
 		if (scanner(&tokens, pipeline) == NIL)
 		{
 			free(pipeline);
@@ -114,10 +114,20 @@ void	prompt(void)
 		//printlist(tokens);
 		parser(&tokens, &plist);
 		//printlist(tokens);
-		printplist(plist);
-		//remove_and_clear_heredoc_files();
+		//printplist(plist);
+		unlink_heredoc_file();
 		clear_plist(&plist);
 		//testprint(tokens);
 		ft_lstclear(&tokens, free);
 	}
+	close(stdin_dup);
+}
+
+void	unlink_heredoc_file(void)
+{
+	if (g_gbl.heredoc_file == NULL)
+		return ;
+	if (unlink(g_gbl.heredoc_file) == -1)
+		exit(EXIT_FAILURE);
+	free(g_gbl.heredoc_file);
 }

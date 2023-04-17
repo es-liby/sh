@@ -53,7 +53,7 @@ static int	search_and_set_args(t_pipeline **plist, t_list *tokens)
 		{
 			advance(&tokens);
 			if (p_match(&tokens, WORD) == false)
-				return (print_syntax_error(tokens), EOF);
+				return (syn_err(tokens), EOF);
 			continue ;
 		}
 		args = ft_strjoin(args, (char *)tokens->content);

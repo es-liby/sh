@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:15:53 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/15 22:54:42 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/17 11:25:30 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	set_iostreams_and_cmds(t_pipeline **plist, t_list **tokens,
 	t_fds *fds)
 {
 	if (is_not_valid_pipeline(*tokens))
-		return (print_syntax_error(*tokens), EOF);
+		return (syn_err(*tokens), EOF);
 	if (peek_type(*tokens) == WORD)
 		if (set_cmd_and_args(plist, tokens, fds) == EOF)
 			return (EOF);

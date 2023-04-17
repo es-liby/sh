@@ -23,8 +23,12 @@
 # define ON 1
 # define OFF 0
 
+# define STOP 0
+# define CONT 1
+
 /*	main.c	*/
 void	prompt(void);
+void	unlink_heredoc_file(void);
 void	printlist(t_list *lst);
 
 /*	utils.c	*/
@@ -40,6 +44,9 @@ void	ft_close(int fd);
 char	*getenvvar_value(const char *envvar);
 char	*find_variable_and_get_value(char **ptr);
 char	*find_variable(char **ptr);
+
+/*	handle_signals.c	*/
+void	handle_signals(void);
 
 /*	envcpy.c	*/
 t_list	*envcpy(char *envp[]);

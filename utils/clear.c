@@ -25,5 +25,11 @@ void	remove_and_clear_heredoc_files(void)
 			exit(EXIT_FAILURE);
 		advance(&tmp_ptr);
 	}
+	tmp_ptr = g_gbl.heredoc_files;
+	while (tmp_ptr)
+	{
+		printf("heredoc_file: %s\n", (char *)tmp_ptr->content);
+		advance(&tmp_ptr);
+	}
 	ft_lstclear(&g_gbl.heredoc_files, free);
 }

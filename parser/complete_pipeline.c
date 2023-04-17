@@ -20,7 +20,7 @@ bool	complete_pipeline(t_list **tokens)
 	char	*pipeline;
 
 	if (pipeline_is_invalid((*tokens)->next))
-		return (print_syntax_error((*tokens)->next), false);
+		return (syn_err((*tokens)->next), false);
 	pipeline = readline("> ");
 	if (pipeline == NULL)
 		exit(EXIT_FAILURE);
