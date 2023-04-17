@@ -21,14 +21,14 @@ void	remove_and_clear_heredoc_files(void)
 	tmp_ptr = g_gbl.heredoc_files;
 	while (tmp_ptr)
 	{
-		if (unlink(tmp_ptr->content) == -1)
+		if (unlink(tmp_ptr->lexeme) == -1)
 			exit(EXIT_FAILURE);
 		advance(&tmp_ptr);
 	}
 	tmp_ptr = g_gbl.heredoc_files;
 	while (tmp_ptr)
 	{
-		printf("heredoc_file: %s\n", (char *)tmp_ptr->content);
+		printf("heredoc_file: %s\n", (char *)tmp_ptr->lexeme);
 		advance(&tmp_ptr);
 	}
 	ft_lstclear(&g_gbl.heredoc_files, free);

@@ -30,14 +30,12 @@ void	printlist(t_list *tokens)
 		"REDIR",
 		"PIPE",
 		"WORD",
-		"ENVVAR",
-		"DQUOTE",
-		"SQUOTE"
+		"ENVVAR"
 	};
 
 	while (tokens)
 	{
-		printf("Lexeme: %s\n", (char *)(tokens->content));
+		printf("Lexeme: %s\n", (char *)(tokens->lexeme));
 		printf("\tType: %s\n", symbols[tokens->type]);
 		tokens = tokens->next;
 	}
@@ -47,7 +45,7 @@ void	testprint(t_list *tokens)
 {
 	while (tokens)
 	{
-		printf("%s\n", (char *)(tokens->content));
+		printf("%s\n", (char *)(tokens->lexeme));
 		tokens = tokens->next;
 	}
 }
@@ -64,7 +62,7 @@ void	printenvvar(void)
 	lst_ptr = g_gbl.envlist;
 	while (lst_ptr)
 	{
-		printf("%s\n", (char *)(lst_ptr->content));
+		printf("%s\n", (char *)(lst_ptr->lexeme));
 		lst_ptr = lst_ptr->next;
 	}
 }
@@ -101,10 +99,17 @@ void	prompt(void)
 		handle_signals();
 		pipeline = readline("\x1B[33msh$>\x1B[0m ");
 		if (pipeline == NULL)
+		{
+			if (isatty(STDIN_FILENO) == 0)
+			{
+				dup2(stdin_dup, STDIN_FILENO);
+				continue ;
+			}
 			break ;
-		g_gbl.sigint = OFF;
+		}
 		if (!*pipeline)
 			add_history(pipeline);
+		g_gbl.sigint = OFF;
 		if (scanner(&tokens, pipeline) == NIL)
 		{
 			free(pipeline);
@@ -127,7 +132,8 @@ void	unlink_heredoc_file(void)
 {
 	if (g_gbl.heredoc_file == NULL)
 		return ;
-	if (unlink(g_gbl.heredoc_file) == -1)
-		exit(EXIT_FAILURE);
-	free(g_gbl.heredoc_file);
+	//if (unlink(g_gbl.heredoc_file) == -1)
+	//	exit(EXIT_FAILURE);
+	unlink(g_gbl.heredoc_file);
+	//free(g_gbl.heredoc_file);
 }

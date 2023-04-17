@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 02:41:17 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/15 15:38:50 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/17 15:29:49 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*getenvvar_value(const char *envvar)
 	envlist = g_gbl.envlist;
 	while (envlist)
 	{
-		entry_ptr = (char *)(envlist->content);
+		entry_ptr = (char *)(envlist->lexeme);
 		if (isfound(envvar, entry_ptr))
 			break ;
 		envlist = envlist->next;
@@ -47,7 +47,7 @@ static char	*getval(const char *envvar, t_list *envlist)
 	size_t			len;
 	unsigned int	start;
 
-	key = (char *)(envlist->content);
+	key = (char *)(envlist->lexeme);
 	start = ft_strlen(envvar) + 1;
 	len = ft_strlen(key) - start;
 	val = ft_substr(key, start, len);

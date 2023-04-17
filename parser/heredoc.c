@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 01:17:21 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 13:45:48 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/17 15:29:49 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,14 @@ int	readlines_from_heredoc_prompt(t_pipeline **plist, t_list **tokens, t_fds *fd
 	file = get_heredoc_file(&fd);
 	if (file == NULL)
 		return (EOF);
-	expanded = false;
-	if (label_is_quoted((char *)(*tokens)->content))
-		expanded = true;
-	if (fork() == 0)
-	{
+	expanded = label_is_quoted((char *)(*tokens)->lexeme);
+	//if (fork() == 0)
+	//{
 		if (read_and_write_line_to_heredoc_file(*tokens, fd, expanded) == EOF)
-			exit(EXIT_FAILURE);
-		exit(EXIT_SUCCESS);
-	}
-	wait(0);
+			return (EOF);
+	//	exit(EXIT_SUCCESS);
+	//}
+	//wait(0);
 	if (g_gbl.sigint == ON)
 		return (free(file), EOF);
 	set_heredoc_file(*plist, file, fd);
@@ -107,7 +105,7 @@ static void	set_heredoc_file(t_pipeline *plist, char *file, int fd)
 //		return (EOF);
 //	(*plist)->in_stream = fd;
 //	expanded = 0;
-//	if (label_is_quoted((char *)(*tokens)->content))
+//	if (label_is_quoted((char *)(*tokens)->lexeme))
 //		expanded = 1;
 //	read_and_write_line_to_heredoc_file(*tokens, fd, expanded);
 //	advance(tokens);
@@ -121,11 +119,18 @@ static int	read_and_write_line_to_heredoc_file(t_list *tokens, int fd, int expan
 	char	*label;
 	char	*line;
 
-	label = (char *)tokens->content;
-	line = readline("> ");
-	while (line)
+	label = (char *)tokens->lexeme;
+	while (true)
 	{
 		handle_signals_for_heredoc();
+		line = readline("> ");
+		if (line == NULL)
+			break ;
+		if (*line == '\0')
+		{
+			free(line);
+			continue ;
+		}
 		if (g_gbl.sigint == ON)
 			return (free(line), EOF);
 		if (is_end_of_heredoc(line, label))
@@ -137,6 +142,7 @@ static int	read_and_write_line_to_heredoc_file(t_list *tokens, int fd, int expan
 		free(line);
 		line = readline("> ");
 	}
+	//close(0);
 	return (free(line), true);
 }
 

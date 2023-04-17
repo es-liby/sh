@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 18:03:50 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 13:36:03 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/17 15:10:20 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,14 @@ bool	is_end_of_heredoc(char *line, char *label)
 	size_t	line_len;
 	size_t	label_len;
 
+	if (*label == '\0')
+		return (false);
 	orig_label = ft_strtrim(label, "'\"");
+	if (*orig_label == '\0')
+		return (false);
 	line_len = ft_strlen(line);
 	label_len = ft_strlen(orig_label);
-	if (ft_strncmp(line, orig_label, line_len) == 0
-		&& line_len == label_len)
+	if (!ft_strcmp(line, orig_label))
 		return (free(orig_label), true);
 	return (free(orig_label), false);
 }

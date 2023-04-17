@@ -9,7 +9,7 @@ int	set_cmd_and_args(t_pipeline **plist, t_list **tokens, t_fds *fds)
 {
 	if ((*plist)->cmd == NULL)
 	{
-		(*plist)->cmd = ft_strdup((char *)(*tokens)->content);
+		(*plist)->cmd = ft_strdup((char *)(*tokens)->lexeme);
 		advance(tokens);
 	}
 	if (set_args(plist, tokens) == EOF)
@@ -35,7 +35,7 @@ static void	args_after_cmd(t_pipeline **plist, t_list **tokens)
 	args = NULL;
 	while (peek_type(*tokens) == WORD)
 	{
-		args = ft_strjoin(args, (char *)(*tokens)->content);
+		args = ft_strjoin(args, (char *)(*tokens)->lexeme);
 		args = ft_strjoin(args, " ");
 		advance(tokens);
 	}
@@ -56,7 +56,7 @@ static int	search_and_set_args(t_pipeline **plist, t_list *tokens)
 				return (syn_err(tokens), EOF);
 			continue ;
 		}
-		args = ft_strjoin(args, (char *)tokens->content);
+		args = ft_strjoin(args, (char *)tokens->lexeme);
 		args = ft_strjoin(args, " ");
 		advance(&tokens);
 	}

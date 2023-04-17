@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:34:01 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/07 14:38:40 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/17 15:25:48 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 typedef struct s_list
 {
 	t_tokentype		type;
-	void			*content;
+	void			*lexeme;
 	struct s_list	*next;
 	struct s_list	*prev;
 }	t_list;
@@ -67,7 +67,7 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 
-t_list	*ft_lstnew(void *content, t_tokentype type);
+t_list	*ft_lstnew(void *lexeme, t_tokentype type);
 void	ft_lstadd_front(t_list **stk, t_list *new);
 int		ft_lstsize(t_list *stk);
 t_list	*ft_lstlast(t_list *stk);

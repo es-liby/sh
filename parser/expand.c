@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 11:50:44 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/15 18:02:42 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/17 15:29:49 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,21 +33,21 @@ int	perform_expand(t_list *tokens)
 static void	expand(t_list *token)
 {
 	char	*ptr;
-	char	*new_content;
+	char	*new_lexeme;
 	char	*sub_seq;
 
-	new_content = NULL;
-	ptr = (char *)token->content;
+	new_lexeme = NULL;
+	ptr = (char *)token->lexeme;
 	while (*ptr)
 	{
 		sub_seq = get_sub_sequence(&ptr);
 		if (sub_seq == NULL)
 			continue ;
-		new_content = ft_strjoin(new_content, sub_seq);
+		new_lexeme = ft_strjoin(new_lexeme, sub_seq);
 		free(sub_seq);
 	}
-	free(token->content);
-	token->content = new_content;
+	free(token->lexeme);
+	token->lexeme = new_lexeme;
 }
 
 char	*get_sub_sequence(char **ptr)
