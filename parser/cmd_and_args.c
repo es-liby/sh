@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 18:14:53 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 18:15:04 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/18 12:05:52 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ static void	args_after_cmd(t_pipeline **plist, t_list **tokens)
 		args = ft_strjoin(args, " ");
 		advance(tokens);
 	}
-	(*plist)->args = args;
+	if (args != NULL)
+		(*plist)->args = split_args(args);
 }
 
 static int	search_and_set_args(t_pipeline **plist, t_list *tokens)
@@ -72,7 +73,8 @@ static int	search_and_set_args(t_pipeline **plist, t_list *tokens)
 		args = ft_strjoin(args, " ");
 		advance(&tokens);
 	}
-	(*plist)->args = args;
+	if (args != NULL)
+		(*plist)->args = split_args(args);
 	return (true);
 }
 

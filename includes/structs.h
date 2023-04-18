@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 18:14:05 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 18:14:38 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/18 11:41:17 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ extern t_global	g_gbl;
 typedef struct s_pipeline
 {
 	char				*cmd;
-	char				*args;
+	char				**args;
 	int					in_stream;
 	int					out_stream;
 	struct s_pipeline	*next;

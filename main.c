@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:43:01 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/18 03:09:33 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/18 12:13:24 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	prompt(void)
 		}
 		free(pipeline);
 		parser(&tokens, &plist);
+		printplist(plist);
 		unlink_heredoc_file();
 		clear_plist(&plist);
 		ft_lstclear(&tokens, free);

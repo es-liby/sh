@@ -6,20 +6,42 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 18:16:11 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 18:17:21 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/18 12:19:26 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+static void	print_args(char **args);
+
 void	printplist(t_pipeline *plist)
 {
 	while (plist)
 	{
-		printf("cmd: %s\nargs: %s\nin_stream: %d\nout_stream: %d\n\n", plist->cmd,
-			plist->args, plist->in_stream, plist->out_stream);
+		printf("cmd: %s\n", plist->cmd);
+		printf("args: ");
+		print_args(plist->args);
+		printf("in_stream: %d\nout_stream: %d\n", plist->in_stream, plist->out_stream);
 		plist = plist->next;
 	}
+}
+
+static void	print_args(char **args)
+{
+	int	i;
+
+	if (args == NULL)
+	{
+		printf("(null)\n");
+		return ;
+	}
+	i = 0;
+	while (args[i])
+	{
+		printf("%s ", args[i]);
+		i++;
+	}
+	printf("\n");
 }
 
 void	printlist(t_list *tokens)
