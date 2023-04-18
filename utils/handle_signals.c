@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:31:37 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 16:51:07 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/18 03:08:29 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	sigint_handler(int sig)
 	(void)sig;
 	rl_on_new_line();
 	rl_replace_line("", STDIN_FILENO);
+	//rl_redisplay();
 	close(STDIN_FILENO);
 	g_gbl.exit_status = 1;
 }
