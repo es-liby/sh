@@ -33,6 +33,7 @@ void	ft_dup2(int fd1, int fd2)
 	if (dup2(fd1, fd2) == -1)
 	{
 		perror("dup2");
+		ft_fprintf(2, "in: %d, out: %d\n", fd1, fd2);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -48,6 +49,8 @@ void	ft_pipe(int *fd)
 
 void	ft_close(int fd)
 {
+	if (fd == -1)
+		return ;
 	if (close(fd) == -1)
 	{
 		perror("close");

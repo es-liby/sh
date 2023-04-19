@@ -30,8 +30,10 @@ int	readlines_from_heredoc_prompt(t_pipeline **plist, t_list **tokens)
 	expanded = label_is_quoted((char *)(*tokens)->lexeme);
 	if (read_and_write_line_to_heredoc_file(*tokens, fd, expanded) == EOF)
 		return (EOF);
-	if (g_gbl.sigint == ON)
-		return (free(file), EOF);
+	ft_close(fd);
+	fd = ft_open(file, O_RDONLY);
+	if (fd == EOF)
+		return (free(g_gbl.heredoc_file), EOF);
 	set_heredoc_file(*plist, file, fd);
 	advance(tokens);
 	if (is_redir_token(*tokens))
@@ -56,7 +58,9 @@ static char	*get_heredoc_file(int *fd)
 		free(file);
 		nbr++;
 	}
-	*fd = ft_open(file, O_WRONLY | O_TRUNC | O_CREAT);
+	*fd = open(file, O_RDWR | O_APPEND | O_CREAT, 0777);
+	if (*fd == -1)
+		return (perror("open"), free(file), NULL);
 	return (file);
 }
 

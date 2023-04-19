@@ -71,7 +71,7 @@ void	prompt(void)
 		free(pipeline);
 		if (parser(&tokens, &plist) != EOF)
 			execute(plist);
-		printplist(plist);
+		// printplist(plist);
 		unlink_heredoc_file();
 		clear_plist(&plist);
 		ft_lstclear(&tokens, free);

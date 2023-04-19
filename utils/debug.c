@@ -12,8 +12,6 @@
 
 #include <minishell.h>
 
-static void	print_args(char **args);
-
 void	printplist(t_pipeline *plist)
 {
 	while (plist)
@@ -26,7 +24,7 @@ void	printplist(t_pipeline *plist)
 	}
 }
 
-static void	print_args(char **args)
+void	print_args(char **args)
 {
 	int	i;
 

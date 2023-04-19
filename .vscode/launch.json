@@ -10,7 +10,8 @@
 		"cwd": "${fileDirname}",
 		"environment": [],
 		"externalConsole": true,
-		"MIMode": "lldb"
+		"MIMode": "lldb",
+		"miDebuggerPath": "/usr/bin/lldb"
 	}
 	]
 }

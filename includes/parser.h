@@ -63,8 +63,9 @@ int			set_input_and_output_streams(t_pipeline **plist, t_list **tokens);
 
 /*	pipe_fds.c	*/
 t_fds		*count_and_open_pipes(t_list *tokens);
-void		close_pipes(t_fds *fds);
-void		clear_pipes(t_fds *fds);
+void		open_pipes(int **fds, int n);
+void		close_pipes(void);
+void		clear_pipes(void);
 
 /*	perform_redir_io.c	*/
 int			perform_redir_input(t_pipeline **plist, t_list **tokens);

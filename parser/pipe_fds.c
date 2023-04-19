@@ -13,7 +13,6 @@
 #include <minishell.h>
 
 static t_fds	*alloc_fds_of_pipe(int n);
-static void		open_pipes(int **fds, int n);
 
 t_fds	*count_and_open_pipes(t_list *tokens)
 {
@@ -47,7 +46,7 @@ static t_fds	*alloc_fds_of_pipe(int n)
 	return (fds);
 }
 
-static void	open_pipes(int **fds, int n)
+void	open_pipes(int **fds, int n)
 {
 	int	i;
 
@@ -56,10 +55,12 @@ static void	open_pipes(int **fds, int n)
 		ft_pipe(fds[i]);
 }
 
-void	close_pipes(t_fds *fds)
+void	close_pipes(void)
 {
-	int	i;
+	t_fds	*fds;
+	int		i;
 
+	fds = g_gbl.fds;
 	if (fds == NULL)
 		return ;
 	i = -1;
@@ -68,13 +69,14 @@ void	close_pipes(t_fds *fds)
 		ft_close(fds->fds[i][0]);
 		ft_close(fds->fds[i][1]);
 	}
-	clear_pipes(fds);
 }
 
-void	clear_pipes(t_fds *fds)
+void	clear_pipes(void)
 {
-	int	i;
+	t_fds	*fds;
+	int		i;
 
+	fds = g_gbl.fds;
 	if (fds == NULL)
 		return ;
 	i = -1;
@@ -82,4 +84,5 @@ void	clear_pipes(t_fds *fds)
 		free(fds->fds[i]);
 	free(fds->fds);
 	free(fds);
+	g_gbl.fds = NULL;
 }

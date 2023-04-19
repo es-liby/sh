@@ -27,6 +27,8 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/wait.h>
+# include <sys/stat.h>
+# include <sys/types.h>
 # include <signal.h>
 
 # define ERROR -1
@@ -45,6 +47,7 @@ void	unlink_heredoc_file(void);
 
 /*	debug.c	*/
 void	printplist(t_pipeline *plist);
+void	print_args(char **args);
 void	printlist(t_list *tokens);
 void	testprint(t_list *tokens);
 void	printenvvar(void);
