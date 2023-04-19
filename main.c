@@ -69,7 +69,8 @@ void	prompt(void)
 			continue ;
 		}
 		free(pipeline);
-		parser(&tokens, &plist);
+		if (parser(&tokens, &plist) != EOF)
+			execute(plist);
 		printplist(plist);
 		unlink_heredoc_file();
 		clear_plist(&plist);

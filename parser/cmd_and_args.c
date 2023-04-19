@@ -44,7 +44,8 @@ static void	args_after_cmd(t_pipeline **plist, t_list **tokens)
 {
 	char	*args;
 
-	args = NULL;
+	args = ft_strdup((*plist)->cmd);
+	args = ft_strjoin(args, " ");
 	while (peek_type(*tokens) == WORD)
 	{
 		args = ft_strjoin(args, (char *)(*tokens)->lexeme);
@@ -59,7 +60,8 @@ static int	search_and_set_args(t_pipeline **plist, t_list *tokens)
 {
 	char	*args;
 
-	args = NULL;
+	args = ft_strdup((*plist)->cmd);
+	args = ft_strjoin(args, " ");
 	while (peek_type(tokens) != NIL && peek_type(tokens) != PIPE)
 	{
 		if (is_redir_token(tokens))

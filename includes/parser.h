@@ -18,7 +18,7 @@
 # include <structs.h>
 
 /*	parser.c	*/
-void		parser(t_list **tokens, t_pipeline **plist);
+int			parser(t_list **tokens, t_pipeline **plist);
 int			p_match(t_list **tokens, t_tokentype type);
 void		advance(t_list **tokens);
 t_tokentype	peek_type(t_list *token);

@@ -21,7 +21,10 @@ int	ft_open(char *file, int flags)
 	else
 		fd = open(file, flags, 0644);
 	if (fd == -1)
+	{
 		ft_fprintf(2, "bash: %s: %s\n", file, strerror(errno));
+		g_gbl.exit_status = 1;
+	}
 	return (fd);
 }
 
@@ -50,4 +53,17 @@ void	ft_close(int fd)
 		perror("close");
 		exit(EXIT_FAILURE);
 	}
+}
+
+int	ft_fork(void)
+{
+	int	pid;
+
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork");
+		exit(EXIT_FAILURE);
+	}
+	return (pid);
 }

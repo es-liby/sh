@@ -13,10 +13,11 @@ OBJ_DIR := obj/
 SRC_DIR := src/
 LIB_DIR := lib/
 
-DIRS = $(addprefix $(OBJ_DIR),scanner/ parser/ utils/ utils/envvar/ libft/ ft_fprintf/ get_next_line/)
+DIRS = $(addprefix $(OBJ_DIR),scanner/ parser/ utils/ utils/envvar/ execute\
+libft/ ft_fprintf/ get_next_line/)
 
 HEADERS = $(addprefix includes/,minishell.h scanner.h parser.h structs.h symbols.h libft.h \
-ft_fprintf.h get_next_line.h)
+ft_fprintf.h get_next_line.h execute.h)
 LIBS = $(addprefix $(LIB_DIR),libft.a libftfprintf.a libgnl.a) -L/goinfre/iabkadri/.brew/opt/readline/lib
 
 
@@ -36,8 +37,13 @@ SCANNER_OBJS = $(patsubst scanner/%.c,obj/scanner/%.o,$(SCANNER_SRCS))
 #	the source files of the parser
 PARSER_SRCS = $(addprefix parser/,parser.c expand.c quote_sequence.c set_members.c \
 perform_redir_io.c getquote_seq.c cmd_and_args.c heredoc.c io_streams.c pipe_fds.c plist_utils.c \
-complete_pipeline.c heredoc_utils.c readlines_heredoc.c print.c split_args.c)
+complete_pipeline.c heredoc_utils.c readlines_heredoc.c print.c split_args.c \
+search_path.c)
 PARSER_OBJS = $(patsubst parser/%.c,obj/parser/%.o,$(PARSER_SRCS))
+ 
+#	the source files of execute
+EXEC_SRS = $(addprefix execute/,exec.c ids.c)
+EXEC_OBJS = $(patsubst execute/%.c,obj/execute/%.o,$(EXEC_SRS))
  
 #	the source files of utils
 UTILS_SRCS = $(addprefix utils/,utils.c clear.c envcpy.c handle_signals.c getenvvar.c \
@@ -61,7 +67,7 @@ SYMB := $(BOLD)$(BLUE)√$(SGR0)
 
 all: $(NAME)
 
-$(NAME): $(MAIN_OBJ) $(UTILS_OBJS) $(SCANNER_OBJS) $(PARSER_OBJS)
+$(NAME): $(MAIN_OBJ) $(UTILS_OBJS) $(SCANNER_OBJS) $(PARSER_OBJS) $(EXEC_OBJS)
 	@make -C $(SRC_DIR)libft
 	@make -C $(SRC_DIR)ft_fprintf
 	@make -C $(SRC_DIR)get_next_line
@@ -81,6 +87,10 @@ $(OBJ_DIR)utils/%.o: utils/%.c
 	@printf "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
 
 $(OBJ_DIR)parser/%.o: parser/%.c
+	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+	@printf "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
+
+$(OBJ_DIR)execute/%.o: execute/%.c
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 	@printf "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
 

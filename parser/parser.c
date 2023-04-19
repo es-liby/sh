@@ -12,16 +12,19 @@
 
 #include <minishell.h>
 
-void	parser(t_list **tokens, t_pipeline **plist)
+int	parser(t_list **tokens, t_pipeline **plist)
 {
 	t_list		*tmp_ptr_tokens;
 
 	tmp_ptr_tokens = *tokens;
 	*plist = NULL;
 	if (perform_expand(tmp_ptr_tokens) == EOF)
-		return ;
+		return (EOF);
 	if (perform_redirections_and_set_cmds(plist, &tmp_ptr_tokens) == EOF)
-		return ;
+		return (EOF);
+	if (search_and_set_path_for_cmds(*plist) == EOF)
+		return (EOF);
+	return (true);
 }
 
 int	p_match(t_list **tokens, t_tokentype type)

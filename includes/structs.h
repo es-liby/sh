@@ -43,4 +43,10 @@ typedef struct s_pipeline
 	struct s_pipeline	*next;
 }	t_pipeline;
 
+typedef struct s_ids
+{
+	int				id;
+	struct s_ids	*next;
+}	t_ids;
+
 #endif

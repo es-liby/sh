@@ -20,6 +20,7 @@
 # include <structs.h>
 # include <scanner.h>
 # include <parser.h>
+# include <execute.h>
 # include <symbols.h>
 # include <string.h>
 # include <errno.h>
@@ -56,6 +57,7 @@ int		ft_open(char *file, int flags);
 void	ft_dup2(int fd1, int fd2);
 void	ft_pipe(int *fd);
 void	ft_close(int fd);
+int		ft_fork(void);
 
 /*	getenvvar.c	*/
 char	*getenvvar_value(const char *envvar);
@@ -72,6 +74,6 @@ t_list	*envcpy(char *envp[]);
 
 /*	clear.c	*/
 void	clear_plist(t_pipeline **plist);
-void	remove_and_clear_heredoc_files(void);
+void	free_tab(char **tab);
 
 #endif
