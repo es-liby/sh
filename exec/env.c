@@ -12,6 +12,27 @@
 
 #include "exec.h"
 
+void	ft_env(char **env)
+{
+	int		i;
+	t_env	*e;
+	t_env	*tmp;
+
+	i = -1;
+	e = NULL;
+	while (env[++i])
+		ft_lstaddback_env(&e, ft_lstnew_env(env[i]));
+	print_env(e);
+	while (e)
+	{
+		tmp = e;
+		e = e->next;
+		free(tmp->key);
+		free(tmp->value);
+		free(tmp);
+	}
+}
+
 t_env	*other_checks(char *str)
 {
 	if (ft_strchr(str, '=') && str[ft_strlen(str) - 1] != '='
@@ -66,26 +87,5 @@ void	ft_lstaddback_env(t_env **e, t_env *new)
 				t = t->next;
 			t->next = new;
 		}
-	}
-}
-
-void	ft_env(char **env)
-{
-	int		i;
-	t_env	*e;
-	t_env	*tmp;
-
-	i = -1;
-	e = NULL;
-	while (env[++i])
-		ft_lstaddback_env(&e, ft_lstnew_env(env[i]));
-	print_env(e);
-	while (e)
-	{
-		tmp = e;
-		e = e->next;
-		free(tmp->key);
-		free(tmp->value);
-		free(tmp);
 	}
 }

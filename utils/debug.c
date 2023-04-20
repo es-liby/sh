@@ -69,12 +69,12 @@ void	testprint(t_list *tokens)
 
 void	printenvvar(void)
 {
-	t_list	*lst_ptr;
+	t_env	*env_ptr;
 
-	lst_ptr = g_gbl.envlist;
-	while (lst_ptr)
+	env_ptr = g_gbl.env;
+	while (env_ptr)
 	{
-		printf("%s\n", (char *)(lst_ptr->lexeme));
-		lst_ptr = lst_ptr->next;
+		printf("%s=%s\n", env_ptr->key, env_ptr->value);
+		env_ptr = env_ptr->next;
 	}
 }

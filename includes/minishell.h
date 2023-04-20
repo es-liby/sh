@@ -29,6 +29,7 @@
 # include <sys/wait.h>
 # include <sys/stat.h>
 # include <sys/types.h>
+# include <limits.h>
 # include <signal.h>
 
 # define ERROR -1
@@ -73,11 +74,19 @@ char	*find_variable(char **ptr);
 void	handle_signals(void);
 
 /*	envcpy.c	*/
-t_list	*envcpy(char *envp[]);
+t_env	*envcpy(char *envp[]);
 char	**get_envp(void);
+
+t_list	*env_cpy(char *envp[]);
+
+/*	key_value.c	*/
+char	*getkey(char *envp);
+char	*getvalue(char *envp);
+char	*join_key_and_value(t_env *env_ptr);
 
 /*	clear.c	*/
 void	clear_plist(t_pipeline **plist);
 void	free_tab(char **tab);
+
 
 #endif

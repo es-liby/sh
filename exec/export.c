@@ -12,6 +12,40 @@
 
 #include "exec.h"
 
+int	ft_export(t_env *e, char **env, char **new_variables)
+{
+	t_env	*new;
+	int		i;
+
+	e = NULL;
+	i = -1;
+	while (env[++i])
+		ft_lstaddback_env(&e, ft_lstnew_env(env[i]));
+	i = 0;
+	if (new_variables)
+	{
+		while (new_variables[++i])
+		{
+			if (!check_the_variable_naming(new_variables[i]))
+				return (0);
+			new = ft_lstnew_env(new_variables[i]);
+			if (already_exist(e, new->key, new->value, new) == 1)
+			{
+				free(new);
+				continue ;
+			}
+			ft_lstaddback_env(&e, new);
+		}
+	}
+	print_export(e);
+	/*********** to test unset *********/
+	// char word[] = "SHELL";
+	// ft_unset(&e, word);
+	// print_export(e);
+	/***********************************/
+	return (free_env(e), 1);
+}
+
 int	already_exist(t_env *e, char *key, char *value, t_env *new)
 {
 	char	*value_dup;
@@ -88,37 +122,3 @@ void	free_env(t_env *e)
 		free(tmp);
 	}
 }	
-
-int	ft_export(t_env *e, char **env, char **new_variables)
-{
-	t_env	*new;
-	int		i;
-
-	e = NULL;
-	i = -1;
-	while (env[++i])
-		ft_lstaddback_env(&e, ft_lstnew_env(env[i]));
-	i = 0;
-	if (new_variables)
-	{
-		while (new_variables[++i])
-		{
-			if (!check_the_variable_naming(new_variables[i]))
-				return (0);
-			new = ft_lstnew_env(new_variables[i]);
-			if (already_exist(e, new->key, new->value, new) == 1)
-			{
-				free(new);
-				continue ;
-			}
-			ft_lstaddback_env(&e, new);
-		}
-	}
-	print_export(e);
-	/*********** to test unset *********/
-	// char word[] = "SHELL";
-	// ft_unset(&e, word);
-	// print_export(e);
-	/***********************************/
-	return (free_env(e), 1);
-}

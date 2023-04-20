@@ -32,7 +32,6 @@ int	perform_redirections_and_set_cmds(t_pipeline **plist, t_list **tokens)
 		if (g_gbl.fds)
 			g_gbl.fds->pipe_counter++;
 	}
-	// close_pipes(g_gbl.fds);
 	return (true);
 }
 

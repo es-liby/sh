@@ -19,19 +19,15 @@ static void	set_pipe(t_pipeline **plist);
 
 int	set_cmd_and_args(t_pipeline **plist, t_list **tokens)
 {
-	printf("set_cmd_and_args()	-->	(*plist)->cmd\n");
 	if ((*plist)->cmd == NULL)
 	{
 		(*plist)->cmd = ft_strdup((char *)(*tokens)->lexeme);
 		advance(tokens);
 	}
-	printf("set_cmd_and_args()	-->	set_args()\n");
 	if (set_args(plist, tokens) == EOF)
 		return (EOF);
-	printf("set_cmd_and_args()	-->	set_pipes()\n");
 	if (g_gbl.fds != NULL)
 		set_pipe(plist);
-	printf("set_cmd_and_args()	-->	return (true)\n");
 	return (true);
 }
 
@@ -48,6 +44,11 @@ static void	args_after_cmd(t_pipeline **plist, t_list **tokens)
 {
 	char	*args;
 
+	if (peek_type(*tokens) == NIL)
+	{
+		(*plist)->args = split_args((*plist)->cmd);
+		return ;
+	}
 	args = ft_strdup((*plist)->cmd);
 	args = ft_strjoin(args, " ");
 	while (peek_type(*tokens) == WORD)
@@ -58,6 +59,7 @@ static void	args_after_cmd(t_pipeline **plist, t_list **tokens)
 	}
 	if (args != NULL)
 		(*plist)->args = split_args(args);
+	free(args);
 }
 
 static int	search_and_set_args(t_pipeline **plist, t_list *tokens)
@@ -81,6 +83,7 @@ static int	search_and_set_args(t_pipeline **plist, t_list *tokens)
 	}
 	if (args != NULL)
 		(*plist)->args = split_args(args);
+	free(args);
 	return (true);
 }
 

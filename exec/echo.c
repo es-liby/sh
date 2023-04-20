@@ -12,6 +12,42 @@
 
 #include "exec.h"
 
+void	ft_echo(char **str)
+{
+	int		i;
+	int		with_new_line;
+	t_list	*head;
+
+	head = NULL;
+	i = 1;
+	while (str[++i])
+		ft_lstaddback(&head, ft_lstnew(str[i]));
+	print_echo(head);
+}
+
+void	print_echo(t_list *head)
+{
+	t_list	*tmp;
+	int		nl;
+
+	nl = 1;
+	if (!head)
+		return ;
+	tmp = head;
+	while (check_flag_n(tmp) == 1)
+	{
+		nl = 0;
+		tmp = tmp->next;
+	}
+	while (tmp)
+	{
+		ft_fprintf(1, "%s ", tmp->value);
+		tmp = tmp->next;
+	}
+	if (nl == 1)
+		write(1, "\n", 1);
+}
+
 int	check_flag_n(t_list *node)
 {
 	int	i;
@@ -29,73 +65,4 @@ int	check_flag_n(t_list *node)
 	else
 		return (0);
 	return (1);
-}
-
-void	print_echo(t_list *head)
-{
-	t_list	*tmp;
-	int		nl;
-
-	nl = 1;
-	if (!head)
-		return ;
-	tmp = head;
-	while (check_flag_n(tmp) == 1)
-	{
-		nl = 0;
-		tmp = tmp->next;
-	}
-	while (1)
-	{
-		ft_putstr(tmp->value);
-		write(1, " ", 1);
-		tmp = tmp->next;
-		if (!tmp)
-			break ;
-	}
-	if (nl == 1)
-		write(1, "\n", 1);
-}
-
-t_list	*ft_lstnew_echo(char *str)
-{
-	t_list	*node;
-
-	node = ft_calloc(1, sizeof(t_list));
-	if (!node)
-		return (NULL);
-	node->next = NULL;
-	node->value = str;
-	return (node);
-}
-
-void	ft_lstaddback_echo(t_list **head, t_list *new_node)
-{
-	t_list	*tmp;
-
-	if (head && new_node)
-	{
-		if (!(*head))
-			*head = new_node;
-		else
-		{
-			tmp = *head;
-			while (tmp->next)
-				tmp = tmp->next;
-			tmp->next = new_node;
-		}
-	}
-}
-
-void	ft_echo(char **str)
-{
-	int		i;
-	int		with_new_line;
-	t_list	*head;
-
-	head = NULL;
-	i = 1;
-	while (str[++i])
-		ft_lstaddback_echo(&head, ft_lstnew_echo(str[i]));
-	print_echo(head);
 }

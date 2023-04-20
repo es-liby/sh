@@ -28,7 +28,8 @@ int	main(int argc, char *argv[], char *envp[])
 		ft_fprintf(2, "Usage: ./minishell\n");
 		exit(EXIT_FAILURE);
 	}
-	g_gbl.envlist = envcpy(envp);
+	// g_gbl.envlist = env_cpy(envp);
+	g_gbl.env = envcpy(envp);
 	g_gbl.exit_status = 0;
 	g_gbl.fds = NULL;
 	g_gbl.heredoc_file = NULL;
@@ -36,7 +37,7 @@ int	main(int argc, char *argv[], char *envp[])
 		exit(EXIT_FAILURE);
 	prompt();
 	unlink_heredoc_file();
-	ft_lstclear(&g_gbl.envlist, free);
+	// ft_lstclear(&g_gbl.envlist, free);
 	exit(EXIT_SUCCESS);
 }
 

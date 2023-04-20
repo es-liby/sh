@@ -2,7 +2,7 @@
 
 static int	is_a_directory(char *cmd);
 static char	*getpath(char *cmd);
-static bool	path_entry_is_found(t_list *envlist);
+static bool	path_entry_is_found(t_env *envlist);
 static char	*get_path_for_cmd(char **path, char *cmd);
 
 int	is_a_path_or_a_directory(char *cmd);
@@ -45,19 +45,19 @@ static int	is_a_directory(char *cmd)
 
 static char	*getpath(char *cmd)
 {
-	t_list	*envlist;
+	t_env	*envlist;
 	char	**path;
 	char	*cmd_path;
 
-	envlist = g_gbl.envlist;
+	envlist = g_gbl.env;
 	while (envlist)
 	{
 		if (path_entry_is_found(envlist))
 		{
-			path = ft_split(envlist->lexeme + 5, ':');
+			path = ft_split(envlist->value + 5, ':');
 			break ;
 		}
-		advance(&envlist);
+		envlist = envlist->next;
 	}
 	if (envlist == NULL)
 	{
@@ -70,9 +70,9 @@ static char	*getpath(char *cmd)
 	return (free_tab(path), cmd_path);
 }
 
-static bool	path_entry_is_found(t_list *envlist)
+static bool	path_entry_is_found(t_env *envlist)
 {
-	if (ft_strncmp(envlist->lexeme, "PATH=", 5) == 0)
+	if (ft_strcmp(envlist->key, "PATH") == 0)
 		return (true);
 	return (false);
 }

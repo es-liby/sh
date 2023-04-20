@@ -1,61 +1,78 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   envcpy.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/09 11:50:48 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/09 11:53:08 by iabkadri         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include <minishell.h>
 
-static t_list	*new_envvar(const char *envp);
+static void		add_envvar(t_env **env, char *key, char *value);
+static size_t	getsize_of_envlist(t_env *env);
 
-t_list	*envcpy(char *envp[])
+t_env	*envcpy(char *envp[])
 {
-	t_list	*envlist;
-	t_list	*new;
+	t_env	*env;
+	char	*key;
+	char	*value;
 	int		i;
 
-	envlist = NULL;
+	env = NULL;
 	i = -1;
 	while (envp[++i])
 	{
-		new = new_envvar(envp[i]);
-		ft_lstadd_back(&envlist, new);
+		key = getkey(envp[i]);
+		value = getvalue(envp[i]);
+		add_envvar(&env, key, value);
 	}
-	return (envlist);
+	return (env);
 }
 
-static t_list	*new_envvar(const char *envp)
+static void	add_envvar(t_env **env, char *key, char *value)
 {
-	t_list	*new;
-	char	*cpy;
+	t_env	*tmp_ptr;
 
-	cpy = ft_strdup(envp);
-	new = ft_lstnew(cpy, ENVVAR);
-	return (new);
+	if (*env == NULL)
+	{
+		*env = ft_calloc(1, sizeof(t_env));
+		(*env)->key = key;
+		(*env)->value = value;
+		(*env)->next = NULL;
+		return ;
+	}
+	tmp_ptr = *env;
+	while (tmp_ptr && tmp_ptr->next)
+		tmp_ptr = tmp_ptr->next;
+	tmp_ptr->next = ft_calloc(1, sizeof(t_env));
+	tmp_ptr->next->key = key;
+	tmp_ptr->next->value = value;
+	tmp_ptr->next->next = NULL;
 }
 
 char	**get_envp(void)
 {
-	char	**envlist;
-	t_list	*env_ptr;
+	char	**envp;
+	t_env	*env_ptr;
 	size_t	size;
-	int		indx;
+	size_t	indx;
 
-	env_ptr = g_gbl.envlist;
-	size = ft_lstsize(env_ptr);
-	envlist = ft_calloc(size + 1, sizeof(char *));
+	env_ptr = g_gbl.env;
+	size = getsize_of_envlist(env_ptr);
+	envp = ft_calloc(size + 1, sizeof(char *));
 	indx = -1;
-	while (env_ptr)
+	while (++indx < size)
 	{
-		envlist[++indx] = ft_strdup((char *)env_ptr->lexeme);
-		advance(&env_ptr);
+		envp[indx] = join_key_and_value(env_ptr);
+		env_ptr = env_ptr->next;
 	}
-	envlist[indx] = NULL;
-	return (envlist);
+	envp[indx] = NULL;
+	// for (int i = 0; envp[i]; i++)
+	// 	printf("%s\n", envp[i]);
+	return (envp);
+}
+
+static size_t	getsize_of_envlist(t_env *env)
+{
+	size_t	size;
+
+	size = 0;
+	while (env)
+	{
+		++size;
+		env = env->next;
+	}
+	return (size);
 }

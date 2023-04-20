@@ -23,10 +23,17 @@ typedef struct s_fds
 	int	pipe_counter;
 }	t_fds;
 
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}	t_env;
+
 typedef struct s_global
 {
 	int				exit_status;
-	t_list			*envlist;
+	t_env			*env;
 	char			**envp;
 	t_fds			*fds;
 	char			*heredoc_file;
@@ -43,11 +50,5 @@ typedef struct s_pipeline
 	int					out_stream;
 	struct s_pipeline	*next;
 }	t_pipeline;
-
-typedef struct s_ids
-{
-	int				id;
-	struct s_ids	*next;
-}	t_ids;
 
 #endif

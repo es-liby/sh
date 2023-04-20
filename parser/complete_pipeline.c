@@ -13,19 +13,16 @@
 #include <minishell.h>
 
 static bool	pipeline_is_invalid(t_list *token);
-static void	delete_pipe_token(t_list **pipe_token);
+static void	delete_pipe_token(t_list **tokens);
 
 bool	complete_pipeline(t_list **tokens)
 {
 	t_list	*new_tokens_list;
 	char	*pipeline;
-	t_list	*pipe_token;
 
 	if (pipeline_is_invalid((*tokens)->next->next))
 		return (syn_err((*tokens)->next), false);
-	pipe_token = (*tokens)->next;
-	(*tokens)->next = (*tokens)->next->next;
-	delete_pipe_token(&pipe_token);
+	delete_pipe_token(tokens);
 	pipeline = readline("> ");
 	if (pipeline == NULL)
 		exit(EXIT_FAILURE);
@@ -49,8 +46,12 @@ static bool	pipeline_is_invalid(t_list *token)
 	return (true);
 }
 
-static void	delete_pipe_token(t_list **pipe_token)
+static void	delete_pipe_token(t_list **tokens)
 {
-	free((*pipe_token)->lexeme);
-	free(*pipe_token);
+	t_list	*pipe_token;
+
+	pipe_token = (*tokens)->next;
+	(*tokens)->next = (*tokens)->next->next;
+	free(pipe_token->lexeme);
+	free(pipe_token);
 }

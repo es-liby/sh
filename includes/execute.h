@@ -17,7 +17,7 @@ void	close_read_ends(t_fds *fds);
 int		search_and_set_path_for_cmds(t_pipeline *plist);
 
 /*	ids.c	*/
-void	addid(t_ids *ids, int pid);
-void	wait_ids(t_ids *ids);
+// void	addid(t_ids *ids, int pid);
+// void	wait_ids(t_ids *ids);
 
 #endif

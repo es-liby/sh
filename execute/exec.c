@@ -1,6 +1,6 @@
 #include <minishell.h>
 
-static void	executecmd(t_pipeline *plist, t_pipeline *plist_ptr);
+static void	executecmd(t_pipeline *plist);
 void		close_write_end(int i);
 void		close_read_ends(t_fds *fds);
 
@@ -8,20 +8,19 @@ bool	is_a_directory(char *cmd);
 
 int	execute(t_pipeline *plist)
 {
-	t_pipeline	*plist_ptr;
 	pid_t		pid;
 	int			i;
 	int			status;
 
 	i = 0;
-	plist_ptr = plist;
+	// printplist(plist);
 	while (plist)
 	{
 		pid = ft_fork();
 		if (pid == -1)
 			return (EOF);
 		if (pid == 0)
-			executecmd(plist, plist_ptr);
+			executecmd(plist);
 		close_write_end(i);
 		waitpid(pid, &status, 0);
 		plist = plist->next;
@@ -32,13 +31,11 @@ int	execute(t_pipeline *plist)
 	return (true);
 }
 
-static void	executecmd(t_pipeline *plist, t_pipeline *plist_ptr)
+static void	executecmd(t_pipeline *plist)
 {
 	char	*cmd;
 	char	**args;
-	char	**envp;
 
-	(void)plist_ptr;
 	ft_dup2(plist->in_stream, STDIN_FILENO);
 	ft_dup2(plist->out_stream, STDOUT_FILENO);
 	close_streams(plist);
@@ -51,8 +48,7 @@ static void	executecmd(t_pipeline *plist, t_pipeline *plist_ptr)
 		ft_fprintf(2, "bash: %s: Is a directory\n", cmd);
 		exit(126);
 	}
-	envp = g_gbl.envp;
-	execve(cmd, args, envp);
+	execve(cmd, args, g_gbl.envp);
 	perror("execve");
 	exit(EXIT_FAILURE);
 }
