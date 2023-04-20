@@ -74,6 +74,7 @@ void	handle_signals(void);
 
 /*	envcpy.c	*/
 t_list	*envcpy(char *envp[]);
+char	**get_envp(void);
 
 /*	clear.c	*/
 void	clear_plist(t_pipeline **plist);

@@ -66,8 +66,12 @@ void	close_pipes(void)
 	i = -1;
 	while (++i < fds->n)
 	{
-		ft_close(fds->fds[i][0]);
-		ft_close(fds->fds[i][1]);
+		if (fds->fds[i][0] != -1)
+			ft_close(fds->fds[i][0]);
+		if (fds->fds[i][1] != -1)
+			ft_close(fds->fds[i][1]);
+		fds->fds[i][0] = -1;
+		fds->fds[i][1] = -1;
 	}
 }
 

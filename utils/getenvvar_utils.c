@@ -33,6 +33,8 @@ char	*find_variable(char **ptr)
 	len = 0;
 	if ((*ptr)[len] == '$')
 		len++;
+	if ((*ptr)[len] == '?')
+		return (*ptr += (len + 1), ft_strdup("$?"));
 	while (is_valid_variable_char((*ptr)[len]))
 		len++;
 	variable = ft_substr(*ptr, 0, len);

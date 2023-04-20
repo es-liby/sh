@@ -19,15 +19,19 @@ static void	set_pipe(t_pipeline **plist);
 
 int	set_cmd_and_args(t_pipeline **plist, t_list **tokens)
 {
+	printf("set_cmd_and_args()	-->	(*plist)->cmd\n");
 	if ((*plist)->cmd == NULL)
 	{
 		(*plist)->cmd = ft_strdup((char *)(*tokens)->lexeme);
 		advance(tokens);
 	}
+	printf("set_cmd_and_args()	-->	set_args()\n");
 	if (set_args(plist, tokens) == EOF)
 		return (EOF);
+	printf("set_cmd_and_args()	-->	set_pipes()\n");
 	if (g_gbl.fds != NULL)
 		set_pipe(plist);
+	printf("set_cmd_and_args()	-->	return (true)\n");
 	return (true);
 }
 

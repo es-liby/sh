@@ -7,7 +7,11 @@
 
 /*	exec.c	*/
 int		execute(t_pipeline *plist);
-char	**get_envlist(void);
+
+/*	close_streams.c	*/
+void	close_streams(t_pipeline *plist);
+void	close_write_end(int i);
+void	close_read_ends(t_fds *fds);
 
 /*	search_path.c	*/
 int		search_and_set_path_for_cmds(t_pipeline *plist);

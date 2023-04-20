@@ -42,7 +42,7 @@ search_path.c)
 PARSER_OBJS = $(patsubst parser/%.c,obj/parser/%.o,$(PARSER_SRCS))
  
 #	the source files of execute
-EXEC_SRS = $(addprefix execute/,exec.c ids.c)
+EXEC_SRS = $(addprefix execute/,exec.c ids.c close_streams.c)
 EXEC_OBJS = $(patsubst execute/%.c,obj/execute/%.o,$(EXEC_SRS))
  
 #	the source files of utils

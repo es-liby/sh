@@ -50,6 +50,7 @@ void	prompt(void)
 	stdin_dup = dup(STDIN_FILENO);
 	while (true)
 	{
+		g_gbl.envp = get_envp();
 		handle_signals();
 		if (isatty(STDIN_FILENO) == 0)
 			dup2(stdin_dup, STDIN_FILENO);
@@ -62,7 +63,6 @@ void	prompt(void)
 		}
 		if (*pipeline)
 			add_history(pipeline);
-		g_gbl.sigint = OFF;
 		if (scanner(&tokens, pipeline) == NIL)
 		{
 			free(pipeline);

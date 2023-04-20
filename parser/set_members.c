@@ -27,7 +27,7 @@ int	perform_redirections_and_set_cmds(t_pipeline **plist, t_list **tokens)
 	{
 		new = new_plist();
 		if (set_iostreams_and_cmds(&new, tokens) == EOF)
-			return (close_pipes(g_gbl.fds), clear_plist(&new), EOF);
+			return (close_pipes(), clear_plist(&new), EOF);
 		addback(plist, new);
 		if (g_gbl.fds)
 			g_gbl.fds->pipe_counter++;
@@ -75,7 +75,7 @@ static bool	go_to_next_cmd(t_list **tokens)
 	if (peek_type(*tokens) == PIPE)
 	{
 		if (pipeline_not_completed((*tokens)->next))
-			return (complete_pipeline(tokens));
+			return (complete_pipeline(&(*tokens)->prev));
 		advance(tokens);
 	}
 	return (true);

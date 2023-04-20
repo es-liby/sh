@@ -5,29 +5,31 @@ static char	*getpath(char *cmd);
 static bool	path_entry_is_found(t_list *envlist);
 static char	*get_path_for_cmd(char **path, char *cmd);
 
+int	is_a_path_or_a_directory(char *cmd);
+int	is_a_path(char *cmd);
+
 int	search_and_set_path_for_cmds(t_pipeline *plist)
 {
 	char	*cmd_path;
-	int		ret_val;
 
-	while (plist)
-	{
-		ret_val = is_a_directory(plist->cmd);
-		if (ret_val == EOF)
-			return (EOF);
-		if (ret_val == true)
-		{
-			plist = plist->next;
-			continue ;
-		}
-		cmd_path = getpath(plist->cmd);
-		if (cmd_path == NULL)
-			return (EOF);
-		free(plist->cmd);
-		plist->cmd = cmd_path;
-		plist = plist->next;
-	}
+	if (is_a_path_or_a_directory(plist->cmd))
+		return (true);
+	cmd_path = getpath(plist->cmd);
+	if (cmd_path == NULL)
+		return (EOF);
+	free(plist->cmd);
+	plist->cmd = cmd_path;
 	return (true);
+}
+
+int	is_a_path_or_a_directory(char *cmd)
+{
+	return (is_a_path(cmd) || is_a_directory(cmd));
+}
+
+int	is_a_path(char *cmd)
+{
+	return (*cmd == '.' || *cmd == '/');
 }
 
 static int	is_a_directory(char *cmd)
@@ -35,7 +37,7 @@ static int	is_a_directory(char *cmd)
 	struct stat	statbuf;
 
 	if (stat(cmd, &statbuf) == -1)
-		return (EOF);
+		return (false);
 	if ((statbuf.st_mode & __S_IFMT) == __S_IFDIR)
 		return (true);
 	return (false);

@@ -27,6 +27,7 @@ typedef struct s_global
 {
 	int				exit_status;
 	t_list			*envlist;
+	char			**envp;
 	t_fds			*fds;
 	char			*heredoc_file;
 	unsigned int	sigint : 1;

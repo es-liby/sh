@@ -28,6 +28,7 @@ int	readlines_from_heredoc_prompt(t_pipeline **plist, t_list **tokens)
 	if (file == NULL)
 		return (EOF);
 	expanded = label_is_quoted((char *)(*tokens)->lexeme);
+	printf("read_and_write()\n");
 	if (read_and_write_line_to_heredoc_file(*tokens, fd, expanded) == EOF)
 		return (EOF);
 	ft_close(fd);
@@ -38,6 +39,7 @@ int	readlines_from_heredoc_prompt(t_pipeline **plist, t_list **tokens)
 	advance(tokens);
 	if (is_redir_token(*tokens))
 		return (set_input_and_output_streams(plist, tokens));
+	printf("-----\n");
 	return (true);
 }
 
