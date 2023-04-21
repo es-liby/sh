@@ -27,4 +27,16 @@ typedef enum e_tokentype
 	NIL
 }	t_tokentype;
 
+typedef enum	e_builtin
+{
+	ECHO,
+	CD,
+	PWD,
+	EXPORT,
+	UNSET,
+	ENV,
+	EXIT,
+	NONE
+}	t_builtin;
+
 #endif

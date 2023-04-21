@@ -49,7 +49,7 @@ static char	*getpath(char *cmd)
 	char	**path;
 	char	*cmd_path;
 
-	envlist = g_gbl.env;
+	envlist = g_gbl.envlist;
 	while (envlist)
 	{
 		if (path_entry_is_found(envlist))

@@ -19,7 +19,7 @@ static char	*find_value(const char *envvar)
 {
 	t_env	*tmp_ptr;
 
-	tmp_ptr = g_gbl.env;
+	tmp_ptr = g_gbl.envlist;
 	while (tmp_ptr)
 	{
 		if (ft_strcmp(envvar, tmp_ptr->key) == 0)

@@ -33,7 +33,7 @@ typedef struct s_env
 typedef struct s_global
 {
 	int				exit_status;
-	t_env			*env;
+	t_env			*envlist;
 	char			**envp;
 	t_fds			*fds;
 	char			*heredoc_file;

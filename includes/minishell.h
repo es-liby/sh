@@ -75,9 +75,8 @@ void	handle_signals(void);
 
 /*	envcpy.c	*/
 t_env	*envcpy(char *envp[]);
+void	add_envvar(t_env **env, char *key, char *value);
 char	**get_envp(void);
-
-t_list	*env_cpy(char *envp[]);
 
 /*	key_value.c	*/
 char	*getkey(char *envp);

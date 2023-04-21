@@ -71,7 +71,7 @@ void	printenvvar(void)
 {
 	t_env	*env_ptr;
 
-	env_ptr = g_gbl.env;
+	env_ptr = g_gbl.envlist;
 	while (env_ptr)
 	{
 		printf("%s=%s\n", env_ptr->key, env_ptr->value);

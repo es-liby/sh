@@ -13,7 +13,6 @@ int	execute(t_pipeline *plist)
 	int			status;
 
 	i = 0;
-	// printplist(plist);
 	while (plist)
 	{
 		pid = ft_fork();
@@ -33,12 +32,16 @@ int	execute(t_pipeline *plist)
 
 static void	executecmd(t_pipeline *plist)
 {
-	char	*cmd;
-	char	**args;
+	char		*cmd;
+	char		**args;
+	t_builtin	cmdtype;
 
 	ft_dup2(plist->in_stream, STDIN_FILENO);
 	ft_dup2(plist->out_stream, STDOUT_FILENO);
 	close_streams(plist);
+	cmdtype = is_a_builtin_cmd(plist->cmd);
+	if (cmdtype != NONE)
+		execute_builtin_cmd(plist->args, cmdtype);
 	if (search_and_set_path_for_cmds(plist) == EOF)
 		exit(EXIT_FAILURE);
 	cmd = plist->cmd;
@@ -65,4 +68,9 @@ bool	is_a_directory(char *cmd)
 	if ((statbuf.st_mode & S_IFMT) == S_IFDIR)
 		return (true);
 	return (false);
+}
+
+void	error(char *msg)
+{
+	ft_fprintf(2, "%s\n", msg);
 }
