@@ -28,34 +28,27 @@ int	ft_open(char *file, int flags)
 	return (fd);
 }
 
-void	ft_dup2(int fd1, int fd2)
+int	ft_dup2(int fd1, int fd2)
 {
 	if (dup2(fd1, fd2) == -1)
-	{
-		perror("dup2");
-		ft_fprintf(2, "in: %d, out: %d\n", fd1, fd2);
-		exit(EXIT_FAILURE);
-	}
+		return (perror("bash: dup2"), EOF);
+	return (true);
 }
 
-void	ft_pipe(int *fd)
+int	ft_pipe(int *fd)
 {
 	if (pipe(fd) == -1)
-	{
-		perror("pipe");
-		exit(EXIT_FAILURE);
-	}
+		return (perror("bash: pipe"), EOF);
+	return (true);
 }
 
-void	ft_close(int fd)
+int	ft_close(int fd)
 {
 	if (fd == -1)
-		return ;
+		return (true);
 	if (close(fd) == -1)
-	{
-		perror("close");
-		exit(EXIT_FAILURE);
-	}
+		return (perror("bash: close"), EOF);
+	return (true);
 }
 
 int	ft_fork(void)
@@ -64,9 +57,6 @@ int	ft_fork(void)
 
 	pid = fork();
 	if (pid == -1)
-	{
-		perror("fork");
-		exit(EXIT_FAILURE);
-	}
+		perror("bash: fork");
 	return (pid);
 }

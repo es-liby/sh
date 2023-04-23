@@ -45,7 +45,8 @@ BUILTINS = $(addprefix builtins/,cd_pwd.c echo.c env.c exit.c export_utils.c exp
 unset.c)
  
 #	the source files of execute
-EXEC_SRS = $(addprefix execute/,exec.c exec_builtin.c close_streams.c $(BUILTINS))
+EXEC_SRS = $(addprefix execute/,exec.c exec_builtin.c close_streams.c \
+dup_streams.c $(BUILTINS))
 EXEC_OBJS = $(patsubst execute/%.c,obj/execute/%.o,$(EXEC_SRS))
  
 #	the source files of utils

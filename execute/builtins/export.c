@@ -3,6 +3,7 @@
 static int	display_exported_variables(void);
 static int	export_new_envvar(char *new_envvar);
 static bool	is_not_a_valid_envvar(char *envvar);
+static void	invalid_identifier(char *identifier);
 
 int	exportcmd(char **args)
 {
@@ -26,6 +27,11 @@ static int	display_exported_variables(void)
 	envlist = g_gbl.envlist;
 	while (envlist)
 	{
+		if (ft_strcmp(envlist->key, "_") == 0)
+		{
+			envlist = envlist->next;
+			continue ;
+		}
 		printf("declare -x %s", envlist->key);
 		if (envlist->key != NULL)
 			printf("=\"%s\"", envlist->value);
@@ -51,7 +57,7 @@ static int	export_new_envvar(char *new_envvar)
 	if (set_value_of_new_envvar(new_envvar, &value, len) == ADD)
 		add_new_envvar(new_envvar, key, value);
 	else
-		join_new_envvar(new_envvar, key, value);
+		join_new_envvar(key, value);
 	return (true);
 }
 
@@ -60,24 +66,20 @@ static bool	is_not_a_valid_envvar(char *envvar)
 	int	i;
 
 	if (!ft_isalpha(envvar[0]))
-	{
-		ft_fprintf(2, "bash: export: `%s': not a valid identifier", envvar);
-		return (true);
-	}
+		return (invalid_identifier(envvar), true);
 	i = 1;
 	while (envvar[i] && envvar[i] != '=')
 	{
 		if (!ft_isalnum(envvar[i]) && envvar[i] != '_' && envvar[i] != '+')
-		{
-			ft_fprintf(2, "bash: export: `%s': not a valid identifier", envvar);
-			return (true);
-		}
+			return (invalid_identifier(envvar), true);
 		if (envvar[i] == '+' && envvar[i + 1] != '=')
-		{
-			ft_fprintf(2, "bash: export: `%s': not a valid identifier", envvar);
-			return (true);
-		}
+			return (invalid_identifier(envvar), true);
 		i++;
 	}
 	return (false);
+}
+
+static void	invalid_identifier(char *identifier)
+{
+	ft_fprintf(2, "bash: export: `%s': not a valid identifier\n", identifier);
 }

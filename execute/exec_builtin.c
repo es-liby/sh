@@ -2,14 +2,24 @@
 
 static void	fill_cmd_funcs(int (*cmd_funcs[7])(char **));
 
-void	execute_builtin_cmd(char **args, t_builtin cmdtype)
+int	execute_builtin_cmd(t_pipeline *plist, t_builtin cmdtype)
 {
 	int		(*cmd_funcs[7])(char **);
+	int		stdin_dup;
+	int		stdout_dup;
 
+	if (dup_streams(plist, &stdin_dup, &stdout_dup) == EOF)
+		return (EOF);
 	fill_cmd_funcs(cmd_funcs);
-	if ((cmd_funcs[cmdtype])(args + 1) == EOF)
-		exit(g_gbl.exit_status);
-	exit(EXIT_SUCCESS);
+	if ((cmd_funcs[cmdtype])((plist->args) + 1) == EOF)
+	{
+		ft_dup2(stdin_dup, STDIN_FILENO);
+		ft_dup2(stdout_dup, STDOUT_FILENO);
+		return (EOF);
+	}
+	if (getback_io_streams(plist, stdin_dup, stdout_dup) == EOF)
+		return (EOF);
+	return (true);
 }
 
 static void	fill_cmd_funcs(int (*cmd_funcs[7])(char **))

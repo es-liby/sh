@@ -4,7 +4,15 @@ int	cdcmd(char **args)
 {
 	if (args[1] != NULL)
 		return (error("bash: cd: too many arguments\n"), EOF);
-	if (chdir(args[0]) == -1)
+	if (args[0] == NULL)
+	{
+		if (chdir(getenv("HOME")) == -1)
+		{
+			ft_fprintf(2, "bash: %s: %s\n", args[0], strerror(errno));
+			return (EOF);
+		}
+	}
+	else if (chdir(args[0]) == -1)
 	{
 		ft_fprintf(2, "bash: %s: %s\n", args[0], strerror(errno));
 		return (EOF);

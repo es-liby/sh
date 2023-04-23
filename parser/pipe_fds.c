@@ -27,7 +27,8 @@ t_fds	*count_and_open_pipes(t_list *tokens)
 		advance(&tokens);
 	}
 	fds = alloc_fds_of_pipe(n);
-	open_pipes(fds->fds, n);
+	if (open_pipes(fds->fds, n) == EOF)
+		return (clear_pipes(fds), NULL);
 	return (fds);
 }
 
@@ -46,41 +47,46 @@ static t_fds	*alloc_fds_of_pipe(int n)
 	return (fds);
 }
 
-void	open_pipes(int **fds, int n)
+int	open_pipes(int **fds, int n)
 {
 	int	i;
 
 	i = -1;
 	while (++i < n)
-		ft_pipe(fds[i]);
+	{
+		if (ft_pipe(fds[i]) == EOF)
+			return (EOF);
+	}
+	return (true);
 }
 
-void	close_pipes(void)
+int	close_pipes(void)
 {
 	t_fds	*fds;
 	int		i;
 
 	fds = g_gbl.fds;
 	if (fds == NULL)
-		return ;
+		return (true);
 	i = -1;
 	while (++i < fds->n)
 	{
 		if (fds->fds[i][0] != -1)
-			ft_close(fds->fds[i][0]);
+			if (ft_close(fds->fds[i][0]) == EOF)
+				return (EOF);
 		if (fds->fds[i][1] != -1)
-			ft_close(fds->fds[i][1]);
+			if (ft_close(fds->fds[i][1]) == EOF)
+				return (EOF);
 		fds->fds[i][0] = -1;
 		fds->fds[i][1] = -1;
 	}
+	return (true);
 }
 
-void	clear_pipes(void)
+void	clear_pipes(t_fds *fds)
 {
-	t_fds	*fds;
 	int		i;
 
-	fds = g_gbl.fds;
 	if (fds == NULL)
 		return ;
 	i = -1;

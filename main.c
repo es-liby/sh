@@ -28,19 +28,19 @@ int	main(int argc, char *argv[], char *envp[])
 		ft_fprintf(2, "Usage: ./minishell\n");
 		exit(EXIT_FAILURE);
 	}
-	g_gbl.envlist = envcpy(envp);
+	// g_gbl.envlist = envcpy(envp);
 	g_gbl.exit_status = 0;
 	g_gbl.fds = NULL;
 	g_gbl.heredoc_file = NULL;
 	if (isatty(0) == 0)
 		exit(EXIT_FAILURE);
-	prompt();
+	prompt(envp);
 	unlink_heredoc_file();
 	// ft_lstclear(&g_gbl.envlist, free);
 	exit(EXIT_SUCCESS);
 }
 
-void	prompt(void)
+void	prompt(char *envp[])
 {
 	t_list		*tokens;
 	t_pipeline	*plist;
@@ -50,6 +50,7 @@ void	prompt(void)
 	stdin_dup = dup(STDIN_FILENO);
 	while (true)
 	{
+		g_gbl.envlist = envcpy(envp);
 		g_gbl.envp = get_envp();
 		handle_signals();
 		if (isatty(STDIN_FILENO) == 0)

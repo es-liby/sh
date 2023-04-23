@@ -63,19 +63,17 @@ int			set_input_and_output_streams(t_pipeline **plist, t_list **tokens);
 
 /*	pipe_fds.c	*/
 t_fds		*count_and_open_pipes(t_list *tokens);
-void		open_pipes(int **fds, int n);
-void		close_pipes(void);
-void		clear_pipes(void);
+int			open_pipes(int **fds, int n);
+int			close_pipes(void);
+void		clear_pipes(t_fds *fds);
 
 /*	perform_redir_io.c	*/
 int			perform_redir_input(t_pipeline **plist, t_list **tokens);
 int			perform_redir_output(t_pipeline **plist, t_list **tokens);
 int			is_redir_token(t_list *token);
 
+/*	cmd_and_args.c	*/
 int			set_cmd_and_args(t_pipeline **plist, t_list **tokens);
-
-/*	heredoc.c	*/
-int			redir_heredoc(t_pipeline **plist, t_list **tokens);
 
 /*	heredoc_utils.c	*/
 char		*get_sub_sequence_of_heredoc(char **line);

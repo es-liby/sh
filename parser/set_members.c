@@ -22,7 +22,11 @@ int	perform_redirections_and_set_cmds(t_pipeline **plist, t_list **tokens)
 	t_pipeline	*new;
 
 	if (there_is_pipe_token(*tokens))
+	{
 		g_gbl.fds = count_and_open_pipes(*tokens);
+		if (g_gbl.fds == NULL)
+			return (EOF);
+	}
 	while (*tokens)
 	{
 		new = new_plist();

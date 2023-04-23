@@ -43,7 +43,7 @@
 # define CONT 1
 
 /*	main.c	*/
-void	prompt(void);
+void	prompt(char *envp[]);
 void	unlink_heredoc_file(void);
 
 /*	debug.c	*/
@@ -58,9 +58,9 @@ void	advance_pipeline(char **pipeline, int size);
 
 /*	std.c	*/
 int		ft_open(char *file, int flags);
-void	ft_dup2(int fd1, int fd2);
-void	ft_pipe(int *fd);
-void	ft_close(int fd);
+int		ft_dup2(int fd1, int fd2);
+int		ft_pipe(int *fd);
+int		ft_close(int fd);
 int		ft_fork(void);
 
 /*	getenvvar.c	*/

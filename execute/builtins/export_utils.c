@@ -17,7 +17,7 @@ int	set_value_of_new_envvar(char *new_envvar, char **value, size_t len)
 		if (new_envvar[len + 2] == '\0')
 			*value = ft_strdup("\0");
 		else
-			*value = ft_substr(new_envvar, 0, size);
+			*value = ft_substr(new_envvar, len + 2, size);
 		return (JOIN);
 	}
 	size = ft_strlen(new_envvar) - (len + 1);
@@ -25,13 +25,13 @@ int	set_value_of_new_envvar(char *new_envvar, char **value, size_t len)
 	return (ADD);
 }
 
-void	join_new_envvar(char *new_envvar, char *key, char *value)
+void	join_new_envvar(char *key, char *value)
 {
 	t_env	*envlist;
 	char	*new_value;
 
 	new_value = NULL;
-	envlist = variable_already_exists(new_envvar);
+	envlist = variable_already_exists(key);
 	if (envlist != NULL)
 	{
 		free(key);
