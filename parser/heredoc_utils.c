@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 18:03:50 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 17:37:25 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/23 13:54:03 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,23 @@ static char	*get_quote_duplicate_and_advance_line(char **line)
 
 void	writeline_to_heredoc_file_without_expanding(char *line, int fd)
 {
+	if (*line != '\0')
+		ft_fprintf(fd, "%s", line);
+	write(fd, "\n", 1);
+}
+
+char	*remove_quote(char **label)
+{
+	char	*word;
 	size_t	len;
 
-	len = ft_strlen(line);
-	write(fd, line, len);
-	write(fd, "\n", 1);
+	++*label;
+	if (**label == '\0')
+		return (NULL);
+	len = 0;
+	while ((*label)[len] && (*label)[len] != '\'' && (*label)[len] != '"')
+		len++;
+	word = ft_substr(*label, 0, len);
+	*label += len;
+	return (word);
 }

@@ -13,13 +13,11 @@ int	execute_builtin_cmd(t_pipeline *plist, t_builtin cmdtype)
 		return (EOF);
 	fill_cmd_funcs(cmd_funcs);
 	args = plist->args;
-	//printf("builtin:\n");
-	//printplist(plist);
-	//getchar();
 	if ((cmd_funcs[cmdtype])(args + 1) == EOF)
 	{
-		ft_dup2(stdin_dup, STDIN_FILENO);
-		ft_dup2(stdout_dup, STDOUT_FILENO);
+		//ft_dup2(stdin_dup, STDIN_FILENO);
+		//ft_dup2(stdout_dup, STDOUT_FILENO);
+		getback_io_streams(plist, stdin_dup, stdout_dup);
 		return (EOF);
 	}
 	if (getback_io_streams(plist, stdin_dup, stdout_dup) == EOF)

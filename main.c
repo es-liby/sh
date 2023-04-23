@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:43:01 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/23 09:03:46 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/23 12:21:26 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char *argv[], char *envp[])
 		ft_fprintf(2, "Usage: ./minishell\n");
 		exit(EXIT_FAILURE);
 	}
-	g_gbl.envlist = envcpy(envp);
+	//g_gbl.envlist = envcpy(envp);
 	g_gbl.exit_status = 0;
 	g_gbl.fds = NULL;
 	g_gbl.heredoc_file = NULL;
@@ -52,7 +52,7 @@ void	prompt(char *envp[])
 	stdin_dup = dup(STDIN_FILENO);
 	while (true)
 	{
-		g_gbl.envp = get_envp();
+		g_gbl.envlist = envcpy(envp);
 		handle_signals();
 		if (isatty(STDIN_FILENO) == 0)
 			dup2(stdin_dup, STDIN_FILENO);
@@ -71,11 +71,14 @@ void	prompt(char *envp[])
 			continue ;
 		}
 		free(pipeline);
+		g_gbl.envp = get_envp();
 		if (parser(&tokens, &plist) != EOF)
 			execute(plist);
+		unlink_heredoc_file();
+		close_pipes();
 		free_tab(g_gbl.envp);
 		// printplist(plist);
-		unlink_heredoc_file();
+		clearenv(g_gbl.envlist);
 		clear_plist(&plist);
 		ft_lstclear(&tokens, free);
 	}

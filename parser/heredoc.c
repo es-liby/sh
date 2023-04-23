@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 01:17:21 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 18:15:22 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/23 12:09:57iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,11 @@ static void	set_heredoc_file(t_pipeline *plist, char *file, int fd)
 
 static bool	label_is_quoted(char *label)
 {
-	return (*label == '\'' || *label == '"');
+	while (*label)
+	{
+		if (*label == '\'' || *label == '"')
+			return (true);
+		++label;
+	}
+	return (false);
 }

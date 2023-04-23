@@ -41,6 +41,7 @@ static int	set_args(t_pipeline **plist, t_list **tokens)
 		ft_lstadd_back(&arglist, ft_lstnew(ft_strdup((*plist)->cmd), WORD));
 		(*plist)->args = split_argslist(arglist);
 		ft_lstclear(&arglist, free);
+		return (true);
 	}
 	else if (peek_type(*tokens) == WORD)
 		args_after_cmd(plist, tokens);
@@ -70,6 +71,7 @@ static int	search_and_set_args(t_pipeline **plist, t_list *tokens)
 	t_list	*argslist;
 
 	argslist = NULL;
+	ft_lstadd_back(&argslist, ft_lstnew(ft_strdup((*plist)->cmd), WORD));
 	while (peek_type(tokens) != NIL && peek_type(tokens) != PIPE)
 	{
 		if (is_redir_token(tokens))

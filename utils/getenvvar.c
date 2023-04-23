@@ -12,7 +12,9 @@ char	*getenvvar_value(const char *envvar)
 	if (*envvar == '\0' || ft_isblank(*envvar))
 		return (ft_strdup("$"));
 	value = find_value(envvar);
-	return (value);
+	if (value == NULL)
+		return (NULL);
+	return (ft_strdup(value));
 }
 
 static char	*find_value(const char *envvar)

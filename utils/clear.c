@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:51:08 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/23 08:31:08 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/23 10:22:36 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	free_tab(char **tab)
 {
 	int	i;
 
+	if (tab == NULL)
+		return ;
 	i = -1;
 	while (tab[++i])
 		free(tab[i]);

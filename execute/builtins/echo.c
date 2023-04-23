@@ -44,6 +44,8 @@ static bool	there_is_n_option(char *arg)
 {
 	int	indx;
 
+	if (arg == NULL)
+		return (false);
 	if (arg[0] == '-' && arg[1] == 'n')
 	{
 		indx = 2;

@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:03:44 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 18:15:40 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/23 11:14:44 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static t_tokentype	tokenfunc(t_tokentype type, char **pipeline, char **lexeme)
 
 static t_tokentype	gettype_of_token(char c)
 {
-	if (c == '\0' || c == '#')
+	if (c == '\0')
 		return (END);
 	if (isredir_opt(c))
 		return (REDIR);

@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 16:58:44 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/18 02:59:58 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/23 13:49:00 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static void	writeline_to_heredoc_file(char *line, int fd, int expanded);
 static bool	is_end_of_heredoc(char *line, char *label);
+static char	*get_orig_delim(char *label);
+static char	*get_delim_word(char **label);
 
 int	read_and_write_line_to_heredoc_file(t_list *tokens, int fd, int expanded)
 {
@@ -51,8 +53,42 @@ static bool	is_end_of_heredoc(char *line, char *label)
 
 	if (*label == '\0')
 		return (false);
-	orig_label = ft_strtrim(label, "'\"");
+	orig_label = get_orig_delim(label);
 	if (!ft_strcmp(line, orig_label))
 		return (free(orig_label), true);
 	return (free(orig_label), false);
+}
+
+static char	*get_orig_delim(char *label)
+{
+	char	*orig_delim;
+	char	*tmp;
+
+	orig_delim = NULL;
+	tmp = NULL;
+	while (*label)
+	{
+		if (*label == '\'' || *label == '"')
+			tmp = remove_quote(&label);
+		else
+			tmp = get_delim_word(&label);
+		if (tmp == NULL)
+			break ;
+		orig_delim = ft_strjoin(orig_delim, tmp);
+		free(tmp);
+	}
+	return (orig_delim);
+}
+
+static char	*get_delim_word(char **label)
+{
+	char	*word;
+	size_t	len;
+
+	len = 0;
+	while ((*label)[len] && (*label)[len] != '\'' && (*label)[len] != '"')
+		len++;
+	word = ft_substr(*label, 0, len);
+	*label += len;
+	return (word);
 }

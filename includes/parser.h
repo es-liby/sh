@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 01:54:35 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/23 09:58:18 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/23 13:47:13 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int			set_cmd_and_args(t_pipeline **plist, t_list **tokens);
 char		*get_sub_sequence_of_heredoc(char **line);
 void		writeline_to_heredoc_file_without_expanding(char *line, int fd);
 void		writeline_to_heredoc_file_with_expanding(char *line, int fd);
+char		*remove_quote(char **label);
 
 /*	readlines_heredoc.c	*/
 int			read_and_write_line_to_heredoc_file(t_list *tokens, int fd,

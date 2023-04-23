@@ -11,6 +11,9 @@ int	execute(t_pipeline *plist)
 	t_builtin	cmdtype;
 
 	i = 0;
+	//printplist(plist);
+	if (plist->cmd == NULL)
+		return (true);
 	while (plist)
 	{
 		cmdtype = is_a_builtin_cmd(plist->cmd);

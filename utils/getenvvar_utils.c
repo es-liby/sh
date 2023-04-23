@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:47:19 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 17:50:01 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/23 10:02:48 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ char	*find_variable_and_get_value(char **ptr)
 	char	*value;
 
 	variable = find_variable(ptr);
+	if (variable == NULL)
+		return (NULL);
 	value = getenvvar_value(variable);
 	free(variable);
 	return (value);

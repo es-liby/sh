@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 18:01:27 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 18:01:28 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/23 11:17:11 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ int	close_pipes(void)
 		fds->fds[i][0] = -1;
 		fds->fds[i][1] = -1;
 	}
+	clear_pipes(fds);
 	return (true);
 }
 
