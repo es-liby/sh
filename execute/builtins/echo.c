@@ -6,8 +6,15 @@ static bool	there_is_n_option(char *arg);
 
 int	echocmd(char **args)
 {
-	if (there_is_n_option(args[0]))
-		print_args_without_newline_at_end(args + 1);
+	int	i;
+
+	i = -1;
+	if (there_is_n_option(args[++i]) == true)
+	{
+		while (there_is_n_option(args[++i]))
+			;
+		print_args_without_newline_at_end(args + i);
+	}
 	else
 		print_args_with_newline_at_end(args);
 	return (true);

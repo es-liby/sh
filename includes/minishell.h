@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:43:43 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/23 08:29:09 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/23 17:16:49 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # define CONT 1
 
 /*	main.c	*/
-void	prompt(char *envp[]);
+void	prompt(void);
 void	unlink_heredoc_file(void);
 
 /*	debug.c	*/

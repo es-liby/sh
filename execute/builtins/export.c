@@ -33,7 +33,7 @@ static int	display_exported_variables(void)
 			continue ;
 		}
 		printf("declare -x %s", envlist->key);
-		if (envlist->key != NULL)
+		if (envlist->value != NULL)
 			printf("=\"%s\"", envlist->value);
 		printf("\n");
 		envlist = envlist->next;

@@ -33,6 +33,7 @@ int	execute(t_pipeline *plist)
 		if (close_write_end(i) == EOF)
 			return (EOF);
 		waitpid(pid, &status, 0);
+		update_exit_status(status);
 		plist = plist->next;
 		i++;
 	}
@@ -82,4 +83,12 @@ static bool	is_a_directory(char *cmd)
 void	error(char *msg)
 {
 	ft_fprintf(2, "%s\n", msg);
+}
+
+void	update_exit_status(int status)
+{
+	if (WIFEXITED(status))
+		g_gbl.exit_status = WEXITSTATUS(status);
+	else if (WIFSIGNALED(status))
+		g_gbl.exit_status = WTERMSIG(status);
 }

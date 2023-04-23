@@ -11,6 +11,7 @@
 /*	exec.c	*/
 int			execute(t_pipeline *plist);
 void		error(char *msg);
+void		update_exit_status(int status);
 
 /*	close_streams.c	*/
 int			close_streams(t_pipeline *plist);

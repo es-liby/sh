@@ -20,7 +20,10 @@ static void	display_current_environment(void)
 	envlist = g_gbl.envlist;
 	while (envlist)
 	{
-		printf("%s=%s\n", envlist->key, envlist->value);
+		ft_fprintf(1, "%s", envlist->key);
+		if (envlist->value != NULL)
+			ft_fprintf(1, "=%s", envlist->value);
+		ft_fprintf(1, "\n");
 		envlist = envlist->next;
 	}
 }

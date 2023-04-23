@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:31:37 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/23 11:51:11 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/23 15:39:19 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,17 @@ void	handle_signals(void)
 static void	sigint_handler(int sig)
 {
 	(void)sig;
-	//if (waitpid(-1, NULL, WNOHANG) == 0) 
-	//{
-	//	return ;
-	//}
-	//else 
-	//{
-		//write(1, "\n", 1);
+	if (waitpid(-1, NULL, WNOHANG) != -1) 
+		return ;
+	else 
+	{
+		write(1, "\n", 1);
 		rl_on_new_line();
 		rl_replace_line("", STDIN_FILENO);
-		//rl_redisplay();
-		close(STDIN_FILENO);
-		g_gbl.exit_status = 1;
-	//}
+		rl_redisplay();
+		//g_gbl.exit_status = 1;
+		update_exit_status(1);
+	}
 }
 
 void	handle_signals_for_heredoc(void)
@@ -56,6 +54,7 @@ static void	sigint_handler_for_heredoc(int sig)
 	rl_on_new_line();
 	rl_replace_line("", STDIN_FILENO);
 	close(STDIN_FILENO);
-	g_gbl.exit_status = 1;
+	//g_gbl.exit_status = 1;
 	g_gbl.sigint = ON;
+	update_exit_status(1);
 }
