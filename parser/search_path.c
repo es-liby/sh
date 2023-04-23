@@ -38,7 +38,7 @@ static int	is_a_directory(char *cmd)
 
 	if (stat(cmd, &statbuf) == -1)
 		return (false);
-	if ((statbuf.st_mode & __S_IFMT) == __S_IFDIR)
+	if ((statbuf.st_mode & S_IFMT) == S_IFDIR)
 		return (true);
 	return (false);
 }

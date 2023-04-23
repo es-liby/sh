@@ -2,8 +2,6 @@
 
 int	cdcmd(char **args)
 {
-	if (args[1] != NULL)
-		return (error("bash: cd: too many arguments\n"), EOF);
 	if (args[0] == NULL)
 	{
 		if (chdir(getenv("HOME")) == -1)

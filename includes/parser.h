@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 01:54:35 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/18 11:57:37 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/23 09:58:18 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ int			set_cmd_and_args(t_pipeline **plist, t_list **tokens);
 int			set_input_and_output_streams(t_pipeline **plist, t_list **tokens);
 
 /*	split_args.c	*/
-char	**split_args(char *args);
+//char	**split_args(char *args);
+char	**split_argslist(t_list *arglist);
 
 /*	io_streams.c	*/
 int			set_input_and_output_streams(t_pipeline **plist, t_list **tokens);

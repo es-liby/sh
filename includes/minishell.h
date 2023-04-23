@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:43:43 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 18:18:10 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/23 08:29:09 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ char	*join_key_and_value(t_env *env_ptr);
 
 /*	clear.c	*/
 void	clear_plist(t_pipeline **plist);
+void	clear_gbl(void);
+void	clearenv(t_env *envlist);
 void	free_tab(char **tab);
 
 

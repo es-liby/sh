@@ -6,78 +6,96 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 11:42:29 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/18 12:19:29 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/23 09:59:27 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static char		*get_arg_word(char **args);
-static size_t	getlen(char *args);
-static void		skip_white_space(char **args);
+//static char		*get_arg_word(char **args);
+//static size_t	getlen(char *args);
+//static void		skip_white_space(char **args);
 
-char	**split_args(char *args)
+char	**split_argslist(t_list *argslist)
 {
 	char	**args_sp;
 	size_t	size;
 	size_t	indx;
 
-	size = getlen(args);
-	args_sp = ft_calloc(size + 1, sizeof(char *));
+	size = ft_lstsize(argslist) + 1;
+	args_sp = ft_calloc(size, sizeof(char *));
 	indx = 0;
-	while (*args)
+	while (argslist)
 	{
-		if (*args == ' ')
-		{
-			args_sp[indx] = ft_strdup(" ");
-			args++;
-		}
-		else
-			args_sp[indx] = get_arg_word(&args);
-		skip_white_space(&args);
-		indx++;
+		args_sp[indx++] = ft_strdup((char *)argslist->lexeme);
+		advance(&argslist);
 	}
 	args_sp[indx] = NULL;
 	return (args_sp);
 }
 
-static char	*get_arg_word(char **args)
-{
-	char	*word;
-	size_t	len;
+//char	**split_args(char *args)
+//{
+//	char	**args_sp;
+//	size_t	size;
+//	size_t	indx;
 
-	len = 0;
-	while ((*args)[len] && !ft_isblank((*args)[len]))
-		len++;
-	word = ft_substr(*args, 0, len);
-	*args += len;
-	return (word);
-}
+//	size = getlen(args);
+//	args_sp = ft_calloc(size + 1, sizeof(char *));
+//	indx = 0;
+//	while (*args)
+//	{
+//		if (*args == ' ')
+//		{
+//			args_sp[indx] = ft_strdup(" ");
+//			args++;
+//		}
+//		else
+//			args_sp[indx] = get_arg_word(&args);
+//		skip_white_space(&args);
+//		indx++;
+//	}
+//	args_sp[indx] = NULL;
+//	return (args_sp);
+//}
 
-static size_t	getlen(char *args)
-{
-	size_t	size;
+//static char	*get_arg_word(char **args)
+//{
+//	char	*word;
+//	size_t	len;
 
-	size = 0;
-	while (*args)
-	{
-		if (ft_isblank(*args))
-		{
-			size++;
-			args++;
-			continue ;
-		}
-		while (*args && !ft_isblank(*args))
-			args++;
-		size++;
-		if (ft_isblank(*args))
-			args++;
-	}
-	return (size);
-}
+//	len = 0;
+//	while ((*args)[len] && !ft_isblank((*args)[len]))
+//		len++;
+//	word = ft_substr(*args, 0, len);
+//	*args += len;
+//	return (word);
+//}
 
-static void	skip_white_space(char **args)
-{
-	if (ft_isblank(**args))
-		++*args;
-}
+//static size_t	getlen(char *args)
+//{
+//	size_t	size;
+
+//	size = 0;
+//	while (*args)
+//	{
+//		if (ft_isblank(*args))
+//		{
+//			size++;
+//			args++;
+//			continue ;
+//		}
+//		while (*args && !ft_isblank(*args))
+//			args++;
+//		size++;
+//		if (ft_isblank(*args))
+//			args++;
+//	}
+//	return (size);
+//}
+
+//static void	skip_white_space(char **args)
+//{
+//	if (ft_isblank(**args))
+//		++*args;
+//}

@@ -1,7 +1,7 @@
 #include <minishell.h>
 
 static void		update_existed_variable(t_env *envlist, char *value);
-static t_env	*variable_already_exists(char *variable);
+static t_env	*key_already_exists(char *variable);
 
 int	set_value_of_new_envvar(char *new_envvar, char **value, size_t len)
 {
@@ -31,7 +31,7 @@ void	join_new_envvar(char *key, char *value)
 	char	*new_value;
 
 	new_value = NULL;
-	envlist = variable_already_exists(key);
+	envlist = key_already_exists(key);
 	if (envlist != NULL)
 	{
 		free(key);
@@ -47,7 +47,8 @@ void	add_new_envvar(char *new_envvar, char *key, char *value)
 {
 	t_env	*envlist;
 
-	envlist = variable_already_exists(new_envvar);
+	(void)new_envvar;
+	envlist = key_already_exists(key);
 	if (envlist != NULL)
 		update_existed_variable(envlist, value);
 	else
@@ -58,10 +59,11 @@ static void	update_existed_variable(t_env *envlist, char *value)
 {
 	if (value == NULL)
 		return ;
+	free(envlist->value);
 	envlist->value = value;
 }
 
-static t_env	*variable_already_exists(char *variable)
+static t_env	*key_already_exists(char *variable)
 {
 	t_env	*envlist;
 

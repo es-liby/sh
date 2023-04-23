@@ -16,6 +16,7 @@ void		error(char *msg);
 int			close_streams(t_pipeline *plist);
 int			close_write_end(int i);
 int			close_read_ends(t_fds *fds);
+bool		is_not_pipe_fd(int fd);
 
 /*	search_path.c	*/
 int			search_and_set_path_for_cmds(t_pipeline *plist);

@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 18:16:11 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/18 12:19:26 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/23 09:18:44 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	print_args(char **args)
 	i = 0;
 	while (args[i])
 	{
-		printf("%s ", args[i]);
+		printf("*%s* ", args[i]);
 		i++;
 	}
 	printf("\n");

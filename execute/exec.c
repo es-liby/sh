@@ -19,8 +19,7 @@ int	execute(t_pipeline *plist)
 			if (execute_builtin_cmd(plist, cmdtype) == EOF)
 				return (EOF);
 			plist = plist->next;
-			// if (close_write_end(i) == EOF)
-			// 	return (EOF);
+			i++;
 			continue ;
 		}
 		pid = ft_fork();

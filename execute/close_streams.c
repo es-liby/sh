@@ -1,7 +1,5 @@
 #include <minishell.h>
 
-static bool	is_not_pipe_fd(int fd);
-
 int	close_write_end(int i)
 {
 	if (g_gbl.fds == NULL)
@@ -53,7 +51,7 @@ int	close_streams(t_pipeline *plist)
 	return (close_pipes());
 }
 
-static bool	is_not_pipe_fd(int fd)
+bool	is_not_pipe_fd(int fd)
 {
 	t_fds	*fds;
 	int		i;

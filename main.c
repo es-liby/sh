@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:43:01 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/18 12:13:24 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/23 09:03:46 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char *argv[], char *envp[])
 		ft_fprintf(2, "Usage: ./minishell\n");
 		exit(EXIT_FAILURE);
 	}
-	// g_gbl.envlist = envcpy(envp);
+	g_gbl.envlist = envcpy(envp);
 	g_gbl.exit_status = 0;
 	g_gbl.fds = NULL;
 	g_gbl.heredoc_file = NULL;
@@ -36,6 +36,7 @@ int	main(int argc, char *argv[], char *envp[])
 		exit(EXIT_FAILURE);
 	prompt(envp);
 	unlink_heredoc_file();
+	clearenv(g_gbl.envlist);
 	// ft_lstclear(&g_gbl.envlist, free);
 	exit(EXIT_SUCCESS);
 }
@@ -47,10 +48,10 @@ void	prompt(char *envp[])
 	char		*pipeline;
 	int			stdin_dup;
 
+	(void)envp;
 	stdin_dup = dup(STDIN_FILENO);
 	while (true)
 	{
-		g_gbl.envlist = envcpy(envp);
 		g_gbl.envp = get_envp();
 		handle_signals();
 		if (isatty(STDIN_FILENO) == 0)
@@ -72,6 +73,7 @@ void	prompt(char *envp[])
 		free(pipeline);
 		if (parser(&tokens, &plist) != EOF)
 			execute(plist);
+		free_tab(g_gbl.envp);
 		// printplist(plist);
 		unlink_heredoc_file();
 		clear_plist(&plist);

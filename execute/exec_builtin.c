@@ -7,11 +7,16 @@ int	execute_builtin_cmd(t_pipeline *plist, t_builtin cmdtype)
 	int		(*cmd_funcs[7])(char **);
 	int		stdin_dup;
 	int		stdout_dup;
+	char	**args;
 
 	if (dup_streams(plist, &stdin_dup, &stdout_dup) == EOF)
 		return (EOF);
 	fill_cmd_funcs(cmd_funcs);
-	if ((cmd_funcs[cmdtype])((plist->args) + 1) == EOF)
+	args = plist->args;
+	//printf("builtin:\n");
+	//printplist(plist);
+	//getchar();
+	if ((cmd_funcs[cmdtype])(args + 1) == EOF)
 	{
 		ft_dup2(stdin_dup, STDIN_FILENO);
 		ft_dup2(stdout_dup, STDOUT_FILENO);

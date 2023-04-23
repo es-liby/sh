@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 18:14:53 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/18 12:05:52 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/23 09:29:32by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,16 @@ int	set_cmd_and_args(t_pipeline **plist, t_list **tokens)
 
 static int	set_args(t_pipeline **plist, t_list **tokens)
 {
-	if (peek_type(*tokens) == WORD)
+	t_list	*arglist;
+
+	arglist = NULL;
+	if (peek_type(*tokens) == NIL)
+	{
+		ft_lstadd_back(&arglist, ft_lstnew(ft_strdup((*plist)->cmd), WORD));
+		(*plist)->args = split_argslist(arglist);
+		ft_lstclear(&arglist, free);
+	}
+	else if (peek_type(*tokens) == WORD)
 		args_after_cmd(plist, tokens);
 	else if (search_and_set_args(plist, *tokens) == EOF)
 		return (EOF);
@@ -42,32 +51,25 @@ static int	set_args(t_pipeline **plist, t_list **tokens)
 
 static void	args_after_cmd(t_pipeline **plist, t_list **tokens)
 {
-	char	*args;
+	t_list	*argslist;
 
-	if (peek_type(*tokens) == NIL)
-	{
-		(*plist)->args = split_args((*plist)->cmd);
-		return ;
-	}
-	args = ft_strdup((*plist)->cmd);
-	args = ft_strjoin(args, " ");
+	argslist = NULL;
+	ft_lstadd_back(&argslist, ft_lstnew(ft_strdup((*plist)->cmd), WORD));
 	while (peek_type(*tokens) == WORD)
 	{
-		args = ft_strjoin(args, (char *)(*tokens)->lexeme);
-		args = ft_strjoin(args, " ");
+		ft_lstadd_back(&argslist, ft_lstnew(ft_strdup((*tokens)->lexeme), WORD));
 		advance(tokens);
 	}
-	if (args != NULL)
-		(*plist)->args = split_args(args);
-	free(args);
+	if (argslist != NULL)
+		(*plist)->args = split_argslist(argslist);
+	ft_lstclear(&argslist, free);
 }
 
 static int	search_and_set_args(t_pipeline **plist, t_list *tokens)
 {
-	char	*args;
+	t_list	*argslist;
 
-	args = ft_strdup((*plist)->cmd);
-	args = ft_strjoin(args, " ");
+	argslist = NULL;
 	while (peek_type(tokens) != NIL && peek_type(tokens) != PIPE)
 	{
 		if (is_redir_token(tokens))
@@ -77,13 +79,12 @@ static int	search_and_set_args(t_pipeline **plist, t_list *tokens)
 				return (syn_err(tokens), EOF);
 			continue ;
 		}
-		args = ft_strjoin(args, (char *)tokens->lexeme);
-		args = ft_strjoin(args, " ");
+		ft_lstadd_back(&argslist, ft_lstnew(ft_strdup((*plist)->cmd), WORD));
 		advance(&tokens);
 	}
-	if (args != NULL)
-		(*plist)->args = split_args(args);
-	free(args);
+	if (argslist != NULL)
+		(*plist)->args = split_argslist(argslist);
+	ft_lstclear(&argslist, free);
 	return (true);
 }
 
