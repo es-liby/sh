@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/07 15:03:44 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/23 17:50:55 by iabkadri         ###   ########.fr       */
+/*   Created: 2023/04/24 14:05:33 by iabkadri          #+#    #+#             */
+/*   Updated: 2023/04/24 14:05:34 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,4 @@ static t_tokentype	gettype_of_token(char c)
 	if (ispipe_opt(c))
 		return (PIPE);
 	return (WORD);
-}
-
-int	operator_not_supported(char c)
-{
-	if (c != '&' && c != ';' && c != '(' && c != ')'
-		&& c != '{' && c != '}' && c != '\\')
-		return (false);
-	ft_fprintf(2, "Operator not supported: %c\n", c);
-	return (true);
 }

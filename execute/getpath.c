@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:05:21 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 12:12:22 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 13:50:32 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,4 +75,15 @@ static char	*dup_and_join(char *path, char *cmd)
 	tmp_ptr = ft_strjoin(tmp_ptr, "/");
 	cmd_path = ft_strjoin(tmp_ptr, cmd);
 	return (cmd_path);
+}
+
+int	is_a_directory(char *cmd)
+{
+	struct stat	statbuf;
+
+	if (stat(cmd, &statbuf) == -1)
+		return (false);
+	if ((statbuf.st_mode & S_IFMT) == S_IFDIR)
+		return (true);
+	return (false);
 }

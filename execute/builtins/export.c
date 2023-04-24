@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 17:27:34 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 10:42:06 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 14:13:38 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	exportcmd(char **args)
 		if (export_new_envvar(args[i]) == EOF)
 			return (EOF);
 	}
+	update_exit_status(0);
 	return (true);
 }
 

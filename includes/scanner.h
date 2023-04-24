@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 18:13:05 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 18:13:34 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 13:54:33 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 
 /*	scanner.c	*/
 int			scanner(t_list **tokens, char *cmdline);
-int			operator_not_supported(char c);
 
 /*	redir_token.c	*/
 t_tokentype	getredir_token(char **pipeline, char **token);

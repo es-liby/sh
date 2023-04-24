@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:00:18 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 12:00:19 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 14:13:28 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ int	cdcmd(char **args)
 		ft_fprintf(2, "bash: %s: %s\n", args[0], strerror(errno));
 		return (EOF);
 	}
+	update_exit_status(0);
 	return (true);
 }
 
@@ -41,5 +42,6 @@ int	pwdcmd(char **args)
 		return (EOF);
 	}
 	ft_fprintf(1, "%s\n", cwdbuf);
+	update_exit_status(0);
 	return (true);
 }

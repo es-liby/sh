@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 01:54:35 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 12:01:15 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 13:46:50 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,6 @@ t_tokentype	peek_previous_type(t_list *token);
 t_pipeline	*new_plist(void);
 t_pipeline	*last_plist(t_pipeline *plist);
 void		addback(t_pipeline **plist, t_pipeline *new);
-
-/*	complete_pipeline.c	*/
-bool		complete_pipeline(t_list **tokens);
-bool		pipeline_not_completed(t_list *token);
 
 /*	expand.c	*/
 int			perform_expand(t_list *tokens);

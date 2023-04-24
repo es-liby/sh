@@ -6,13 +6,12 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:03:45 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 12:06:13 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 13:50:56 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int	is_a_directory(char *cmd);
 int			is_a_path_or_a_directory(char *cmd);
 
 int	search_and_set_path_for_cmds(t_pipeline *plist)
@@ -37,15 +36,4 @@ int	search_and_set_path_for_cmds(t_pipeline *plist)
 int	is_a_path_or_a_directory(char *cmd)
 {
 	return (*cmd == '.' || *cmd == '/' || is_a_directory(cmd));
-}
-
-static int	is_a_directory(char *cmd)
-{
-	struct stat	statbuf;
-
-	if (stat(cmd, &statbuf) == -1)
-		return (false);
-	if ((statbuf.st_mode & S_IFMT) == S_IFDIR)
-		return (true);
-	return (false);
 }

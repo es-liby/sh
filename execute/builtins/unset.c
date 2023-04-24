@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 17:27:43 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/23 17:27:44 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 14:13:40 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	unsetcmd(char **args)
 	i = -1;
 	while (args[++i])
 		unset_envvar(args[i]);
+	update_exit_status(0);
 	return (true);
 }
 

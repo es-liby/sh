@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 07:29:22 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 12:00:55 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 13:50:41 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,10 @@ void		update_exit_status(int status);
 
 /*	search_path.c	*/
 int			search_and_set_path_for_cmds(t_pipeline *plist);
+
+/*	getpath.c	*/
+char		*getpath(char *cmd);
+int			is_a_directory(char *cmd);
 
 /*	builtins.c	*/
 int			cdcmd(char **args);

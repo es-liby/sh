@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 07:22:19 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 08:20:15 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 14:12:51 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	wait_pids_and_update_exit_status(t_ids **ids)
 	t_ids	*ids_ptr;
 	int		status;
 
+	if (*ids == NULL)
+		return ;
 	ids_ptr = *ids;
 	while (ids_ptr)
 	{

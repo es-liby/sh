@@ -36,15 +36,15 @@ SCANNER_OBJS = $(patsubst scanner/%.c,obj/scanner/%.o,$(SCANNER_SRCS))
 #	the source files of the parser
 PARSER_SRCS = $(addprefix parser/,parser.c expand.c quote_sequence.c set_members.c \
 perform_redir_io.c getquote_seq.c cmd_and_args.c heredoc.c io_streams.c pipe_fds.c plist_utils.c \
-complete_pipeline.c heredoc_utils.c readlines_heredoc.c print.c split_args.c \
-search_path.c getpath.c)
+complete_pipeline.c heredoc_utils.c readlines_heredoc.c print.c split_args.c)
 PARSER_OBJS = $(patsubst parser/%.c,obj/parser/%.o,$(PARSER_SRCS))
 
 BUILTINS = $(addprefix builtins/,cd_pwd.c echo.c env.c exit.c export_utils.c export.c \
 unset.c)
  
 #	the source files of execute
-EXEC_SRS = $(addprefix execute/,exec.c exec_builtin.c streams.c ids.c $(BUILTINS))
+EXEC_SRS = $(addprefix execute/,exec.c exec_builtin.c streams.c ids.c \
+search_path.c getpath.c $(BUILTINS))
 EXEC_OBJS = $(patsubst execute/%.c,obj/execute/%.o,$(EXEC_SRS))
  
 #	the source files of utils
