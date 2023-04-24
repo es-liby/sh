@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 07:29:22 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 13:50:41 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 15:32:28 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			exitcmd(char **args);
 int			exportcmd(char **args);
 int			set_value_of_new_envvar(char *new_envvar, char **value, size_t len);
 void		join_new_envvar(char *key, char *value);
-void		add_new_envvar(char *new_envvar, char *key, char *value);
+void		add_new_envvar(char *key, char *value);
 int			unsetcmd(char **args);
 
 /*	exec_builtin.c	*/

@@ -14,8 +14,6 @@ SRCS := get_next_line.c	\
 OBJS = $(addprefix $(OBJ_DIR),$(SRCS:%.c=%.o))
 
 BLUE = $(shell tput -Txterm setaf 6)
-PURPLE = $(shell tput -Txterm setaf 5)
-RED = $(shell tput -Txterm setaf 1)
 RESET = $(shell tput -Txterm sgr0)
 
 BOLD := $(shell tput bold)
@@ -32,7 +30,7 @@ $(NAME): $(OBJS)
 
 $(OBJ_DIR)%.o: %.c $(HEADER)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-	@printf "$(SYMB) $(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
+	@printf "\t$(SYMB) $(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@\n"
 
 clean:
 	$(RM) $(OBJS)

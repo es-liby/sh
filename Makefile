@@ -17,12 +17,14 @@ execute/builtins/ libft/ ft_fprintf/ get_next_line/)
 
 HEADERS = $(addprefix includes/,minishell.h scanner.h parser.h structs.h symbols.h libft.h \
 ft_fprintf.h get_next_line.h execute.h)
-LIBS = $(addprefix $(LIB_DIR),libft.a libftfprintf.a libgnl.a) -L/goinfre/iabkadri/.brew/opt/readline/lib
+LIBS = $(addprefix $(LIB_DIR),libft.a libftfprintf.a libgnl.a)
 
-
-LIBFT_SRCS = $(wildcard $(SRC_DIR)libft/*.c)
-FPRINTF_SRCS = $(wildcard $(SRC_DIR)ft_fprintf/*.c)
-GNL_SRCS = $(wildcard $(SRC_DIR)get_next_line/*.c)
+LIBFT_SRCS = $(addprefix $(SRC_DIR)libft/,ft_calloc.c ft_isdigit.c ft_lstadd_back.c ft_lstlast.c ft_memset.c ft_strdup.c ft_strlcpy.c \
+ft_substr.c ft_atoi.c ft_isalnum.c ft_isspace.c ft_lstclear.c ft_lstnew.c ft_split.c ft_strjoin.c \
+ft_strlen.c ft_bzero.c ft_isalpha.c ft_itoa.c ft_lstdelone.c ft_lstsize.c ft_strcmp.c ft_strlcat.c \
+ft_strncmp.c)
+FPRINTF_SRCS = $(addprefix $(SRC_DIR)ft_fprintf/,ft_fprintf.c handle.c sublibft.c)
+GNL_SRCS = $(addprefix $(SRC_DIR)get_next_line/,get_next_line.c get_next_line_utils.c)
 
 MAIN := main.c
 MAIN_OBJ := $(addprefix $(OBJ_DIR),$(MAIN:%.c=%.o))
@@ -56,8 +58,6 @@ DEPENDENCIES = $(SCANNER_SRCS) $(LIBFT_SRCS) $(FPRINTF_SRCS) $(GNL_SRCS) \
 $(HEADERS)
 
 BLUE = $(shell tput -Txterm setaf 6)
-PURPLE = $(shell tput -Txterm setaf 5)
-RED = $(shell tput -Txterm setaf 1)
 RESET = $(shell tput -Txterm sgr0)
 
 BOLD := $(shell tput bold)
@@ -78,23 +78,23 @@ $(NAME): $(MAIN_OBJ) $(UTILS_OBJS) $(SCANNER_OBJS) $(PARSER_OBJS) $(EXEC_OBJS)
 $(OBJ_DIR)%.o: %.c $(HEADERS)
 	@mkdir -p $(OBJ_DIR) $(LIB_DIR) $(DIRS)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-	@printf "$(SYMB) $(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
+	@printf "\t$(SYMB) $(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@\n"
 
 $(OBJ_DIR)scanner/%.o: scanner/%.c $(HEADERS)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-	@printf "$(SYMB) $(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
+	@printf "\t$(SYMB) $(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@\n"
 
 $(OBJ_DIR)utils/%.o: utils/%.c $(HEADERS)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-	@printf "$(SYMB) $(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
+	@printf "\t$(SYMB) $(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@\n"
 
 $(OBJ_DIR)parser/%.o: parser/%.c $(HEADERS)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-	@printf "$(SYMB) $(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
+	@printf "\t$(SYMB) $(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@\n"
 
 $(OBJ_DIR)execute/%.o: execute/%.c $(HEADERS)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-	@printf "$(SYMB) $(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
+	@printf "\t$(SYMB) $(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@\n"
 
 clean:
 	@$(RM) $(OBJ_DIR) 

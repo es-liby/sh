@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 17:27:34 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 14:13:38 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 15:32:16 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	export_new_envvar(char *new_envvar)
 	key = ft_substr(new_envvar, 0, len);
 	value = NULL;
 	if (set_value_of_new_envvar(new_envvar, &value, len) == ADD)
-		add_new_envvar(new_envvar, key, value);
+		add_new_envvar(key, value);
 	else
 		join_new_envvar(key, value);
 	return (true);
