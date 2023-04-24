@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/24 07:29:22 by iabkadri          #+#    #+#             */
+/*   Updated: 2023/04/24 08:48:58 by iabkadri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef EXECUTE_H
 # define EXECUTE_H
 
@@ -10,14 +22,7 @@
 
 /*	exec.c	*/
 int			execute(t_pipeline *plist);
-void		error(char *msg);
 void		update_exit_status(int status);
-
-/*	close_streams.c	*/
-int			close_streams(t_pipeline *plist);
-int			close_write_end(int i);
-int			close_read_ends(t_fds *fds);
-bool		is_not_pipe_fd(int fd);
 
 /*	search_path.c	*/
 int			search_and_set_path_for_cmds(t_pipeline *plist);
@@ -35,11 +40,16 @@ void		add_new_envvar(char *new_envvar, char *key, char *value);
 int			unsetcmd(char **args);
 
 /*	exec_builtin.c	*/
-int			execute_builtin_cmd(t_pipeline *plist, t_builtin cmdtype);
+void		execute_builtin_cmd(t_pipeline *plist, t_builtin cmdtype);
 t_builtin	is_a_builtin_cmd(char *cmd);
 
-/*	dup_streams.c	*/
-int			dup_streams(t_pipeline *plist, int *stdin_dup, int *stdout_dup);
-int			getback_io_streams(t_pipeline *plist, int stdin_dup, int stdout_dup);
+/*	streams.c	*/
+void		dup_streams(t_pipeline *plist, int *stdin_dup, int *stdout_dup);
+void		getback_io_streams(t_pipeline *plist, int stdin_dup, int stdout_dup);
+int			close_streams(t_pipeline *plist);
+
+/*	ids.c	*/
+void		add_id(t_ids **ids, pid_t pid);
+void		wait_pids_and_update_exit_status(t_ids **ids);
 
 #endif

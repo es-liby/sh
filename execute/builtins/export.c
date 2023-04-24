@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   export.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/23 17:27:34 by iabkadri          #+#    #+#             */
+/*   Updated: 2023/04/24 08:40:30 by iabkadri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 static int	display_exported_variables(void);
@@ -82,4 +94,5 @@ static bool	is_not_a_valid_envvar(char *envvar)
 static void	invalid_identifier(char *identifier)
 {
 	ft_fprintf(2, "bash: export: `%s': not a valid identifier\n", identifier);
+	update_exit_status(1);
 }

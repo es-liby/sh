@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:43:01 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/23 17:16:36 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/23 17:54:18 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,7 @@ void	prompt(void)
 			dup2(stdin_dup, STDIN_FILENO);
 		pipeline = readline("\x1B[33msh$>\x1B[0m ");
 		if (pipeline == NULL)
-		{
-			if (isatty(STDIN_FILENO) == 0)
-				continue ;
 			break ;
-		}
 		if (*pipeline)
 			add_history(pipeline);
 		if (scan_and_parse(pipeline, &tokens, &plist) == EOF)

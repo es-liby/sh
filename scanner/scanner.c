@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:03:44 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/23 11:14:44 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/23 17:50:55 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	scanner(t_list **tokens, char *pipeline)
 	char		*lexeme;
 	t_tokentype	type;
 
+	if (*pipeline == '\0')
+		return (NIL);
 	*tokens = NULL;
 	type = get_next_token(&pipeline, &lexeme);
 	while (type != END && type != NIL)

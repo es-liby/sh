@@ -2,27 +2,18 @@
 
 static void	fill_cmd_funcs(int (*cmd_funcs[7])(char **));
 
-int	execute_builtin_cmd(t_pipeline *plist, t_builtin cmdtype)
+void	execute_builtin_cmd(t_pipeline *plist, t_builtin cmdtype)
 {
 	int		(*cmd_funcs[7])(char **);
 	int		stdin_dup;
 	int		stdout_dup;
 	char	**args;
 
-	if (dup_streams(plist, &stdin_dup, &stdout_dup) == EOF)
-		return (EOF);
+	dup_streams(plist, &stdin_dup, &stdout_dup);
 	fill_cmd_funcs(cmd_funcs);
 	args = plist->args;
-	if ((cmd_funcs[cmdtype])(args + 1) == EOF)
-	{
-		//ft_dup2(stdin_dup, STDIN_FILENO);
-		//ft_dup2(stdout_dup, STDOUT_FILENO);
-		getback_io_streams(plist, stdin_dup, stdout_dup);
-		return (EOF);
-	}
-	if (getback_io_streams(plist, stdin_dup, stdout_dup) == EOF)
-		return (EOF);
-	return (true);
+	(cmd_funcs[cmdtype])(args + 1);
+	getback_io_streams(plist, stdin_dup, stdout_dup);
 }
 
 static void	fill_cmd_funcs(int (*cmd_funcs[7])(char **))

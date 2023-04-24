@@ -33,7 +33,7 @@ static void	exit_with_status_number(char *st_number)
 
 static void	exit_with_last_status_number(void)
 {
-	printf("exit\n");
+	ft_fprintf(1, "exit\n");
 	exit(g_gbl.exit_status);
 }
 

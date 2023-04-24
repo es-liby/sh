@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:43:43 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/23 17:16:49 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/23 17:17:46 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,9 @@
 # include <signal.h>
 
 # define ERROR -1
-# define ALLOC_ERROR 2
-# define SYN_ERROR 3
 
 # define ON 1
 # define OFF 0
-
-# define STOP 0
-# define CONT 1
 
 /*	main.c	*/
 void	prompt(void);

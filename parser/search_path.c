@@ -62,7 +62,7 @@ static char	*getpath(char *cmd)
 	if (envlist == NULL)
 	{
 		ft_fprintf(2, "bash: %s: command not found\n", cmd);
-		return (NULL);
+		return (update_exit_status(127), NULL);
 	}
 	if (is_a_directory(cmd))
 		return (cmd);
@@ -98,7 +98,7 @@ static char	*get_path_for_cmd(char **path, char *cmd)
 	if (path[i] == NULL)
 	{
 		ft_fprintf(2, "bash: %s: command not found\n", cmd);
-		return (NULL);
+		return (update_exit_status(127), NULL);
 	}
 	return (cmd_path);
 }

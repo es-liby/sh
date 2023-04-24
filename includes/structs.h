@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 18:14:05 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/18 11:41:17 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 07:23:41 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ typedef struct s_fds
 	int	n;
 	int	pipe_counter;
 }	t_fds;
+
+typedef struct	s_ids
+{
+	pid_t			pid;
+	struct s_ids	*next_id;
+}	t_ids;
 
 typedef struct s_env
 {

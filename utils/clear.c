@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:51:08 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/23 10:22:36 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/23 17:48:04 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	clearenv(t_env *envlist)
 {
 	t_env	*tmp_ptr;
 
+	if (envlist == NULL)
+		return ;
 	while (envlist)
 	{
 		tmp_ptr = envlist;
@@ -45,6 +47,7 @@ void	clearenv(t_env *envlist)
 		free(tmp_ptr->value);
 		free(tmp_ptr);
 	}
+	g_gbl.envlist = NULL;
 }
 
 void	free_tab(char **tab)

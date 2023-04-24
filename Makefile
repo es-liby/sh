@@ -1,5 +1,4 @@
 CC := cc
-# CFLAGS := -fsanitize=address #-Wall -Werror -Wextra -g
 READLINE_PATH=$(shell brew --prefix readline)
 CFLAGS := -Wall -Werror -Wextra -g
 INCLUDE := -I $(READLINE_PATH)/include -I includes -I include
@@ -45,8 +44,7 @@ BUILTINS = $(addprefix builtins/,cd_pwd.c echo.c env.c exit.c export_utils.c exp
 unset.c)
  
 #	the source files of execute
-EXEC_SRS = $(addprefix execute/,exec.c exec_builtin.c close_streams.c \
-dup_streams.c $(BUILTINS))
+EXEC_SRS = $(addprefix execute/,exec.c exec_builtin.c streams.c ids.c $(BUILTINS))
 EXEC_OBJS = $(patsubst execute/%.c,obj/execute/%.o,$(EXEC_SRS))
  
 #	the source files of utils
@@ -77,24 +75,24 @@ $(NAME): $(MAIN_OBJ) $(UTILS_OBJS) $(SCANNER_OBJS) $(PARSER_OBJS) $(EXEC_OBJS)
 	@make -C $(SRC_DIR)get_next_line
 	@$(CC) $^ $(LIBS) $(LINKS) -o $@
 
-$(OBJ_DIR)%.o: %.c $(DEPENDENCIES)
+$(OBJ_DIR)%.o: %.c $(HEADERS)
 	@mkdir -p $(OBJ_DIR) $(LIB_DIR) $(DIRS)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 	@printf "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
 
-$(OBJ_DIR)scanner/%.o: scanner/%.c
+$(OBJ_DIR)scanner/%.o: scanner/%.c $(HEADERS)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 	@printf "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
 
-$(OBJ_DIR)utils/%.o: utils/%.c
+$(OBJ_DIR)utils/%.o: utils/%.c $(HEADERS)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 	@printf "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
 
-$(OBJ_DIR)parser/%.o: parser/%.c
+$(OBJ_DIR)parser/%.o: parser/%.c $(HEADERS)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 	@printf "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
 
-$(OBJ_DIR)execute/%.o: execute/%.c
+$(OBJ_DIR)execute/%.o: execute/%.c $(HEADERS)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 	@printf "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
 
