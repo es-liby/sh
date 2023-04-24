@@ -78,23 +78,23 @@ $(NAME): $(MAIN_OBJ) $(UTILS_OBJS) $(SCANNER_OBJS) $(PARSER_OBJS) $(EXEC_OBJS)
 $(OBJ_DIR)%.o: %.c $(HEADERS)
 	@mkdir -p $(OBJ_DIR) $(LIB_DIR) $(DIRS)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-	@printf "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
+	@printf "$(SYMB) $(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
 
 $(OBJ_DIR)scanner/%.o: scanner/%.c $(HEADERS)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-	@printf "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
+	@printf "$(SYMB) $(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
 
 $(OBJ_DIR)utils/%.o: utils/%.c $(HEADERS)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-	@printf "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
+	@printf "$(SYMB) $(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
 
 $(OBJ_DIR)parser/%.o: parser/%.c $(HEADERS)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-	@printf "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
+	@printf "$(SYMB) $(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
 
 $(OBJ_DIR)execute/%.o: execute/%.c $(HEADERS)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
-	@printf "$(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
+	@printf "$(SYMB) $(CC) $(CFLAGS) $(INCLUDE) -c $(BOLD)$(PURPLE)$<$(SGR0) -o $(BOLD)$(BLUE)$@$(SGR0)\n"
 
 clean:
 	@$(RM) $(OBJ_DIR) 
