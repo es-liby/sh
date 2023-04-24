@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/23 17:26:27 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/23 17:39:25iabkadri         ###   ########.fr       */
+/*   Created: 2023/04/24 12:00:00 by iabkadri          #+#    #+#             */
+/*   Updated: 2023/04/24 12:00:01 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,5 @@ void	update_exit_status(int status)
 	if (WIFEXITED(status))
 		g_gbl.exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		g_gbl.exit_status = WTERMSIG(status) + 128;
+		g_gbl.exit_status = WTERMSIG(status);
 }

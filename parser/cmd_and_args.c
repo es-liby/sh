@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 18:14:53 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/23 09:29:32by iabkadri         ###   ########.fr       */
+/*   Created: 2023/04/24 12:01:53 by iabkadri          #+#    #+#             */
+/*   Updated: 2023/04/24 12:02:46 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,14 @@ static int	set_args(t_pipeline **plist, t_list **tokens)
 static void	args_after_cmd(t_pipeline **plist, t_list **tokens)
 {
 	t_list	*argslist;
+	t_list	*new_token;
 
 	argslist = NULL;
 	ft_lstadd_back(&argslist, ft_lstnew(ft_strdup((*plist)->cmd), WORD));
 	while (peek_type(*tokens) == WORD)
 	{
-		ft_lstadd_back(&argslist, ft_lstnew(ft_strdup((*tokens)->lexeme), WORD));
+		new_token = ft_lstnew(ft_strdup((*tokens)->lexeme), WORD);
+		ft_lstadd_back(&argslist, new_token);
 		advance(tokens);
 	}
 	if (argslist != NULL)

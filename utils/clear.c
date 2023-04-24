@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:51:08 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/23 17:48:04 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 12:15:51 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	clear_plist(t_pipeline **plist)
 void	clear_gbl(void)
 {
 	clearenv(g_gbl.envlist);
-	//clear_pipes(g_gbl.fds);
 	free_tab(g_gbl.envp);
 }
 

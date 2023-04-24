@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 18:16:11 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/23 09:18:44 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 12:15:59 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	printplist(t_pipeline *plist)
 		printf("cmd: %s\n", plist->cmd);
 		printf("args: ");
 		print_args(plist->args);
-		printf("in_stream: %d\nout_stream: %d\n", plist->in_stream, plist->out_stream);
+		printf("in_stream: %d\nout_stream: %d\n", plist->in_stream,
+			plist->out_stream);
 		plist = plist->next;
 	}
 }

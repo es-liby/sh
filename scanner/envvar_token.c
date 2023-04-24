@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:24:12 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/11 22:58:23 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 12:13:24 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_tokentype	getenvvar_token(char **pipeline, char **lexeme)
 	size_t	len;
 
 	ptr = *pipeline;
-	len = 1;	//	skip the '$' character
+	len = 1;
 	if (is_not_valid_variable(ptr[len]))
 	{
 		ft_fprintf(2, "Invalid character: %c\n", ptr[len]);

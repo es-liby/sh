@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 17:27:34 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 08:40:30 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 10:42:06 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static bool	is_not_a_valid_envvar(char *envvar)
 {
 	int	i;
 
-	if (!ft_isalpha(envvar[0]))
+	if (!ft_isalpha(envvar[0]) && envvar[0] != '_')
 		return (invalid_identifier(envvar), true);
 	i = 1;
 	while (envvar[i] && envvar[i] != '=')

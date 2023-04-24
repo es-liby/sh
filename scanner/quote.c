@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 18:00:35 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 18:00:37 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 12:15:18 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	get_sequence_length(char *tmp_ptr, char c)
 {
 	size_t	len;
 
-	len = 0;	//	skip the quote character
+	len = 0;
 	if (tmp_ptr[len] == c)
 		len++;
 	while (tmp_ptr[len] != '\0' && tmp_ptr[len] != c)

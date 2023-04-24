@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:43:01 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/23 17:54:18 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 11:59:45 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,9 @@ t_global	g_gbl;
 static int	scan_and_parse(char *pipeline, t_list **tokens, t_pipeline **plist);
 static void	cleanup(t_pipeline **plist, t_list **tokens);
 
-void	f(void)
-{
-	system("leaks minishell");
-}
-
 int	main(int argc, char *argv[], char *envp[])
 {
 	(void)argv;
-	//atexit(f);
 	if (argc != 1)
 	{
 		ft_fprintf(2, "Usage: ./minishell\n");
@@ -75,6 +69,7 @@ static int	scan_and_parse(char *pipeline, t_list **tokens, t_pipeline **plist)
 		return (free(pipeline), EOF);
 	free(pipeline);
 	g_gbl.envp = get_envp();
+	g_gbl.sigint = OFF;
 	if (parser(tokens, plist) == EOF)
 		return (cleanup(plist, tokens), EOF);
 	return (true);
@@ -98,6 +93,7 @@ void	unlink_heredoc_file(void)
 		perror("unlink");
 		return ;
 	}
+	printf("heredoc file: %s\n", g_gbl.heredoc_file);
 	free(g_gbl.heredoc_file);
 	g_gbl.heredoc_file = NULL;
 }

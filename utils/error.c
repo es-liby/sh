@@ -1,42 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   symbols.h                                          :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 18:13:55 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 12:01:42 by iabkadri         ###   ########.fr       */
+/*   Created: 2023/04/24 12:07:43 by iabkadri          #+#    #+#             */
+/*   Updated: 2023/04/24 12:15:24 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SYMBOLS_H
-# define SYMBOLS_H
+#include <minishell.h>
 
-typedef enum e_tokentype
+void	cmd_notfound(char *cmd)
 {
-	REDIR,
-	PIPE,
-	WORD,
-	REDIR_IN,
-	REDIR_OUT,
-	REDIR_OUT_APPEND,
-	HEREDOC,
-	ENVVAR,
-	END,
-	NIL
-}	t_tokentype;
-
-typedef enum e_builtin
-{
-	ECHO,
-	CD,
-	PWD,
-	EXPORT,
-	UNSET,
-	ENV,
-	EXIT,
-	NONE
-}	t_builtin;
-
-#endif
+	ft_fprintf(2, "bash: %s: command not found\n", cmd);
+}

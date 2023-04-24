@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:15:53 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/23 11:14:20 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 12:13:13 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,6 @@ static bool	go_to_next_cmd(t_list **tokens)
 	{
 		if (peek_type((*tokens)->next) == NIL)
 			return (syn_err(*tokens), false);
-		//if (pipeline_not_completed((*tokens)->next))
-		//	return (complete_pipeline(tokens));
-		//printlist(*tokens);
-		//getchar();
 		advance(tokens);
 	}
 	return (true);

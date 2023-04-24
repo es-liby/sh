@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/14 01:17:21 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/23 12:09:57iabkadri         ###   ########.fr       */
+/*   Created: 2023/04/24 12:02:59 by iabkadri          #+#    #+#             */
+/*   Updated: 2023/04/24 12:03:00 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool	label_is_quoted(char *label);
 static char	*get_heredoc_file(int *fd);
-static void	set_heredoc_file(t_pipeline *plist, char *file, int fd);
+static void	set_heredoc_file(char *file);
 
 int	readlines_from_heredoc_prompt(t_pipeline **plist, t_list **tokens)
 {
@@ -27,6 +27,7 @@ int	readlines_from_heredoc_prompt(t_pipeline **plist, t_list **tokens)
 	file = get_heredoc_file(&fd);
 	if (file == NULL)
 		return (EOF);
+	set_heredoc_file(file);
 	expanded = label_is_quoted((char *)(*tokens)->lexeme);
 	if (read_and_write_line_to_heredoc_file(*tokens, fd, expanded) == EOF)
 		return (EOF);
@@ -34,7 +35,7 @@ int	readlines_from_heredoc_prompt(t_pipeline **plist, t_list **tokens)
 	fd = ft_open(file, O_RDONLY);
 	if (fd == EOF)
 		return (free(g_gbl.heredoc_file), EOF);
-	set_heredoc_file(*plist, file, fd);
+	(*plist)->in_stream = fd;
 	advance(tokens);
 	if (is_redir_token(*tokens))
 		return (set_input_and_output_streams(plist, tokens));
@@ -64,7 +65,7 @@ static char	*get_heredoc_file(int *fd)
 	return (file);
 }
 
-static void	set_heredoc_file(t_pipeline *plist, char *file, int fd)
+static void	set_heredoc_file(char *file)
 {
 	if (g_gbl.heredoc_file == NULL)
 		g_gbl.heredoc_file = file;
@@ -74,7 +75,6 @@ static void	set_heredoc_file(t_pipeline *plist, char *file, int fd)
 		free(g_gbl.heredoc_file);
 		g_gbl.heredoc_file = file;
 	}
-	plist->in_stream = fd;
 }
 
 static bool	label_is_quoted(char *label)

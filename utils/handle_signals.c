@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:31:37 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/23 18:05:40 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 12:16:42 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	handle_signals(void)
 static void	sigint_handler(int sig)
 {
 	(void)sig;
-	if (waitpid(-1, NULL, WNOHANG) != -1) 
+	if (waitpid(-1, NULL, WNOHANG) != -1)
 		return ;
-	else 
+	else
 	{
 		write(1, "\n", 1);
 		rl_on_new_line();

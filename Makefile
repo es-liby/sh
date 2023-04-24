@@ -37,7 +37,7 @@ SCANNER_OBJS = $(patsubst scanner/%.c,obj/scanner/%.o,$(SCANNER_SRCS))
 PARSER_SRCS = $(addprefix parser/,parser.c expand.c quote_sequence.c set_members.c \
 perform_redir_io.c getquote_seq.c cmd_and_args.c heredoc.c io_streams.c pipe_fds.c plist_utils.c \
 complete_pipeline.c heredoc_utils.c readlines_heredoc.c print.c split_args.c \
-search_path.c)
+search_path.c getpath.c)
 PARSER_OBJS = $(patsubst parser/%.c,obj/parser/%.o,$(PARSER_SRCS))
 
 BUILTINS = $(addprefix builtins/,cd_pwd.c echo.c env.c exit.c export_utils.c export.c \
@@ -49,7 +49,7 @@ EXEC_OBJS = $(patsubst execute/%.c,obj/execute/%.o,$(EXEC_SRS))
  
 #	the source files of utils
 UTILS_SRCS = $(addprefix utils/,utils.c clear.c envcpy.c handle_signals.c getenvvar.c \
-getenvvar_utils.c std.c debug.c key_value.c)
+getenvvar_utils.c std.c debug.c key_value.c error.c)
 UTILS_OBJS = $(patsubst utils/%.c,obj/utils/%.o,$(UTILS_SRCS))
 
 DEPENDENCIES = $(SCANNER_SRCS) $(LIBFT_SRCS) $(FPRINTF_SRCS) $(GNL_SRCS) \

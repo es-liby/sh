@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:43:43 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/23 17:17:46 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 12:15:26 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,7 @@ void	clear_gbl(void);
 void	clearenv(t_env *envlist);
 void	free_tab(char **tab);
 
+/*	error.c	*/
+void	cmd_notfound(char *cmd);
 
 #endif

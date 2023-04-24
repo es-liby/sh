@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key_value.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/24 12:16:54 by iabkadri          #+#    #+#             */
+/*   Updated: 2023/04/24 12:16:55 by iabkadri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <minishell.h>
 
 char	*getkey(char *envp)
@@ -21,7 +33,7 @@ char	*getvalue(char *envp)
 		++envp;
 	if (*envp == '\0')
 		return (NULL);
-	++envp;	//	skip the = character
+	++envp;
 	if (*envp == '\0')
 		return (NULL);
 	len = 0;

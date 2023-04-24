@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 14:01:47 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/15 18:23:30 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 12:03:28 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ char	*get_sequence_inside_squote(char **ptr)
 	char	*word;
 	int		len;
 
-	++*ptr;	//	skip the ' character
+	++*ptr;
 	len = 0;
 	while ((*ptr)[len] && (*ptr)[len] != '\'')
 		len++;
 	word = ft_substr(*ptr, 0, len);
 	if ((*ptr)[len] == '\'')
-		len++;	//	skip the ' character
+		len++;
 	*ptr += len;
 	return (word);
 }
@@ -33,7 +33,7 @@ char	*get_sequence_inside_dquote(char **ptr)
 	char	*tmp_ptr;
 	char	*quoted_seq;
 
-	++*ptr;	//	skip double quotes
+	++*ptr;
 	if (**ptr == '"')
 		return (advance_ptr_and_return_nil_dup(ptr));
 	quoted_seq = NULL;
@@ -43,7 +43,7 @@ char	*get_sequence_inside_dquote(char **ptr)
 		quoted_seq = ft_strjoin(quoted_seq, tmp_ptr);
 		free(tmp_ptr);
 	}
-	++*ptr;	//	skip double quotes
+	++*ptr;
 	return (quoted_seq);
 }
 
