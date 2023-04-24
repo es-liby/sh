@@ -48,7 +48,7 @@ EXEC_SRS = $(addprefix execute/,exec.c exec_builtin.c streams.c ids.c $(BUILTINS
 EXEC_OBJS = $(patsubst execute/%.c,obj/execute/%.o,$(EXEC_SRS))
  
 #	the source files of utils
-UTILS_SRCS = $(addprefix utils/,utils.c clear.c envcpy.c handle_signals.c getenvvar.c \
+UTILS_SRCS = $(addprefix utils/,clear.c envcpy.c handle_signals.c getenvvar.c \
 getenvvar_utils.c std.c debug.c key_value.c error.c)
 UTILS_OBJS = $(patsubst utils/%.c,obj/utils/%.o,$(UTILS_SRCS))
 
