@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:31:37 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 12:16:42 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/24 15:24:49 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ static void	sigint_handler_for_heredoc(int sig);
 void	handle_signals(void)
 {
 	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
-		exit(EXIT_FAILURE);
-	if (signal(SIGINT, sigint_handler) == SIG_ERR)
-		exit(EXIT_FAILURE);
+		perror("bash: signal");
+	else if (signal(SIGINT, sigint_handler) == SIG_ERR)
+		perror("bash: signal");
 }
 
 static void	sigint_handler(int sig)
@@ -41,9 +41,9 @@ static void	sigint_handler(int sig)
 void	handle_signals_for_heredoc(void)
 {
 	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
-		exit(EXIT_FAILURE);
-	if (signal(SIGINT, sigint_handler_for_heredoc) == SIG_ERR)
-		exit(EXIT_FAILURE);
+		perror("bash: signal");
+	else if (signal(SIGINT, sigint_handler_for_heredoc) == SIG_ERR)
+		perror("bash: signal");
 }
 
 static void	sigint_handler_for_heredoc(int sig)

@@ -1,6 +1,6 @@
 CC := cc
 READLINE_PATH=$(shell brew --prefix readline)
-CFLAGS := -Wall -Werror -Wextra -g
+CFLAGS := -Wall -Werror -Wextra
 INCLUDE := -I $(READLINE_PATH)/include -I includes -I include
 LINKS := -L $(READLINE_PATH)/lib -lreadline
 RM := rm -rf
@@ -36,7 +36,7 @@ SCANNER_OBJS = $(patsubst scanner/%.c,obj/scanner/%.o,$(SCANNER_SRCS))
 #	the source files of the parser
 PARSER_SRCS = $(addprefix parser/,parser.c expand.c quote_sequence.c set_members.c \
 perform_redir_io.c getquote_seq.c cmd_and_args.c heredoc.c io_streams.c pipe_fds.c plist_utils.c \
-complete_pipeline.c heredoc_utils.c readlines_heredoc.c print.c split_args.c)
+heredoc_utils.c readlines_heredoc.c print.c split_args.c)
 PARSER_OBJS = $(patsubst parser/%.c,obj/parser/%.o,$(PARSER_SRCS))
 
 BUILTINS = $(addprefix builtins/,cd_pwd.c echo.c env.c exit.c export_utils.c export.c \
