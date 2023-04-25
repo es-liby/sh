@@ -6,13 +6,24 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:00:14 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 12:00:15 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/25 14:02:50 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 static int	ft_dup(int fd);
+
+int	duplicate_io_streams(t_pipeline *plist)
+{
+	if (plist->in_stream != 0)
+		if (ft_dup2(plist->in_stream, STDIN_FILENO) == EOF)
+			return (EOF);
+	if (plist->out_stream != 1)
+		if (ft_dup2(plist->out_stream, STDOUT_FILENO) == EOF)
+			return (EOF);
+	return (true);
+}
 
 void	dup_streams(t_pipeline *plist, int *stdin_dup, int *stdout_dup)
 {

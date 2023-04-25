@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:00:00 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 14:11:23 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/25 14:04:42 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,11 @@ static void	executecmd(t_pipeline *plist, t_pipeline *head)
 	char		*cmd;
 	char		**args;
 
-	if (plist->in_stream != 0)
-		if (ft_dup2(plist->in_stream, STDIN_FILENO) == EOF)
-			exit(EXIT_FAILURE);
-	if (plist->out_stream != 1)
-		if (ft_dup2(plist->out_stream, STDOUT_FILENO) == EOF)
-			exit(EXIT_FAILURE);
+	if (duplicate_io_streams(plist) == EOF)
+		exit(EXIT_FAILURE);
 	if (close_streams(head) == EOF)
 		exit(EXIT_FAILURE);
+	split_plist(plist);
 	if (search_and_set_path_for_cmds(plist) == EOF)
 		exit(127);
 	cmd = plist->cmd;
@@ -91,7 +88,7 @@ static bool	cmd_is_a_directory(char *cmd)
 		ft_fprintf(2, "bash: %s: %s\n", cmd, strerror(errno));
 		exit(EXIT_FAILURE);
 	}
-	if ((statbuf.st_mode & S_IFMT) == S_IFDIR)
+	if (S_ISDIR(statbuf.st_mode))
 		return (true);
 	return (false);
 }

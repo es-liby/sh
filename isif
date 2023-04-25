@@ -1,0 +1,13 @@
+Makefile
+execute
+includes
+isif
+lib
+main.c
+minishell
+obj
+out
+parser
+scanner
+src
+utils

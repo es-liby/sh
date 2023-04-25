@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 07:29:22 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 15:32:28 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/25 14:02:20 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,14 @@ void		execute_builtin_cmd(t_pipeline *plist, t_builtin cmdtype);
 t_builtin	is_a_builtin_cmd(char *cmd);
 
 /*	streams.c	*/
+int			duplicate_io_streams(t_pipeline *plist);
 void		dup_streams(t_pipeline *plist, int *stdin_dup, int *stdout_dup);
 void		getback_io_streams(t_pipeline *plist, int stdin_dup,
 				int stdout_dup);
 int			close_streams(t_pipeline *plist);
+
+/*	split_plist.c	*/
+void		split_plist(t_pipeline *tmp_ptr);
 
 /*	ids.c	*/
 void		add_id(t_ids **ids, pid_t pid);

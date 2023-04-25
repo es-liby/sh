@@ -46,7 +46,7 @@ unset.c)
  
 #	the source files of execute
 EXEC_SRS = $(addprefix execute/,exec.c exec_builtin.c streams.c ids.c \
-search_path.c getpath.c $(BUILTINS))
+search_path.c getpath.c split_plist.c $(BUILTINS))
 EXEC_OBJS = $(patsubst execute/%.c,obj/execute/%.o,$(EXEC_SRS))
  
 #	the source files of utils
