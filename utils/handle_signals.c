@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:31:37 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/25 13:53:45 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/25 14:46:44 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	sigint_handler_for_heredoc(int sig);
 
 void	handle_signals(void)
 {
+	rl_catch_signals = 0;
 	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 		perror("bash: signal");
 	else if (signal(SIGINT, sigint_handler) == SIG_ERR)

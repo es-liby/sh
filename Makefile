@@ -1,6 +1,6 @@
 CC := cc
 READLINE_PATH=$(shell brew --prefix readline)
-CFLAGS := -Wall -Werror -Wextra
+CFLAGS := -Wall -Werror -Wextra -g
 INCLUDE := -I $(READLINE_PATH)/include -I includes -I include
 LINKS := -L $(READLINE_PATH)/lib -lreadline
 RM := rm -rf
