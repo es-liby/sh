@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:00:00 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/26 09:45:27 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/26 10:12:38 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ static void	executecmd(t_pipeline *plist, t_pipeline **head)
 		ft_fprintf(2, "bash: %s: Is a directory\n", cmd);
 		exit(126);
 	}
-	//cleanup(head, NULL);
 	execve(cmd, args, g_gbl.envp);
 	perror("execve");
 	exit(1);

@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 07:20:42 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/26 10:10:29 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/26 10:13:06 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	cdcmd(char **args)
 	if (chdir(args[0]) == -1)
 	{
 		ft_fprintf(2, "sh: %s: No such file or directory\n", args[0]);
-		return ( EOF);
+		return (EOF);
 	}
 	update_cwd(args[0]);
 	return (true);

@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 10:09:44 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/26 10:11:26 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/26 10:14:26 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ void	update_cwd(char *arg)
 {
 	char	*new_cwd;
 	char	*cwd;
-	
+
 	cwd = getcwd(NULL, 0);
 	if (cwd == NULL)
 	{
 		new_cwd = create_cwd(arg);
 		update_pwd_and_oldpwd(new_cwd);
-		fatal("cd: error retrieving current directory: "
-		"getcwd: cannot access parent directories: No such file or directory");
+		fatal("cd: error retrieving current directory: getcwd: cannot access "
+			"parent directories: No such file or directory");
 		return ;
 	}
 	update_pwd_and_oldpwd(cwd);
@@ -71,4 +71,3 @@ static char	*create_cwd(char *arg)
 	cwd = ft_strjoin(cwd, arg);
 	return (cwd);
 }
-
