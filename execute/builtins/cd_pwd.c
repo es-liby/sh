@@ -5,64 +5,50 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/24 12:00:18 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/25 18:02:32 by iabkadri         ###   ########.fr       */
+/*   Created: 2023/04/26 07:20:42 by iabkadri          #+#    #+#             */
+/*   Updated: 2023/04/26 10:10:29 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void	update_pwd_envvar(char *cwdbuf);
-static void	strerror_for_cd(char *directory, int errno_val);
+static int	cd_to_home_directory(void);
 
 int	cdcmd(char **args)
 {
-	char		cwdbuf[FILENAME_MAX];
-
 	if (args[0] == NULL)
-		if (chdir(getenv("HOME")) == -1)
-			return (strerror_for_cd(args[0], errno), EOF);
-	//if (getcwd(cwdbuf, FILENAME_MAX) == NULL)
-	//	if (errno == ENOENT || errno == ENOTDIR)
-	//		return (strerror_for_cd(args[0], errno), EOF);
+		return (cd_to_home_directory());
 	if (chdir(args[0]) == -1)
-		return (strerror_for_cd(args[0], errno), EOF);
-	getcwd(cwdbuf, FILENAME_MAX);
-	update_pwd_envvar(cwdbuf);
-	update_exit_status(0);
+	{
+		ft_fprintf(2, "sh: %s: No such file or directory\n", args[0]);
+		return ( EOF);
+	}
+	update_cwd(args[0]);
 	return (true);
 }
 
 int	pwdcmd(char **args)
 {
-	char		cwdbuf[FILENAME_MAX];
+	char	*cwd;
 
 	(void)args;
-	getcwd(cwdbuf, FILENAME_MAX);
-	ft_fprintf(1, "%s\n", cwdbuf);
-	update_exit_status(0);
+	cwd = getcwd(NULL, 0);
+	if (cwd == NULL)
+		cwd = getenvvar_value("$PWD");
+	printf("%s\n", cwd);
+	free(cwd);
 	return (true);
 }
 
-static void	strerror_for_cd(char *directory, int errno_val)
+static int	cd_to_home_directory(void)
 {
-	ft_fprintf(2, "bash: %s: %s\n", directory, strerror(errno_val));
-	update_exit_status(1);
-}
+	char	*home_dir;
 
-static void	update_pwd_envvar(char *cwdbuf)
-{
-	t_env	*envlist;
-
-	envlist = g_gbl.envlist;
-	while (envlist)
-	{
-		if (ft_strcmp(envlist->key, "PWD") == 0)
-			break ;
-		envlist = envlist->next;
-	}
-	if (envlist == NULL)
-		return ;
-	free(envlist->value);
-	envlist->value = ft_strdup(cwdbuf);
+	home_dir = getenv("HOME");
+	if (home_dir == NULL)
+		return (fatal("bash: cd: HOME not set"), EOF);
+	if (chdir(home_dir) == -1)
+		return (perror("sh: cd"), EOF);
+	update_pwd_and_oldpwd(home_dir);
+	return (true);
 }

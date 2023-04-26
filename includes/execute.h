@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 07:29:22 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/25 14:02:20 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/26 10:10:47 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int			is_a_directory(char *cmd);
 /*	builtins.c	*/
 int			cdcmd(char **args);
 int			pwdcmd(char **args);
+void		update_cwd(char *arg);
+void		update_pwd_and_oldpwd(char *cwd);
 int			echocmd(char **args);
 int			envcmd(char **args);
 int			exitcmd(char **args);

@@ -6,14 +6,14 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:00:00 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/25 14:04:42 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/26 09:45:27 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 static int	if_its_builtin_then_execute(t_pipeline **plist);
-static void	executecmd(t_pipeline *plist, t_pipeline *head);
+static void	executecmd(t_pipeline *plist, t_pipeline **head);
 static bool	cmd_is_a_directory(char *cmd);
 
 int	execute(t_pipeline *plist)
@@ -30,11 +30,11 @@ int	execute(t_pipeline *plist)
 	{
 		if (if_its_builtin_then_execute(&plist) == true)
 			continue ;
-		pid = ft_fork();
+		pid = fork();
 		if (pid == -1)
-			return (EOF);
+			return (perror("fork"), EOF);
 		if (pid == 0)
-			executecmd(plist, head);
+			executecmd(plist, &head);
 		add_id(&ids, pid);
 		plist = plist->next;
 	}
@@ -55,14 +55,14 @@ static int	if_its_builtin_then_execute(t_pipeline **plist)
 	return (true);
 }
 
-static void	executecmd(t_pipeline *plist, t_pipeline *head)
+static void	executecmd(t_pipeline *plist, t_pipeline **head)
 {
 	char		*cmd;
 	char		**args;
 
 	if (duplicate_io_streams(plist) == EOF)
 		exit(EXIT_FAILURE);
-	if (close_streams(head) == EOF)
+	if (close_streams(*head) == EOF)
 		exit(EXIT_FAILURE);
 	split_plist(plist);
 	if (search_and_set_path_for_cmds(plist) == EOF)
@@ -74,6 +74,7 @@ static void	executecmd(t_pipeline *plist, t_pipeline *head)
 		ft_fprintf(2, "bash: %s: Is a directory\n", cmd);
 		exit(126);
 	}
+	//cleanup(head, NULL);
 	execve(cmd, args, g_gbl.envp);
 	perror("execve");
 	exit(1);

@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:43:43 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/25 18:00:43 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/26 09:43:59 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 
 /*	main.c	*/
 void	prompt(void);
+void	cleanup(t_pipeline **plist, t_list **tokens);
 void	unlink_heredoc_file(void);
 
 /*	debug.c	*/
@@ -47,9 +48,6 @@ void	print_args(char **args);
 void	printlist(t_list *tokens);
 void	testprint(t_list *tokens);
 void	printenvvar(void);
-
-/*	utils.c	*/
-void	advance_pipeline(char **pipeline, int size);
 
 /*	std.c	*/
 int		ft_open(char *file, int flags);
@@ -85,6 +83,7 @@ void	clearenv(t_env *envlist);
 void	free_tab(char **tab);
 
 /*	error.c	*/
+void	fatal(char *msg);
 void	cmd_notfound(char *cmd);
 
 #endif

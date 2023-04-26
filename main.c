@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:43:01 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/25 14:07:46 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/26 09:57:06 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 t_global	g_gbl;
 
 static int	scan_and_parse(char *pipeline, t_list **tokens, t_pipeline **plist);
-static void	cleanup(t_pipeline **plist, t_list **tokens);
 
 int	main(int argc, char *argv[], char *envp[])
 {
@@ -75,7 +74,7 @@ static int	scan_and_parse(char *pipeline, t_list **tokens, t_pipeline **plist)
 	return (true);
 }
 
-static void	cleanup(t_pipeline **plist, t_list **tokens)
+void	cleanup(t_pipeline **plist, t_list **tokens)
 {
 	unlink_heredoc_file();
 	close_pipes();
