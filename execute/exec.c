@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:00:00 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/26 10:12:38 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/26 10:31:22 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static void	executecmd(t_pipeline *plist, t_pipeline **head)
 	args = plist->args;
 	if (cmd_is_a_directory(cmd))
 	{
-		ft_fprintf(2, "bash: %s: Is a directory\n", cmd);
+		ft_fprintf(2, "sh: %s: Is a directory\n", cmd);
 		exit(126);
 	}
 	execve(cmd, args, g_gbl.envp);
@@ -85,7 +85,7 @@ static bool	cmd_is_a_directory(char *cmd)
 
 	if (stat(cmd, &statbuf) == -1)
 	{
-		ft_fprintf(2, "bash: %s: %s\n", cmd, strerror(errno));
+		ft_fprintf(2, "sh: %s: %s\n", cmd, strerror(errno));
 		exit(EXIT_FAILURE);
 	}
 	if (S_ISDIR(statbuf.st_mode))

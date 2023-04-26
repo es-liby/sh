@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:00:39 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/25 15:27:14 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/26 10:31:22 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	exitcmd(char **args)
 {
 	if (args[0] != NULL && args[1] != NULL)
 	{
-		ft_fprintf(2, "exit\nbash: exit: too many arguments\n");
+		ft_fprintf(2, "exit\nsh: exit: too many arguments\n");
 		return (update_exit_status(1), EOF);
 	}
 	if (args[0] != NULL)
@@ -62,7 +62,7 @@ static bool	is_not_valid_status_number(char *st_number)
 	if (st_number[i] != '\0')
 	{
 		ft_fprintf(2, "exit\n");
-		ft_fprintf(2, "bash: exit: %s: numeric argument required\n", st_number);
+		ft_fprintf(2, "sh: exit: %s: numeric argument required\n", st_number);
 		return (update_exit_status(255), true);
 	}
 	return (false);

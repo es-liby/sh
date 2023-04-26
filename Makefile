@@ -1,8 +1,8 @@
 CC := cc
 READLINE_PATH=$(shell brew --prefix readline)
 CFLAGS := -Wall -Werror -Wextra -g
-INCLUDE := -I $(READLINE_PATH)/include -I includes -I include
-LINKS := -L $(READLINE_PATH)/lib -lreadline
+INCLUDE := -I/goinfre/iabkadri/.brew/opt/readline/include -I includes -I include
+LINKS := -L/goinfre/iabkadri/.brew/opt/readline/lib -lreadline
 RM := rm -rf
 MAKEFLAGS := --no-print-directory
 
@@ -73,7 +73,6 @@ all: $(NAME)
 $(NAME): $(OBJS)
 	@make -C $(SRC_DIR)libft
 	@make -C $(SRC_DIR)ft_fprintf
-#	@make -C $(SRC_DIR)get_next_line
 	@$(CC) $^ $(LIBS) $(LINKS) -o $@
 
 $(OBJ_DIR)%.o: %.c $(HEADERS)

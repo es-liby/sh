@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:07:43 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/26 07:45:56 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/26 10:31:22 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,5 @@ void	fatal(char *msg)
 
 void	cmd_notfound(char *cmd)
 {
-	ft_fprintf(2, "bash: %s: command not found\n", cmd);
+	ft_fprintf(2, "sh: %s: command not found\n", cmd);
 }

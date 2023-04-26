@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:00:14 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/25 14:02:50 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/26 10:31:22 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ static int	ft_dup(int fd)
 
 	fd_dup = dup(fd);
 	if (fd_dup == -1)
-		perror("bash: dup");
+		perror("sh: dup");
 	return (fd_dup);
 }

@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 07:20:42 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/26 10:13:06 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/26 10:31:22 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	cd_to_home_directory(void)
 
 	home_dir = getenv("HOME");
 	if (home_dir == NULL)
-		return (fatal("bash: cd: HOME not set"), EOF);
+		return (fatal("sh: cd: HOME not set"), EOF);
 	if (chdir(home_dir) == -1)
 		return (perror("sh: cd"), EOF);
 	update_pwd_and_oldpwd(home_dir);

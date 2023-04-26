@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 18:00:35 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 12:15:18 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/26 10:31:22 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*quote(char **ptr, char c)
 	lexeme = NULL;
 	if (tmp_ptr[len] == '\0')
 	{
-		ft_fprintf(2, "bash: syntax error\n");
+		ft_fprintf(2, "sh: syntax error\n");
 		return (NULL);
 	}
 	join_sequence(&lexeme, tmp_ptr, len + 1);
