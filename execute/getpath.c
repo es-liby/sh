@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:05:21 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/27 09:23:45 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*getpath(char *cmd)
 	char	**path;
 	char	*cmd_path;
 
-	envlist = g_gbl.envlist;
+	envlist = g_glob.envlist;
 	while (envlist)
 	{
 		if (path_entry_is_found(envlist))

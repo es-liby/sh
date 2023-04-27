@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 18:16:11 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 12:15:59 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	printenvvar(void)
 {
 	t_env	*env_ptr;
 
-	env_ptr = g_gbl.envlist;
+	env_ptr = g_glob.envlist;
 	while (env_ptr)
 	{
 		printf("%s=%s\n", env_ptr->key, env_ptr->value);

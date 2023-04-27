@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 17:27:26 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 15:32:10 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	join_new_envvar(char *key, char *value)
 		envlist->value = new_value;
 		return ;
 	}
-	add_envvar(&g_gbl.envlist, key, value);
+	add_envvar(&g_glob.envlist, key, value);
 }
 
 void	add_new_envvar(char *key, char *value)
@@ -63,7 +63,7 @@ void	add_new_envvar(char *key, char *value)
 	if (envlist != NULL)
 		update_existed_variable(envlist, value);
 	else
-		add_envvar(&g_gbl.envlist, key, value);
+		add_envvar(&g_glob.envlist, key, value);
 }
 
 static void	update_existed_variable(t_env *envlist, char *value)
@@ -78,7 +78,7 @@ static t_env	*key_already_exists(char *variable)
 {
 	t_env	*envlist;
 
-	envlist = g_gbl.envlist;
+	envlist = g_glob.envlist;
 	while (envlist)
 	{
 		if (ft_strcmp(envlist->key, variable) == 0)

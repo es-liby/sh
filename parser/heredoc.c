@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:02:59 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/26 18:34:23 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	readlines_from_heredoc_prompt(t_pipeline **plist, t_list **tokens)
 	ft_close(fd);
 	fd = ft_open(file, O_RDONLY);
 	if (fd == EOF)
-		return (free(g_gbl.heredoc_file), EOF);
+		return (free(g_glob.heredoc_file), EOF);
 	(*plist)->in_stream = fd;
 	advance(tokens);
 	return (true);
@@ -65,15 +65,15 @@ static char	*get_heredoc_file(int *fd)
 
 static void	set_heredoc_file(char *file)
 {
-	if (g_gbl.heredoc_file == NULL)
-		g_gbl.heredoc_file = file;
+	if (g_glob.heredoc_file == NULL)
+		g_glob.heredoc_file = file;
 	else
 	{
-		if (unlink(g_gbl.heredoc_file) == -1)
+		if (unlink(g_glob.heredoc_file) == -1)
 			perror("unlink");
-		free(g_gbl.heredoc_file);
-		//printf("heredoc file: %s\n", g_gbl.heredoc_file);
-		g_gbl.heredoc_file = file;
+		free(g_glob.heredoc_file);
+		//printf("heredoc file: %s\n", g_glob.heredoc_file);
+		g_glob.heredoc_file = file;
 	}
 }
 

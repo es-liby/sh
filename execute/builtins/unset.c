@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 17:27:43 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 14:13:40 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static void	unset_envvar(char *envvar)
 	t_env	*envlist;
 	t_env	*tmp_ptr;
 
-	envlist = g_gbl.envlist;
-	tmp_ptr = g_gbl.envlist;
+	envlist = g_glob.envlist;
+	tmp_ptr = g_glob.envlist;
 	while (envlist)
 	{
 		if (variable_is_found(envlist->key, envvar))
@@ -48,8 +48,8 @@ static void	unset_envvar(char *envvar)
 
 static void	delete_envvar_node(t_env *envlist, t_env *tmp_ptr)
 {
-	if (envlist == g_gbl.envlist)
-		g_gbl.envlist = g_gbl.envlist->next;
+	if (envlist == g_glob.envlist)
+		g_glob.envlist = g_glob.envlist->next;
 	free(envlist->key);
 	free(envlist->value);
 	tmp_ptr->next = envlist->next;

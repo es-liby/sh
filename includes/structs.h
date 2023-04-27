@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 18:14:05 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 12:01:28 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct s_global
 	unsigned int	sigint : 1;
 }	t_global;
 
-extern t_global	g_gbl;
+extern t_global	g_glob;
 
 typedef struct s_pipeline
 {

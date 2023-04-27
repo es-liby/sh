@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:00:39 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/26 10:31:22 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	exitcmd(char **args)
 	if (args[0] != NULL)
 	{
 		if (is_not_valid_status_number(args[0]))
-			exit(g_gbl.exit_status);
+			exit(g_glob.exit_status);
 		exit_with_status_number(args[0]);
 	}
 	else
@@ -41,13 +41,13 @@ static void	exit_with_status_number(char *st_number)
 
 	status_number = ft_atoi(st_number);
 	update_exit_status((unsigned int)status_number);
-	exit(g_gbl.exit_status);
+	exit(g_glob.exit_status);
 }
 
 static void	exit_with_last_status_number(void)
 {
 	ft_fprintf(1, "exit\n");
-	exit(g_gbl.exit_status);
+	exit(g_glob.exit_status);
 }
 
 static bool	is_not_valid_status_number(char *st_number)

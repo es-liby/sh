@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:00:28 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 14:13:32 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	display_current_environment(void)
 {
 	t_env	*envlist;
 
-	envlist = g_gbl.envlist;
+	envlist = g_glob.envlist;
 	while (envlist)
 	{
 		ft_fprintf(1, "%s", envlist->key);

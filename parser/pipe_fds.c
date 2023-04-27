@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 18:01:27 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/26 17:17:45 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int	close_pipes(void)
 	t_fds	*fds;
 	int		i;
 
-	fds = g_gbl.fds;
+	fds = g_glob.fds;
 	if (fds == NULL)
 		return (true);
 	i = -1;
@@ -95,5 +95,5 @@ void	clear_pipes(t_fds *fds)
 		free(fds->fds[i]);
 	free(fds->fds);
 	free(fds);
-	g_gbl.fds = NULL;
+	g_glob.fds = NULL;
 }

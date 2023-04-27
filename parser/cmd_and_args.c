@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:01:53 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/26 18:34:54 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ void	set_pipe(t_pipeline **plist)
 	t_fds	*fds;
 	int		i;
 
-	if (g_gbl.fds == NULL)
+	if (g_glob.fds == NULL)
 		return ;
-	fds = g_gbl.fds;
+	fds = g_glob.fds;
 	i = fds->pipe_counter;
 	if (i == 0)
 		(*plist)->out_stream = fds->fds[i][1];

@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:31:37 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/27 09:00:48 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ static void	sigint_handler_for_heredoc(int sig)
 	rl_on_new_line();
 	rl_replace_line("", STDIN_FILENO);
 	close(STDIN_FILENO);
-	g_gbl.sigint = ON;
+	g_glob.sigint = ON;
 	update_exit_status(1);
 }

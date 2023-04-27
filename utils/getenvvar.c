@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:16:10 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/25 12:05:08 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*getenvvar_value(const char *envvar)
 
 	++envvar;
 	if (*envvar == '?')
-		return (ft_itoa(g_gbl.exit_status));
+		return (ft_itoa(g_glob.exit_status));
 	if (*envvar == '\0' || ft_isblank(*envvar))
 		return (ft_strdup("$"));
 	value = find_value(envvar);
@@ -33,7 +33,7 @@ static char	*find_value(const char *envvar)
 {
 	t_env	*tmp_ptr;
 
-	tmp_ptr = g_gbl.envlist;
+	tmp_ptr = g_glob.envlist;
 	while (tmp_ptr)
 	{
 		if (ft_strcmp(envvar, tmp_ptr->key) == 0)

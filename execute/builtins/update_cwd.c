@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 10:09:44 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/27 09:37:27 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static void	env_update(char *envvar, char *cwd)
 {
 	t_env	*envlist;
 
-	envlist = g_gbl.envlist;
+	envlist = g_glob.envlist;
 	while (envlist)
 	{
 		if (ft_strcmp(envlist->key, envvar) == 0)

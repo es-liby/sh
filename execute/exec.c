@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:00:00 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/27 09:00:43 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	executecmd(t_pipeline *plist, t_pipeline **head)
 		exit(126);
 	}
 	handle_signals_for_cmds();
-	execve(cmd, args, g_gbl.envp);
+	execve(cmd, args, g_glob.envp);
 	perror("execve");
 	exit(1);
 }
@@ -95,7 +95,7 @@ static bool	cmd_is_a_directory(char *cmd)
 void	update_exit_status(int status)
 {
 	if (WIFEXITED(status))
-		g_gbl.exit_status = WEXITSTATUS(status);
+		g_glob.exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		g_gbl.exit_status = WTERMSIG(status);
+		g_glob.exit_status = WTERMSIG(status);
 }

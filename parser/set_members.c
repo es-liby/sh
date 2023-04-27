@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:15:53 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/26 18:34:16 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	perform_redirections_and_set_cmds(t_pipeline **plist, t_list **tokens)
 
 	if (there_is_pipe_token(*tokens))
 	{
-		g_gbl.fds = count_and_open_pipes(*tokens);
-		if (g_gbl.fds == NULL)
+		g_glob.fds = count_and_open_pipes(*tokens);
+		if (g_glob.fds == NULL)
 			return (EOF);
 	}
 	while (*tokens)
@@ -34,8 +34,8 @@ int	perform_redirections_and_set_cmds(t_pipeline **plist, t_list **tokens)
 		if (set_iostreams_and_cmds(&new, tokens) == EOF)
 			return (close_pipes(), clear_plist(&new), EOF);
 		addback(plist, new);
-		if (g_gbl.fds)
-			g_gbl.fds->pipe_counter++;
+		if (g_glob.fds)
+			g_glob.fds->pipe_counter++;
 	}
 	return (true);
 }

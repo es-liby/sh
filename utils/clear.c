@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:51:08 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/26 09:43:31 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ void	clear_plist(t_pipeline **plist)
 
 void	clear_gbl(void)
 {
-	clearenv(g_gbl.envlist);
-	free_tab(g_gbl.envp);
+	clearenv(g_glob.envlist);
+	free_tab(g_glob.envp);
 }
 
 void	clearenv(t_env *envlist)
@@ -46,7 +46,7 @@ void	clearenv(t_env *envlist)
 		free(tmp_ptr->value);
 		free(tmp_ptr);
 	}
-	g_gbl.envlist = NULL;
+	g_glob.envlist = NULL;
 }
 
 void	free_tab(char **tab)
