@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 17:15:53 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 12:13:13 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:34:16 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	perform_redirections_and_set_cmds(t_pipeline **plist, t_list **tokens)
 	while (*tokens)
 	{
 		new = new_plist();
+		set_pipe(&new);
 		if (set_iostreams_and_cmds(&new, tokens) == EOF)
 			return (close_pipes(), clear_plist(&new), EOF);
 		addback(plist, new);
@@ -43,11 +44,11 @@ static int	set_iostreams_and_cmds(t_pipeline **plist, t_list **tokens)
 {
 	if (is_not_valid_pipeline(*tokens))
 		return (syn_err(*tokens), EOF);
-	if (peek_type(*tokens) == WORD)
-		if (set_cmd_and_args(plist, tokens) == EOF)
-			return (EOF);
 	if (is_redir_token(*tokens))
 		if (set_input_and_output_streams(plist, tokens) == EOF)
+			return (EOF);
+	if (peek_type(*tokens) == WORD)
+		if (set_cmd_and_args(plist, tokens) == EOF)
 			return (EOF);
 	if (go_to_next_cmd(tokens) == false)
 		return (EOF);

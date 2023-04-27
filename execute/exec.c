@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:00:00 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/26 10:31:22 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/27 09:00:43 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,11 @@ int	execute(t_pipeline *plist)
 	return (true);
 }
 
-static int	if_its_builtin_then_execute(t_pipeline **plist)
-{
-	t_builtin	cmdtype;
-
-	cmdtype = is_a_builtin_cmd((*plist)->cmd);
-	if (cmdtype == NONE)
-		return (false);
-	execute_builtin_cmd(*plist, cmdtype);
-	*plist = (*plist)->next;
-	return (true);
-}
-
 static void	executecmd(t_pipeline *plist, t_pipeline **head)
 {
 	char		*cmd;
 	char		**args;
+	void		handle_signals_for_cmds(void);
 
 	if (duplicate_io_streams(plist) == EOF)
 		exit(EXIT_FAILURE);
@@ -74,9 +63,22 @@ static void	executecmd(t_pipeline *plist, t_pipeline **head)
 		ft_fprintf(2, "sh: %s: Is a directory\n", cmd);
 		exit(126);
 	}
+	handle_signals_for_cmds();
 	execve(cmd, args, g_gbl.envp);
 	perror("execve");
 	exit(1);
+}
+
+static int	if_its_builtin_then_execute(t_pipeline **plist)
+{
+	t_builtin	cmdtype;
+
+	cmdtype = is_a_builtin_cmd((*plist)->cmd);
+	if (cmdtype == NONE)
+		return (false);
+	execute_builtin_cmd(*plist, cmdtype);
+	*plist = (*plist)->next;
+	return (true);
 }
 
 static bool	cmd_is_a_directory(char *cmd)
@@ -84,10 +86,7 @@ static bool	cmd_is_a_directory(char *cmd)
 	struct stat	statbuf;
 
 	if (stat(cmd, &statbuf) == -1)
-	{
-		ft_fprintf(2, "sh: %s: %s\n", cmd, strerror(errno));
-		exit(EXIT_FAILURE);
-	}
+		exit_with_errmsg(cmd, errno, 1);
 	if (S_ISDIR(statbuf.st_mode))
 		return (true);
 	return (false);

@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:02:59 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 12:03:00 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:34:23 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ int	readlines_from_heredoc_prompt(t_pipeline **plist, t_list **tokens)
 		return (free(g_gbl.heredoc_file), EOF);
 	(*plist)->in_stream = fd;
 	advance(tokens);
-	if (is_redir_token(*tokens))
-		return (set_input_and_output_streams(plist, tokens));
 	return (true);
 }
 
@@ -71,8 +69,10 @@ static void	set_heredoc_file(char *file)
 		g_gbl.heredoc_file = file;
 	else
 	{
-		unlink(g_gbl.heredoc_file);
+		if (unlink(g_gbl.heredoc_file) == -1)
+			perror("unlink");
 		free(g_gbl.heredoc_file);
+		//printf("heredoc file: %s\n", g_gbl.heredoc_file);
 		g_gbl.heredoc_file = file;
 	}
 }

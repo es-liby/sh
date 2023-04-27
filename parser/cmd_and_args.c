@@ -6,16 +6,14 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:01:53 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/25 11:49:12 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:34:54 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 static int	set_args(t_pipeline **plist, t_list **tokens);
-static void	args_after_cmd(t_pipeline **plist, t_list **tokens);
-static int	search_and_set_args(t_pipeline **plist, t_list *tokens);
-static void	set_pipe(t_pipeline **plist);
+static int	search_and_set_args(t_pipeline **plist, t_list **tokens);
 
 int	set_cmd_and_args(t_pipeline **plist, t_list **tokens)
 {
@@ -26,8 +24,6 @@ int	set_cmd_and_args(t_pipeline **plist, t_list **tokens)
 	}
 	if (set_args(plist, tokens) == EOF)
 		return (EOF);
-	if (g_gbl.fds != NULL)
-		set_pipe(plist);
 	if (is_redir_token(*tokens))
 		return (set_input_and_output_streams(plist, tokens));
 	return (true);
@@ -45,60 +41,41 @@ static int	set_args(t_pipeline **plist, t_list **tokens)
 		ft_lstclear(&arglist, free);
 		return (true);
 	}
-	else if (peek_type(*tokens) == WORD)
-		args_after_cmd(plist, tokens);
-	else if (search_and_set_args(plist, *tokens) == EOF)
+	else if (search_and_set_args(plist, tokens) == EOF)
 		return (EOF);
 	return (true);
 }
 
-static void	args_after_cmd(t_pipeline **plist, t_list **tokens)
+static int	search_and_set_args(t_pipeline **plist, t_list **tokens)
 {
 	t_list	*argslist;
-	t_list	*new_token;
 
 	argslist = NULL;
 	ft_lstadd_back(&argslist, ft_lstnew(ft_strdup((*plist)->cmd), WORD));
-	while (peek_type(*tokens) == WORD)
+	while (peek_type(*tokens) != NIL && peek_type(*tokens) != PIPE)
 	{
-		new_token = ft_lstnew(ft_strdup((*tokens)->lexeme), WORD);
-		ft_lstadd_back(&argslist, new_token);
+		if (is_redir_token(*tokens))
+		{
+			if (set_input_and_output_streams(plist, tokens) == EOF)
+				return (ft_lstclear(&argslist, free), EOF);
+			continue ;
+		}
+		ft_lstadd_back(&argslist, ft_lstnew(ft_strdup((*tokens)->lexeme), WORD));
 		advance(tokens);
 	}
 	if (argslist != NULL)
 		(*plist)->args = split_argslist(argslist);
 	ft_lstclear(&argslist, free);
-}
-
-static int	search_and_set_args(t_pipeline **plist, t_list *tokens)
-{
-	t_list	*argslist;
-
-	argslist = NULL;
-	ft_lstadd_back(&argslist, ft_lstnew(ft_strdup((*plist)->cmd), WORD));
-	while (peek_type(tokens) != NIL && peek_type(tokens) != PIPE)
-	{
-		if (is_redir_token(tokens))
-		{
-			advance(&tokens);
-			if (p_match(&tokens, WORD) == false)
-				return (syn_err(tokens), EOF);
-			continue ;
-		}
-		ft_lstadd_back(&argslist, ft_lstnew(ft_strdup((*plist)->cmd), WORD));
-		advance(&tokens);
-	}
-	if (argslist != NULL)
-		(*plist)->args = split_argslist(argslist);
-	ft_lstclear(&argslist, free);
 	return (true);
 }
 
-static void	set_pipe(t_pipeline **plist)
+void	set_pipe(t_pipeline **plist)
 {
 	t_fds	*fds;
 	int		i;
 
+	if (g_gbl.fds == NULL)
+		return ;
 	fds = g_gbl.fds;
 	i = fds->pipe_counter;
 	if (i == 0)

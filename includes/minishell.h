@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:43:43 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/26 09:43:59 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/27 09:24:19 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ char	*find_variable(char **ptr);
 
 /*	handle_signals.c	*/
 void	handle_signals(void);
+void	handle_signals_for_cmds(void);
 
 /*	envcpy.c	*/
 t_env	*envcpy(char *envp[]);
@@ -84,6 +85,8 @@ void	free_tab(char **tab);
 
 /*	error.c	*/
 void	fatal(char *msg);
+void	exit_with_errmsg(char *err_src, int errno_val, int exit_status);
 void	cmd_notfound(char *cmd);
+void	no_such_file_or_dir(char *cmd);
 
 #endif

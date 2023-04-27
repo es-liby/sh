@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:05:21 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 13:50:32 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/27 09:23:45 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*getpath(char *cmd)
 		envlist = envlist->next;
 	}
 	if (envlist == NULL)
-		return (cmd_notfound(cmd), update_exit_status(127), NULL);
+		return (no_such_file_or_dir(cmd), update_exit_status(127), NULL);
 	if (is_a_directory(cmd))
 		return (cmd);
 	cmd_path = get_path_for_cmd(path, cmd);

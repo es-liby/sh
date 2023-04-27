@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 07:20:42 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/26 10:31:22 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/27 09:30:35 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	cdcmd(char **args)
 	if (chdir(args[0]) == -1)
 	{
 		ft_fprintf(2, "sh: %s: No such file or directory\n", args[0]);
-		return (EOF);
+		return (update_exit_status(1), EOF);
 	}
 	update_cwd(args[0]);
 	return (true);
@@ -44,9 +44,9 @@ static int	cd_to_home_directory(void)
 {
 	char	*home_dir;
 
-	home_dir = getenv("HOME");
+	home_dir = getenvvar_value("$HOME");
 	if (home_dir == NULL)
-		return (fatal("sh: cd: HOME not set"), EOF);
+		return (update_exit_status(1), fatal("cd: HOME not set"), EOF);
 	if (chdir(home_dir) == -1)
 		return (perror("sh: cd"), EOF);
 	update_pwd_and_oldpwd(home_dir);

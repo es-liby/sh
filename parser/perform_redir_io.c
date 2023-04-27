@@ -6,13 +6,27 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 23:02:22 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/25 11:49:49 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/27 06:41:30 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 static int	get_fd_of_output_file(char *outfile, t_list *token);
+
+int	set_input_and_output_streams(t_pipeline **plist, t_list **tokens)
+{
+	if (p_match(tokens, REDIR_IN))
+		if (perform_redir_input(plist, tokens) == EOF)
+			return (EOF);
+	if (p_match(tokens, REDIR_OUT) || p_match(tokens, REDIR_OUT_APPEND))
+		if (perform_redir_output(plist, tokens) == EOF)
+			return (EOF);
+	if (p_match(tokens, HEREDOC))
+		if (readlines_from_heredoc_prompt(plist, tokens) == EOF)
+			return (EOF);
+	return (true);
+}
 
 int	perform_redir_input(t_pipeline **plist, t_list **tokens)
 {
@@ -43,6 +57,8 @@ int	perform_redir_output(t_pipeline **plist, t_list **tokens)
 	fd = get_fd_of_output_file(outfile, *tokens);
 	if (fd == EOF)
 		return (EOF);
+	if ((*plist)->out_stream != 1)
+		ft_close((*plist)->out_stream);
 	(*plist)->out_stream = fd;
 	advance(tokens);
 	if (is_redir_token(*tokens))

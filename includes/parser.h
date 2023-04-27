@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 01:54:35 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 13:46:50 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:34:38 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,13 +49,10 @@ int			perform_redirections_and_set_cmds(t_pipeline **plist,
 
 /*	cmd_and_args.c	*/
 int			set_cmd_and_args(t_pipeline **plist, t_list **tokens);
-int			set_input_and_output_streams(t_pipeline **plist, t_list **tokens);
+void		set_pipe(t_pipeline **plist);
 
 /*	split_args.c	*/
 char		**split_argslist(t_list *arglist);
-
-/*	io_streams.c	*/
-int			set_input_and_output_streams(t_pipeline **plist, t_list **tokens);
 
 /*	pipe_fds.c	*/
 t_fds		*count_and_open_pipes(t_list *tokens);
@@ -66,10 +63,14 @@ void		clear_pipes(t_fds *fds);
 /*	perform_redir_io.c	*/
 int			perform_redir_input(t_pipeline **plist, t_list **tokens);
 int			perform_redir_output(t_pipeline **plist, t_list **tokens);
+int			set_input_and_output_streams(t_pipeline **plist, t_list **tokens);
 int			is_redir_token(t_list *token);
 
 /*	cmd_and_args.c	*/
 int			set_cmd_and_args(t_pipeline **plist, t_list **tokens);
+
+/*	heredoc.c	*/
+int			readlines_from_heredoc_prompt(t_pipeline **plist, t_list **tokens);
 
 /*	heredoc_utils.c	*/
 char		*get_sub_sequence_of_heredoc(char **line);
