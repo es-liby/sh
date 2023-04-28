@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:00:00 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/27 14:50:36 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,5 @@ void	update_exit_status(int status)
 	if (WIFEXITED(status))
 		g_glob.exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
-		g_glob.exit_status = WTERMSIG(status);
+		g_glob.exit_status = WTERMSIG(status) + 128;
 }
