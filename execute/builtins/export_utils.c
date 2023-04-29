@@ -6,13 +6,13 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 17:27:26 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/29 10:16:07 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void		update_existed_variable(t_env *envlist, char *value);
+static void		update_existed_variable(t_env *envlist, char *key, char *value);
 static t_env	*key_already_exists(char *variable);
 
 int	set_value_of_new_envvar(char *new_envvar, char **value, size_t len)
@@ -32,8 +32,11 @@ int	set_value_of_new_envvar(char *new_envvar, char **value, size_t len)
 			*value = ft_substr(new_envvar, len + 2, size);
 		return (JOIN);
 	}
-	size = ft_strlen(new_envvar) - (len + 1);
-	*value = ft_substr(new_envvar, len + 1, size);
+	else
+	{
+		size = ft_strlen(new_envvar) - (len + 1);
+		*value = ft_substr(new_envvar, len + 1, size);
+	}
 	return (ADD);
 }
 
@@ -61,13 +64,15 @@ void	add_new_envvar(char *key, char *value)
 
 	envlist = key_already_exists(key);
 	if (envlist != NULL)
-		update_existed_variable(envlist, value);
+		update_existed_variable(envlist, key, value);
 	else
 		add_envvar(&g_glob.envlist, key, value);
 }
 
-static void	update_existed_variable(t_env *envlist, char *value)
+static void	update_existed_variable(t_env *envlist, char *key, char *value)
 {
+	free(envlist->key);
+	envlist->key = key;
 	if (value == NULL)
 		return ;
 	free(envlist->value);
