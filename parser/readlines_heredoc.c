@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 16:58:44 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:31:51 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int	read_and_write_line_to_heredoc_file(t_list *tokens, int fd, int expanded)
 	{
 		handle_signals_for_heredoc();
 		line = readline("> ");
-		if (g_glob.sigint == ON)
-			return (free(line), EOF);
 		if (line == NULL)
 			break ;
+		if (g_glob.sigint == ON)
+			return (free(line), EOF);
 		if (is_end_of_heredoc(line, label))
 			break ;
 		writeline_to_heredoc_file(line, fd, expanded);
