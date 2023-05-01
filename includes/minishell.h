@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:43:43 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/27 09:24:19 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/01 11:52:29 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int		ft_fork(void);
 
 /*	getenvvar.c	*/
 char	*getenvvar_value(const char *envvar);
+void	update_shell_level(void);
 
 /*	getenvvar_utils.c	*/
 char	*find_variable_and_get_value(char **ptr);

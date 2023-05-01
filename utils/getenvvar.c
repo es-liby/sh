@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:16:10 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/01 12:01:59 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,25 @@ static char	*find_value(const char *envvar)
 		tmp_ptr = tmp_ptr->next;
 	}
 	return (NULL);
+}
+
+void	update_shell_level(void)
+{
+	t_env	*envlist;
+	char	*new_val;
+	int		shlvl_val;
+
+	envlist = g_glob.envlist;
+	while (envlist)
+	{
+		if (!ft_strcmp(envlist->key, "SHLVL"))
+			break ;
+		envlist = envlist->next;
+	}
+	if (envlist == NULL)
+		return ;
+	shlvl_val = ft_atoi(envlist->value);
+	new_val = ft_itoa(++shlvl_val);
+	free(envlist->value);
+	envlist->value = new_val;
 }

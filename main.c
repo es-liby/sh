@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:43:01 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/01 09:00:16 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/01 12:01:36 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	main(int argc, char *argv[], char *envp[])
 		exit(EXIT_FAILURE);
 	}
 	g_glob.envlist = envcpy(envp);
+	update_shell_level();
 	g_glob.exit_status = 0;
 	g_glob.fds = NULL;
 	g_glob.heredoc_file = NULL;

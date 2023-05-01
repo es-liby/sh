@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:00:39 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/01 10:47:37 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,19 @@ int	exitcmd(char **args)
 
 static void	exit_with_status_number(char *st_number)
 {
-	int	status_number;
+	long	status_number;
 
 	status_number = ft_atoi(st_number);
-	update_exit_status((unsigned int)status_number);
+	if (status_number >= LONG_MAX)
+	{
+		ft_fprintf(2, "exit\n");
+		ft_fprintf(2, "sh: exit: %s: numeric argument required\n", st_number);
+		update_exit_status(255);
+		return ;
+	}
+	update_exit_status((unsigned char)status_number);
+	//g_glob.exit_status = WEXITSTATUS(status_number);
+	ft_fprintf(1, "exit\n");
 	exit(g_glob.exit_status);
 }
 
