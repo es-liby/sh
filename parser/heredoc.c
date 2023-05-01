@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:02:59 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/01 08:37:39 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ static void	set_heredoc_file(char *file)
 		if (unlink(g_glob.heredoc_file) == -1)
 			perror("unlink");
 		free(g_glob.heredoc_file);
-		//printf("heredoc file: %s\n", g_glob.heredoc_file);
 		g_glob.heredoc_file = file;
 	}
 }

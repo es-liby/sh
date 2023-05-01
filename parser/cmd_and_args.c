@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:01:53 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/01 08:37:08 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static int	set_args(t_pipeline **plist, t_list **tokens)
 static int	search_and_set_args(t_pipeline **plist, t_list **tokens)
 {
 	t_list	*argslist;
+	char	*lexeme_dup;
 
 	argslist = NULL;
 	ft_lstadd_back(&argslist, ft_lstnew(ft_strdup((*plist)->cmd), WORD));
@@ -60,7 +61,8 @@ static int	search_and_set_args(t_pipeline **plist, t_list **tokens)
 				return (ft_lstclear(&argslist, free), EOF);
 			continue ;
 		}
-		ft_lstadd_back(&argslist, ft_lstnew(ft_strdup((*tokens)->lexeme), WORD));
+		lexeme_dup = ft_strdup((*tokens)->lexeme);
+		ft_lstadd_back(&argslist, ft_lstnew(lexeme_dup, WORD));
 		advance(tokens);
 	}
 	if (argslist != NULL)

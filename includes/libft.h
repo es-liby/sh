@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:34:01 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/17 17:43:28 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/01 08:59:26 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <symbols.h>
+# include <stdbool.h>
 
 typedef struct s_list
 {
@@ -32,6 +33,7 @@ int		ft_isalnum(int c);
 int		ft_isascii(int c);
 int		ft_isprint(int c);
 int		ft_isspace(int c);
+bool	ft_isallspace(const char *str);
 size_t	ft_strlen(const char *s);
 void	*ft_memset(void *b, int c, size_t len);
 void	ft_bzero(void *s, size_t n);

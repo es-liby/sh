@@ -12,7 +12,7 @@ OBJ_DIR := ../../obj/libft/
 SRCS := ft_calloc.c ft_isdigit.c ft_lstadd_back.c ft_lstlast.c ft_memset.c ft_strdup.c ft_strlcpy.c \
 ft_substr.c ft_atoi.c ft_isalnum.c ft_isspace.c ft_lstclear.c ft_lstnew.c ft_split.c ft_strjoin.c \
 ft_strlen.c ft_bzero.c ft_isalpha.c ft_itoa.c ft_lstdelone.c ft_lstsize.c ft_strcmp.c ft_strlcat.c \
-ft_strncmp.c
+ft_strncmp.c ft_isallspace.c
 
 OBJS = $(addprefix $(OBJ_DIR),$(SRCS:%.c=%.o))
 
