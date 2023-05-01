@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hajj <yel-hajj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/29 17:32:54 by yel-hajj          #+#    #+#             */
-/*   Updated: 2023/04/29 17:32:55 by yel-hajj         ###   ########.fr       */
+/*   Created: 2023/04/24 12:00:00 by iabkadri          #+#    #+#             */
+/*   Updated: 2023/05/01 12:01:28 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static void	executecmd(t_pipeline *plist, t_pipeline **head)
 	args = plist->args;
 	if (cmd_is_a_directory(cmd))
 	{
-		ft_fprintf(2, "sh: %s: is a directory\n", cmd);
+		ft_fprintf(2, "sh: %s: Is a directory\n", cmd);
 		exit(126);
 	}
 	handle_signals_for_cmds();
@@ -87,14 +87,15 @@ static bool	cmd_is_a_directory(char *cmd)
 
 	if (stat(cmd, &statbuf) == -1)
 		exit_with_errmsg(cmd, errno, 1);
-	return (S_ISDIR(statbuf.st_mode));
+	if (S_ISDIR(statbuf.st_mode))
+		return (true);
+	return (false);
 }
 
 void	update_exit_status(int status)
 {
-	if (WIFEXITED(status)) //macro that check if the process exit without a signal
-		g_glob.exit_status = WEXITSTATUS(status); //convert to the actual exit status
+	if (WIFEXITED(status))
+		g_glob.exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
 		g_glob.exit_status = WTERMSIG(status) + 128;
 }
- 

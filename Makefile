@@ -45,7 +45,7 @@ unset.c update_cwd.c)
  
 #	the source files of execute
 EXEC_SRS = $(addprefix execute/,exec.c exec_builtin.c streams.c ids.c \
-search_path.c getpath.c split_plist.c $(BUILTINS))
+search_path.c getpath.c split_plist.c split_args.c $(BUILTINS))
 EXEC_OBJS = $(patsubst execute/%.c,obj/execute/%.o,$(EXEC_SRS))
  
 #	the source files of utils
@@ -53,7 +53,7 @@ UTILS_SRCS = $(addprefix utils/,clear.c envcpy.c handle_signals.c getenvvar.c \
 getenvvar_utils.c std.c debug.c key_value.c error.c)
 UTILS_OBJS = $(patsubst utils/%.c,obj/utils/%.o,$(UTILS_SRCS))
 
-DEPENDENCIES = $(LIBFT_SRCS) $(FPRINTF_SRCS) $(HEADERS)
+DEPENDENCIES = $(LIBFT_SRCS) $(FPRINTF_SRCS)
 
 BLUE = $(shell tput -Txterm setaf 6)
 RESET = $(shell tput -Txterm sgr0)
@@ -75,7 +75,7 @@ $(NAME): $(OBJS)
 	@make -C $(SRC_DIR)ft_fprintf
 	@$(CC) $^ $(LIBS) $(LINKS) -o $@
 
-$(OBJ_DIR)%.o: %.c $(HEADERS)
+$(OBJ_DIR)%.o: %.c $(HEADERS) $(DEPENDENCIES)
 	@mkdir -p $(OBJ_DIR) $(LIB_DIR) $(DIRS)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 	@printf "\t$(SYMB) $(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@\n"

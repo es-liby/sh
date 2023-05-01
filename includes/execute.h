@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 07:29:22 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/01 11:48:33 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/01 15:57:21 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ int			close_streams(t_pipeline *plist);
 
 /*	split_plist.c	*/
 void		split_plist(t_pipeline *tmp_ptr);
+size_t		getsp_size(char **args);
+
+/*	split_args.c	*/
+char		**split_args(char **args);
 
 /*	ids.c	*/
 void		add_id(t_ids **ids, pid_t pid);

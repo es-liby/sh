@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:43:01 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/01 12:01:36 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/01 12:47:19 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,7 @@ int	main(int argc, char *argv[], char *envp[])
 {
 	(void)argv;
 	if (argc != 1)
-	{
-		ft_fprintf(2, "Usage: ./minishell\n");
-		exit(EXIT_FAILURE);
-	}
+		exit_usage_err();
 	g_glob.envlist = envcpy(envp);
 	update_shell_level();
 	g_glob.exit_status = 0;
@@ -46,7 +43,7 @@ void	prompt(void)
 
 	stdin_dup = dup(STDIN_FILENO);
 	if (stdin_dup == -1)
-		exit(EXIT_FAILURE);
+		return ;
 	while (true)
 	{
 		handle_signals();
