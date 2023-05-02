@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:43:01 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/02 09:53:23 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/02 11:20:23 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,11 @@ int	main(int argc, char *argv[], char *envp[])
 	g_glob.heredoc_file = NULL;
 	if (isatty(0) == 0)
 		exit(EXIT_FAILURE);
-	prompt();
+	char	*line;
+
+	line = readline("BASH ");
+	printf("%s", line);
+	//prompt();
 	unlink_heredoc_file();
 	clearenv(g_glob.envlist);
 	exit(EXIT_SUCCESS);

@@ -30,7 +30,7 @@ MAIN_OBJ := $(addprefix $(OBJ_DIR),$(MAIN:%.c=%.o))
 
 #	the source files of the scannner
 SCANNER_SRCS = $(addprefix scanner/,scanner.c scanner_utils.c redir_token.c \
-pipe_token.c word_token.c envvar_token.c quote_token.c quote.c \
+pipe_token.c word_token.c quote_token.c quote.c \
 sequence.c)
 SCANNER_OBJS = $(patsubst scanner/%.c,obj/scanner/%.o,$(SCANNER_SRCS))
 
@@ -45,12 +45,12 @@ unset.c update_cwd.c)
  
 #	the source files of execute
 EXEC_SRS = $(addprefix execute/,exec.c streams.c ids.c \
-getpath.c split_plist.c split_args.c check_cmds.c $(BUILTINS))
+split_plist.c split_args.c check_cmds.c $(BUILTINS))
 EXEC_OBJS = $(patsubst execute/%.c,obj/execute/%.o,$(EXEC_SRS))
  
 #	the source files of utils
 UTILS_SRCS = $(addprefix utils/,clear.c envcpy.c handle_signals.c getenvvar.c \
-getenvvar_utils.c std.c debug.c key_value.c error.c)
+getenvvar_utils.c std.c key_value.c error.c)
 UTILS_OBJS = $(patsubst utils/%.c,obj/utils/%.o,$(UTILS_SRCS))
 
 DEPENDENCIES = $(LIBFT_SRCS) $(FPRINTF_SRCS)
