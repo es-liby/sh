@@ -3,82 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hajj <yel-hajj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/29 17:32:54 by yel-hajj          #+#    #+#             */
-/*   Updated: 2023/04/29 17:32:55 by yel-hajj         ###   ########.fr       */
+/*   Created: 2023/04/29 17:33:01 by yel-hajj          #+#    #+#             */
+/*   Updated: 2023/05/01 19:12:49 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int	if_its_builtin_then_execute(t_pipeline **plist);
-static void	executecmd(t_pipeline *plist, t_pipeline **head);
+static void	child_process(t_pipeline *plist, t_pipeline *head, char **paths);
 static bool	cmd_is_a_directory(char *cmd);
 
-int	execute(t_pipeline *plist)
+void	execute(t_pipeline *plist)
 {
+	int			id;
+	char		**paths;
 	t_pipeline	*head;
-	pid_t		pid;
 	t_ids		*ids;
 
-	if (plist == NULL || plist->cmd == NULL)
-		return (true);
 	ids = NULL;
+	if (!plist || plist->cmd == NULL)
+		return ;
+	paths = check_cmd_path();
 	head = plist;
 	while (plist)
 	{
-		if (if_its_builtin_then_execute(&plist) == true)
+		if (check_if_build_in(&plist))
 			continue ;
-		pid = fork();
-		if (pid == -1)
-			return (perror("fork"), EOF);
-		if (pid == 0)
-			executecmd(plist, &head);
-		add_id(&ids, pid);
+		id = ft_fork();
+		if (id < 0)
+		{
+			plist = plist->next;
+			continue ;			
+		}
+		if (id == 0)
+			child_process(plist, head, paths);
+		add_id(&ids, id);
 		plist = plist->next;
 	}
+	free_tab(paths);
 	close_streams(head);
 	wait_pids_and_update_exit_status(&ids);
-	return (true);
 }
 
-static void	executecmd(t_pipeline *plist, t_pipeline **head)
+static void	child_process(t_pipeline *plist, t_pipeline *head, char **paths)
 {
-	char		*cmd;
-	char		**args;
-	void		handle_signals_for_cmds(void);
-
-	if (duplicate_io_streams(plist) == EOF)
-		exit(EXIT_FAILURE);
-	if (close_streams(*head) == EOF)
-		exit(EXIT_FAILURE);
 	split_plist(plist);
-	if (search_and_set_path_for_cmds(plist) == EOF)
+	if (check_if_valid(plist, paths) == EOF)
 		exit(127);
-	cmd = plist->cmd;
-	args = plist->args;
-	if (cmd_is_a_directory(cmd))
+	if (cmd_is_a_directory(plist->cmd))
 	{
-		ft_fprintf(2, "sh: %s: is a directory\n", cmd);
+		ft_fprintf(2, "sh: %s: is a directory\n", plist->cmd);
 		exit(126);
 	}
+	if (duplicate_io_streams(plist) == EOF)
+		exit(EXIT_FAILURE);
+	close_streams(head);
 	handle_signals_for_cmds();
-	execve(cmd, args, g_glob.envp);
-	perror("execve");
+	execve(plist->cmd, plist->args, g_glob.envp);
+	perror("sh");
 	exit(1);
-}
-
-static int	if_its_builtin_then_execute(t_pipeline **plist)
-{
-	t_builtin	cmdtype;
-
-	cmdtype = is_a_builtin_cmd((*plist)->cmd);
-	if (cmdtype == NONE)
-		return (false);
-	execute_builtin_cmd(*plist, cmdtype);
-	*plist = (*plist)->next;
-	return (true);
 }
 
 static bool	cmd_is_a_directory(char *cmd)
@@ -92,9 +77,8 @@ static bool	cmd_is_a_directory(char *cmd)
 
 void	update_exit_status(int status)
 {
-	if (WIFEXITED(status)) //macro that check if the process exit without a signal
-		g_glob.exit_status = WEXITSTATUS(status); //convert to the actual exit status
+	if (WIFEXITED(status))
+		g_glob.exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
 		g_glob.exit_status = WTERMSIG(status) + 128;
 }
- 

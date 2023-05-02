@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 01:46:23 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/26 10:31:22 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/02 08:11:32 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ int	ft_open(char *file, int flags)
 	int	fd;
 
 	if (flags == O_RDONLY)
-		fd = open(file, flags);
+		fd = open(file, O_RDONLY);
 	else
 		fd = open(file, flags, 0644);
 	if (fd == -1)
 	{
 		ft_fprintf(2, "sh: %s: %s\n", file, strerror(errno));
-		update_exit_status(1);
+		g_glob.exit_status = 1;
 	}
 	return (fd);
 }

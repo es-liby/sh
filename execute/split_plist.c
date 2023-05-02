@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_plist.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hajj <yel-hajj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 17:33:25 by yel-hajj          #+#    #+#             */
-/*   Updated: 2023/04/29 17:33:26 by yel-hajj         ###   ########.fr       */
+/*   Updated: 2023/05/01 16:32:42 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void		args_add_front(t_pipeline *token, char **cmd_sp);
 static void		update_cmd_and_args(t_pipeline *token, char **new_args,
 					char *new_cmd);
-static size_t	get_sp_size(char **sp);
 
 void	split_plist(t_pipeline *tmp_ptr)
 {
@@ -34,7 +33,7 @@ static void	args_add_front(t_pipeline *token, char **cmd_sp)
 	size_t	size;
 	size_t	i;
 
-	size = get_sp_size(cmd_sp);
+	size = getsp_size(cmd_sp);
 	new_args = ft_calloc(size + 1, sizeof(char *));
 	i = -1;
 	while (cmd_sp[++i])
@@ -53,7 +52,7 @@ static void	update_cmd_and_args(t_pipeline *token, char **new_args,
 	token->args = new_args;
 }
 
-static size_t	get_sp_size(char **sp)
+size_t	getsp_size(char **sp)
 {
 	size_t	size;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   streams.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hajj <yel-hajj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 17:33:32 by yel-hajj          #+#    #+#             */
-/*   Updated: 2023/04/29 17:33:33 by yel-hajj         ###   ########.fr       */
+/*   Updated: 2023/05/01 17:55:48 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,25 @@ int	duplicate_io_streams(t_pipeline *plist)
 	return (true);
 }
 
-void	dup_streams(t_pipeline *plist, int *stdin_dup, int *stdout_dup)
+int	dup_streams(t_pipeline *plist, int *stdin_dup, int *stdout_dup)
 {
 	if (plist->in_stream != 0)
 	{
 		*stdin_dup = ft_dup(STDIN_FILENO);
-		ft_dup2(plist->in_stream, STDIN_FILENO);
+		if (*stdin_dup == EOF)
+			return (EOF);
+		if (ft_dup2(plist->in_stream, STDIN_FILENO) == EOF)
+			return (EOF);
 	}
 	if (plist->out_stream != 1)
 	{
 		*stdout_dup = ft_dup(STDOUT_FILENO);
-		ft_dup2(plist->out_stream, STDOUT_FILENO);
+		if (*stdout_dup == EOF)
+			return (EOF);
+		if (ft_dup2(plist->out_stream, STDOUT_FILENO) == EOF)
+			return (EOF);
 	}
+	return (true);
 }
 
 void	getback_io_streams(t_pipeline *plist, int stdin_dup, int stdout_dup)

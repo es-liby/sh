@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   check_cmds.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hajj <yel-hajj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 17:32:41 by yel-hajj          #+#    #+#             */
-/*   Updated: 2023/04/29 17:32:42 by yel-hajj         ###   ########.fr       */
+/*   Updated: 2023/05/01 17:56:12 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+static void	join_withslash(char **res);
 
 int	check_if_valid(t_pipeline *plist, char **paths)
 {
@@ -24,9 +26,9 @@ int	check_if_valid(t_pipeline *plist, char **paths)
 		if (access(cmd, X_OK) == -1)
 		{
 			ft_fprintf(2, "bash: %s: command not found\n", cmd);
-			return (EOF);
+			return (free(cmd), EOF);
 		}
-		return (true);
+		return (free(cmd), true);
 	}
 	i = -1;
 	while (paths[++i])
@@ -36,11 +38,11 @@ int	check_if_valid(t_pipeline *plist, char **paths)
 		{
 			free(plist->cmd);
 			plist->cmd = res;
-			return (true);
+			return (free(cmd), true);
 		}
 	}
 	ft_fprintf(2, "bash: %s: command not found\n", cmd);
-	return (EOF);
+	return (free(cmd), EOF);
 }
 
 char	**check_cmd_path(void)
@@ -67,6 +69,11 @@ char	**check_cmd_path(void)
 
 int	check_if_build_in(t_pipeline **plist)
 {
+	int	stdin_dup;
+	int	stdout_dup;
+
+	if (dup_streams(*plist, &stdin_dup, &stdout_dup) == EOF)
+		return (1);
 	if (!ft_strcmp((*plist)->cmd, "pwd"))
 		pwdcmd((*plist)->args + 1);
 	else if (!ft_strcmp((*plist)->cmd, "export"))
@@ -83,11 +90,12 @@ int	check_if_build_in(t_pipeline **plist)
 		unsetcmd((*plist)->args + 1);
 	else
 		return (0);
+	getback_io_streams(*plist, stdin_dup, stdout_dup);
 	*plist = (*plist)->next;
 	return (1);
 }
 
-void	join_withslash(char **res)
+static void	join_withslash(char **res)
 {
 	int	i;
 	int	j;

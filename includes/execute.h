@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 07:29:22 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/01 15:57:21 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/01 17:55:10 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define ADD 1
 
 /*	exec.c	*/
-int			execute(t_pipeline *plist);
+void		execute(t_pipeline *plist);
 void		update_exit_status(int status);
 
 /*	search_path.c	*/
@@ -51,14 +51,19 @@ t_builtin	is_a_builtin_cmd(char *cmd);
 
 /*	streams.c	*/
 int			duplicate_io_streams(t_pipeline *plist);
-void		dup_streams(t_pipeline *plist, int *stdin_dup, int *stdout_dup);
+int			dup_streams(t_pipeline *plist, int *stdin_dup, int *stdout_dup);
 void		getback_io_streams(t_pipeline *plist, int stdin_dup,
 				int stdout_dup);
 int			close_streams(t_pipeline *plist);
 
 /*	split_plist.c	*/
-void		split_plist(t_pipeline *tmp_ptr);
+void		split_plist(t_pipeline *plist);
 size_t		getsp_size(char **args);
+
+/*	check_cmds.c	*/
+int			check_if_valid(t_pipeline *plist, char **paths);
+char		**check_cmd_path(void);
+int			check_if_build_in(t_pipeline **plist);
 
 /*	split_args.c	*/
 char		**split_args(char **args);
