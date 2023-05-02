@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/29 17:32:00 by yel-hajj          #+#    #+#             */
-/*   Updated: 2023/05/02 10:06:48 by iabkadri         ###   ########.fr       */
+/*   Created: 2023/04/24 12:00:39 by iabkadri          #+#    #+#             */
+/*   Updated: 2023/05/01 15:04:30 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,17 @@ int	exitcmd(char **args)
 
 static void	exit_with_status_number(char *st_number)
 {
-	long status_number;
+	long	status_number;
 
 	status_number = ft_atoi(st_number);
-	if (status_number == -1 && ft_strlen(st_number) > 2)
+	if (status_number >= LONG_MAX)
 	{
 		ft_fprintf(2, "exit\n");
 		ft_fprintf(2, "sh: exit: %s: numeric argument required\n", st_number);
-		g_glob.exit_status = 255;
+		update_exit_status(255);
 	}
-	else
-	{
-		g_glob.exit_status = (unsigned char)status_number;
-		ft_fprintf(1, "exit\n");
-	}
+	update_exit_status((unsigned char)status_number);
+	ft_fprintf(1, "exit\n");
 	exit(status_number);
 }
 

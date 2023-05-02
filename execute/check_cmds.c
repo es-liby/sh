@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 17:32:41 by yel-hajj          #+#    #+#             */
-/*   Updated: 2023/05/01 17:56:12 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/02 10:32:13 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	check_if_build_in(t_pipeline **plist)
 	else if (!ft_strcmp((*plist)->cmd, "unset"))
 		unsetcmd((*plist)->args + 1);
 	else
-		return (0);
+		return (getback_io_streams(*plist, stdin_dup, stdout_dup), 0);
 	getback_io_streams(*plist, stdin_dup, stdout_dup);
 	*plist = (*plist)->next;
 	return (1);

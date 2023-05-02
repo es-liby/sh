@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 17:33:01 by yel-hajj          #+#    #+#             */
-/*   Updated: 2023/05/01 19:12:49 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/02 10:32:34 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static void	child_process(t_pipeline *plist, t_pipeline *head, char **paths)
 		exit(EXIT_FAILURE);
 	close_streams(head);
 	handle_signals_for_cmds();
+	ft_fprintf(2, "CMD: %s\n", plist->cmd);
 	execve(plist->cmd, plist->args, g_glob.envp);
 	perror("sh");
 	exit(1);

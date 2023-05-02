@@ -1,8 +1,8 @@
 CC := cc
 READLINE_PATH=$(shell brew --prefix readline)
 CFLAGS := -Wall -Werror -Wextra -g
-INCLUDE := -I/goinfre/iabkadri/.brew/opt/readline/include -I includes -I include
-LINKS := -L/goinfre/iabkadri/.brew/opt/readline/lib -lreadline
+INCLUDE := -I/goinfre/$(USER)/.brew/opt/readline/include -I includes -I include
+LINKS := -L/goinfre/$(USER)/.brew/opt/readline/lib -lreadline
 RM := rm -rf
 MAKEFLAGS := --no-print-directory
 

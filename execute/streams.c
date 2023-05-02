@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 17:33:32 by yel-hajj          #+#    #+#             */
-/*   Updated: 2023/05/01 17:55:48 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/02 10:29:57 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static int	ft_dup(int fd);
 
 int	duplicate_io_streams(t_pipeline *plist)
 {
-	if (plist->in_stream != 0)
+	if (plist->in_stream != STDIN_FILENO)
 		if (ft_dup2(plist->in_stream, STDIN_FILENO) == EOF)
 			return (EOF);
-	if (plist->out_stream != 1)
+	if (plist->out_stream != STDOUT_FILENO)
 		if (ft_dup2(plist->out_stream, STDOUT_FILENO) == EOF)
 			return (EOF);
 	return (true);
