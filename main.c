@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:43:01 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/02 11:20:23 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/02 13:22:00 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,7 @@ int	main(int argc, char *argv[], char *envp[])
 	g_glob.heredoc_file = NULL;
 	if (isatty(0) == 0)
 		exit(EXIT_FAILURE);
-	char	*line;
-
-	line = readline("BASH ");
-	printf("%s", line);
-	//prompt();
+	prompt();
 	unlink_heredoc_file();
 	clearenv(g_glob.envlist);
 	exit(EXIT_SUCCESS);
@@ -54,7 +50,7 @@ void	prompt(void)
 		if (isatty(STDIN_FILENO) == 0)
 			if (ft_dup2(stdin_dup, STDIN_FILENO) == EOF)
 				break ;
-		pipeline = readline("\x1B[33msh$>\x1B[0m ");
+		pipeline = readline("\x1B[36msh$>\x1B[0m ");
 		if (pipeline == NULL)
 			break ;
 		if (*pipeline && !ft_isallblank(pipeline))

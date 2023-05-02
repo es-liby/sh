@@ -6,26 +6,24 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 17:33:01 by yel-hajj          #+#    #+#             */
-/*   Updated: 2023/05/02 10:32:34 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/02 12:39:30 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static void	child_process(t_pipeline *plist, t_pipeline *head, char **paths);
+static void	child_process(t_pipeline *plist, t_pipeline *head);
 static bool	cmd_is_a_directory(char *cmd);
 
 void	execute(t_pipeline *plist)
 {
 	int			id;
-	char		**paths;
 	t_pipeline	*head;
 	t_ids		*ids;
 
 	ids = NULL;
 	if (!plist || plist->cmd == NULL)
 		return ;
-	paths = check_cmd_path();
 	head = plist;
 	while (plist)
 	{
@@ -38,17 +36,24 @@ void	execute(t_pipeline *plist)
 			continue ;			
 		}
 		if (id == 0)
-			child_process(plist, head, paths);
+			child_process(plist, head);
 		add_id(&ids, id);
 		plist = plist->next;
 	}
-	free_tab(paths);
 	close_streams(head);
 	wait_pids_and_update_exit_status(&ids);
 }
 
-static void	child_process(t_pipeline *plist, t_pipeline *head, char **paths)
+static void	child_process(t_pipeline *plist, t_pipeline *head)
 {
+	char		**paths;
+
+	if (*(plist->cmd) == '\0')
+	{
+		ft_fprintf(2, "sh: %s: command not found\n", plist->cmd);
+		exit(127);
+	}
+	paths = check_cmd_path(plist->cmd);
 	split_plist(plist);
 	if (check_if_valid(plist, paths) == EOF)
 		exit(127);
@@ -61,7 +66,6 @@ static void	child_process(t_pipeline *plist, t_pipeline *head, char **paths)
 		exit(EXIT_FAILURE);
 	close_streams(head);
 	handle_signals_for_cmds();
-	ft_fprintf(2, "CMD: %s\n", plist->cmd);
 	execve(plist->cmd, plist->args, g_glob.envp);
 	perror("sh");
 	exit(1);

@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 17:32:41 by yel-hajj          #+#    #+#             */
-/*   Updated: 2023/05/02 10:32:13 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/02 12:43:35 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_if_valid(t_pipeline *plist, char **paths)
 	{
 		if (access(cmd, X_OK) == -1)
 		{
-			ft_fprintf(2, "bash: %s: command not found\n", cmd);
+			ft_fprintf(2, "bash: %s: command not found\n", plist->cmd);
 			return (free(cmd), EOF);
 		}
 		return (free(cmd), true);
@@ -34,7 +34,7 @@ int	check_if_valid(t_pipeline *plist, char **paths)
 	while (paths[++i])
 	{
 		res = ft_strjoin(paths[i], cmd);
-		if (access(res, X_OK) == 0)
+		if (access(res, X_OK) != -1)
 		{
 			free(plist->cmd);
 			plist->cmd = res;
@@ -45,7 +45,7 @@ int	check_if_valid(t_pipeline *plist, char **paths)
 	return (free(cmd), EOF);
 }
 
-char	**check_cmd_path(void)
+char	**check_cmd_path(char *cmd)
 {
 	char	**paths;
 	int		i;
@@ -61,7 +61,10 @@ char	**check_cmd_path(void)
 		}
 	}
 	if (!paths)
-		return (NULL);
+	{
+		ft_fprintf(2, "sh: %s: No such file or directory\n", cmd);
+		exit(127);
+	}
 	join_withslash(paths);
 	return (paths);
 }

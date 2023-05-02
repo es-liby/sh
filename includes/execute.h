@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 07:29:22 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/01 17:55:10 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/02 12:27:48 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,6 @@
 void		execute(t_pipeline *plist);
 void		update_exit_status(int status);
 
-/*	search_path.c	*/
-int			search_and_set_path_for_cmds(t_pipeline *plist);
-
-/*	getpath.c	*/
-char		*getpath(char *cmd);
-int			is_a_directory(char *cmd);
-
 /*	builtins.c	*/
 int			cdcmd(char **args);
 int			pwdcmd(char **args);
@@ -45,10 +38,6 @@ void		join_new_envvar(char *key, char *value);
 void		add_new_envvar(char *key, char *value);
 int			unsetcmd(char **args);
 
-/*	exec_builtin.c	*/
-void		execute_builtin_cmd(t_pipeline *plist, t_builtin cmdtype);
-t_builtin	is_a_builtin_cmd(char *cmd);
-
 /*	streams.c	*/
 int			duplicate_io_streams(t_pipeline *plist);
 int			dup_streams(t_pipeline *plist, int *stdin_dup, int *stdout_dup);
@@ -62,7 +51,7 @@ size_t		getsp_size(char **args);
 
 /*	check_cmds.c	*/
 int			check_if_valid(t_pipeline *plist, char **paths);
-char		**check_cmd_path(void);
+char		**check_cmd_path(char *cmd);
 int			check_if_build_in(t_pipeline **plist);
 
 /*	split_args.c	*/
