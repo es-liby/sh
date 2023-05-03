@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:43:43 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/01 12:46:59 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/03 21:30:29 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <libft.h>
 # include <ft_fprintf.h>
-# include <get_next_line.h>
 # include <stdbool.h>
+# include <fcntl.h>
 # include <structs.h>
 # include <scanner.h>
 # include <parser.h>
@@ -43,13 +43,6 @@
 void	prompt(void);
 void	cleanup(t_pipeline **plist, t_list **tokens);
 void	unlink_heredoc_file(void);
-
-/*	debug.c	*/
-void	printplist(t_pipeline *plist);
-void	print_args(char **args);
-void	printlist(t_list *tokens);
-void	testprint(t_list *tokens);
-void	printenvvar(void);
 
 /*	std.c	*/
 int		ft_open(char *file, int flags);

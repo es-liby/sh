@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 17:27:34 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/03 21:23:28 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,5 +95,5 @@ static bool	is_not_a_valid_envvar(char *envvar)
 static void	invalid_identifier(char *identifier)
 {
 	ft_fprintf(2, "sh: export: `%s': not a valid identifier\n", identifier);
-	update_exit_status(1);
+	g_glob.exit_status = 1;
 }

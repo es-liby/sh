@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 17:33:01 by yel-hajj          #+#    #+#             */
-/*   Updated: 2023/05/02 12:39:30 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/02 22:30:12 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	execute(t_pipeline *plist)
 	head = plist;
 	while (plist)
 	{
-		if (check_if_build_in(&plist))
+		if (check_if_builtin(plist->cmd) && execute_builtin(&plist))
 			continue ;
 		id = ft_fork();
 		if (id < 0)

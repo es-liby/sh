@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 18:13:55 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/02 12:04:52 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/02 18:33:22 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 typedef enum e_tokentype
 {
-	REDIR,
+	REDIR = 0,
 	PIPE,
 	WORD,
 	REDIR_IN,
@@ -28,7 +28,7 @@ typedef enum e_tokentype
 
 typedef enum e_builtin
 {
-	ECHO,
+	ECHO = 0,
 	CD,
 	PWD,
 	EXPORT,

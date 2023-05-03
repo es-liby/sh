@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 07:29:22 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/02 12:27:48 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/02 22:23:48 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int			dup_streams(t_pipeline *plist, int *stdin_dup, int *stdout_dup);
 void		getback_io_streams(t_pipeline *plist, int stdin_dup,
 				int stdout_dup);
 int			close_streams(t_pipeline *plist);
+int			ft_dup(int fd);
 
 /*	split_plist.c	*/
 void		split_plist(t_pipeline *plist);
@@ -52,7 +53,8 @@ size_t		getsp_size(char **args);
 /*	check_cmds.c	*/
 int			check_if_valid(t_pipeline *plist, char **paths);
 char		**check_cmd_path(char *cmd);
-int			check_if_build_in(t_pipeline **plist);
+int			execute_builtin(t_pipeline **plist);
+bool		check_if_builtin(char *cmd);
 
 /*	split_args.c	*/
 char		**split_args(char **args);

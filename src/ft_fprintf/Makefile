@@ -9,17 +9,13 @@ INCLUDE := -I ../../includes/
 HEADER := ../../includes/ft_fprintf.h
 OBJ_DIR := ../../obj/ft_fprintf/
 
-SRCS := ft_fprintf.c	\
-	handle.c	\
-	sublibft.c
+SRCS := ft_fprintf.c handle.c sublibft.c
 OBJS = $(addprefix $(OBJ_DIR),$(SRCS:%.c=%.o))
 
 BLUE = $(shell tput -Txterm setaf 6)
 RESET = $(shell tput -Txterm sgr0)
-
 BOLD := $(shell tput bold)
 SGR0 := $(shell tput sgr0)
-
 SYMB := $(BOLD)$(BLUE)√$(SGR0)
 
 .PHONY: all clean fclean re

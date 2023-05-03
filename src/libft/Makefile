@@ -18,10 +18,8 @@ OBJS = $(addprefix $(OBJ_DIR),$(SRCS:%.c=%.o))
 
 BLUE = $(shell tput -Txterm setaf 6)
 RESET = $(shell tput -Txterm sgr0)
-
 BOLD := $(shell tput bold)
 SGR0 := $(shell tput sgr0)
-
 SYMB := $(BOLD)$(BLUE)√$(SGR0)
 
 .PHONY: all clean fclean re

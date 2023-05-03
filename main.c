@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:43:01 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/02 13:22:00 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/03 21:32:16 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	prompt(void)
 	char		*pipeline;
 	int			stdin_dup;
 
-	stdin_dup = dup(STDIN_FILENO);
+	stdin_dup = ft_dup(STDIN_FILENO);
 	if (stdin_dup == -1)
 		return ;
 	while (true)

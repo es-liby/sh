@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:01:53 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/01 08:37:08 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/02 22:38:36 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	set_cmd_and_args(t_pipeline **plist, t_list **tokens)
 	}
 	if (set_args(plist, tokens) == EOF)
 		return (EOF);
-	if (is_redir_token(*tokens))
-		return (set_input_and_output_streams(plist, tokens));
+	//if (is_redir_token(*tokens))
+	//	return (set_input_and_output_streams(plist, tokens));
 	return (true);
 }
 

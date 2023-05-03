@@ -6,13 +6,11 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 17:33:32 by yel-hajj          #+#    #+#             */
-/*   Updated: 2023/05/02 10:29:57 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/02 22:23:35 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
-
-static int	ft_dup(int fd);
 
 int	duplicate_io_streams(t_pipeline *plist)
 {
@@ -74,7 +72,7 @@ int	close_streams(t_pipeline *plist)
 	return (true);
 }
 
-static int	ft_dup(int fd)
+int	ft_dup(int fd)
 {
 	int	fd_dup;
 

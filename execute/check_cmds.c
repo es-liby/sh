@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 17:32:41 by yel-hajj          #+#    #+#             */
-/*   Updated: 2023/05/02 12:43:35 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/03 21:27:24 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check_if_valid(t_pipeline *plist, char **paths)
 	{
 		if (access(cmd, X_OK) == -1)
 		{
-			ft_fprintf(2, "bash: %s: command not found\n", plist->cmd);
+			ft_fprintf(2, "bash: %s: No such file or directory\n", plist->cmd);
 			return (free(cmd), EOF);
 		}
 		return (free(cmd), true);
@@ -70,13 +70,13 @@ char	**check_cmd_path(char *cmd)
 }
 
 
-int	check_if_build_in(t_pipeline **plist)
+int	execute_builtin(t_pipeline **plist)
 {
 	int	stdin_dup;
 	int	stdout_dup;
 
 	if (dup_streams(*plist, &stdin_dup, &stdout_dup) == EOF)
-		return (1);
+		return (*plist = (*plist)->next, 1);
 	if (!ft_strcmp((*plist)->cmd, "pwd"))
 		pwdcmd((*plist)->args + 1);
 	else if (!ft_strcmp((*plist)->cmd, "export"))
@@ -96,6 +96,25 @@ int	check_if_build_in(t_pipeline **plist)
 	getback_io_streams(*plist, stdin_dup, stdout_dup);
 	*plist = (*plist)->next;
 	return (1);
+}
+
+bool	check_if_builtin(char *cmd)
+{
+	if (!ft_strcmp(cmd, "pwd"))
+		return (1);
+	else if (!ft_strcmp(cmd, "export"))
+		return (1);
+	else if (!ft_strcmp(cmd, "echo"))
+		return (1);
+	else if (!ft_strcmp(cmd, "cd"))
+		return (1);
+	else if (!ft_strcmp(cmd, "env"))
+		return (1);
+	else if (!ft_strcmp(cmd, "exit"))
+		return (1);
+	else if (!ft_strcmp(cmd, "unset"))
+		return (1);
+	return (0);
 }
 
 static void	join_withslash(char **res)
