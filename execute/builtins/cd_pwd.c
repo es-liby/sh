@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 07:20:42 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/04 16:22:57 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 19:34:44 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	cdcmd(char **args)
 		return (-1);
 	}
 	update_cwd(args[0]);
+	g_glob.exit_status = 0;
 	return (1);
 }
 

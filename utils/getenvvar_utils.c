@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:47:19 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/03 21:41:33 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 19:45:07 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ char	*find_variable(char **ptr)
 	len = 0;
 	if ((*ptr)[len] == '$')
 		len++;
+	if ((*ptr)[len] == '\'' || (*ptr)[len] == '"')
+		return (*ptr += len, NULL);
 	if (ft_isdigit((*ptr)[len]))
 		return (*ptr += (len + 1), NULL);
 	if ((*ptr)[len] == '?')
