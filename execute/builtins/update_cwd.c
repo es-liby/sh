@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 10:09:44 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/04 16:29:51 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 21:16:49 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	env_update(char *envvar, char *cwd)
 	}
 	if (!envlist)
 	{
-		free(cwd);
+		add_envvar(&g_glob.envlist, ft_strdup(envvar), cwd);
 		return ;
 	}
 	free(envlist->value);

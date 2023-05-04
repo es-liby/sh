@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:00:39 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/04 16:27:02 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 21:22:58 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ static void	exit_with_status_number(char *st_number);
 static void	exit_with_last_status_number(void);
 static bool	is_not_valid_status_number(char *st_number);
 
-int	exitcmd(char **args)
+void	exitcmd(char **args)
 {
 	if (args[0] && args[1])
 	{
 		ft_fprintf(2, "exit\nsh: exit: too many arguments\n");
 		g_glob.exit_status = 1;
-		return (-1);
+		return ;
 	}
 	if (args[0])
 	{
@@ -33,7 +33,7 @@ int	exitcmd(char **args)
 	else
 		exit_with_last_status_number();
 	g_glob.exit_status = 0;
-	return (1);
+	return ;
 }
 
 static void	exit_with_status_number(char *st_number)

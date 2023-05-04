@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 07:29:22 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/04 18:19:34 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 21:24:27 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ void		execute(t_pipeline *plist);
 void		update_exit_status(int status);
 
 /*	builtins.c	*/
-int			cdcmd(char **args);
-int			pwdcmd(char **args);
+void		cdcmd(char **args);
+void		pwdcmd(char **args);
 void		update_cwd(char *arg);
 void		update_pwd_and_oldpwd(char *cwd);
-int			echocmd(char **args);
-int			envcmd(char **args);
-int			exitcmd(char **args);
-int			exportcmd(char **args);
+void		echocmd(char **args);
+void		envcmd(char **args);
+void		exitcmd(char **args);
+void		exportcmd(char **args);
 int			set_value_of_new_envvar(char *new_envvar, char **value, size_t len);
 void		join_new_envvar(char *key, char *value);
 void		add_new_envvar(char *key, char *value);
-int			unsetcmd(char **args);
+void		unsetcmd(char **args);
 
 /*	streams.c	*/
 int			duplicate_io_streams(t_pipeline *plist);

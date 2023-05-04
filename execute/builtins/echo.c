@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:00:24 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/04 16:25:03 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 21:22:31 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	print_args_with_newline_at_end(char **args);
 static void	print_args_without_newline_at_end(char **args);
 static bool	there_is_n_option(char *arg);
 
-int	echocmd(char **args)
+void	echocmd(char **args)
 {
 	int	i;
 
@@ -30,7 +30,6 @@ int	echocmd(char **args)
 	else
 		print_args_with_newline_at_end(args);
 	g_glob.exit_status = 0;
-	return (1);
 }
 
 static void	print_args_with_newline_at_end(char **args)

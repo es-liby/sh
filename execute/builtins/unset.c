@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 17:27:43 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/04 16:29:23 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 21:23:50 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	unset_envvar(char *envvar);
 static void	delete_envvar_node(t_env *envlist, t_env *tmp_ptr);
 static bool	variable_is_found(char *key, char *envvar);
 
-int	unsetcmd(char **args)
+void	unsetcmd(char **args)
 {
 	int	i;
 
@@ -24,7 +24,6 @@ int	unsetcmd(char **args)
 	while (args[++i])
 		unset_envvar(args[i]);
 	g_glob.exit_status = 0;
-	return (1);
 }
 
 static void	unset_envvar(char *envvar)

@@ -6,34 +6,36 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 17:27:34 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/04 16:55:08 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 21:25:02 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-static int	display_exported_variables(void);
+static void	display_exported_variables(void);
 static int	export_new_envvar(char *new_envvar);
 static bool	is_not_a_valid_envvar(char *envvar);
 static void	invalid_identifier(char *identifier);
 
-int	exportcmd(char **args)
+void	exportcmd(char **args)
 {
 	int	i;
 
 	if (!args[0])
-		return (display_exported_variables());
+	{
+		display_exported_variables();
+		return ;
+	}
 	i = -1;
 	while (args[++i])
 	{
 		if (export_new_envvar(args[i]) == -1)
-			return (-1);
+			return ;
 	}
 	g_glob.exit_status = 0;
-	return (1);
 }
 
-static int	display_exported_variables(void)
+static void	display_exported_variables(void)
 {
 	t_env	*envlist;
 
@@ -51,7 +53,6 @@ static int	display_exported_variables(void)
 		printf("\n");
 		envlist = envlist->next;
 	}
-	return (1);
 }
 
 static int	export_new_envvar(char *new_envvar)
