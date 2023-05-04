@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:16:54 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 12:16:55 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 16:53:20 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char	*join_key_and_value(t_env *env_ptr)
 
 	tmp_key = ft_strdup(env_ptr->key);
 	envp = ft_strjoin(tmp_key, "=");
-	envp = ft_strjoin(envp, env_ptr->value);
+	if (env_ptr->value != NULL)
+		envp = ft_strjoin(envp, env_ptr->value);
 	return (envp);
 }

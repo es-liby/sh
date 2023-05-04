@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 17:27:34 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/03 21:23:28 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 16:55:08 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ int	exportcmd(char **args)
 {
 	int	i;
 
-	if (args[0] == NULL)
+	if (!args[0])
 		return (display_exported_variables());
 	i = -1;
 	while (args[++i])
 	{
-		if (export_new_envvar(args[i]) == EOF)
-			return (EOF);
+		if (export_new_envvar(args[i]) == -1)
+			return (-1);
 	}
-	update_exit_status(0);
-	return (true);
+	g_glob.exit_status = 0;
+	return (1);
 }
 
 static int	display_exported_variables(void)
@@ -46,12 +46,12 @@ static int	display_exported_variables(void)
 			continue ;
 		}
 		printf("declare -x %s", envlist->key);
-		if (envlist->value != NULL)
+		if (envlist->value)
 			printf("=\"%s\"", envlist->value);
 		printf("\n");
 		envlist = envlist->next;
 	}
-	return (true);
+	return (1);
 }
 
 static int	export_new_envvar(char *new_envvar)
@@ -61,7 +61,7 @@ static int	export_new_envvar(char *new_envvar)
 	size_t	len;
 
 	if (is_not_a_valid_envvar(new_envvar))
-		return (EOF);
+		return (-1);
 	len = 0;
 	while (new_envvar[len] && new_envvar[len] != '=' && new_envvar[len] != '+')
 		len++;
@@ -71,6 +71,7 @@ static int	export_new_envvar(char *new_envvar)
 		add_new_envvar(key, value);
 	else
 		join_new_envvar(key, value);
+	free(key);
 	return (true);
 }
 
@@ -79,17 +80,17 @@ static bool	is_not_a_valid_envvar(char *envvar)
 	int	i;
 
 	if (!ft_isalpha(envvar[0]) && envvar[0] != '_')
-		return (invalid_identifier(envvar), true);
+		return (invalid_identifier(envvar), 1);
 	i = 1;
 	while (envvar[i] && envvar[i] != '=')
 	{
 		if (!ft_isalnum(envvar[i]) && envvar[i] != '_' && envvar[i] != '+')
-			return (invalid_identifier(envvar), true);
+			return (invalid_identifier(envvar), 1);
 		if (envvar[i] == '+' && envvar[i + 1] != '=')
-			return (invalid_identifier(envvar), true);
+			return (invalid_identifier(envvar), 1);
 		i++;
 	}
-	return (false);
+	return (0);
 }
 
 static void	invalid_identifier(char *identifier)

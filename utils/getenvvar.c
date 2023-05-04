@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:16:10 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/01 12:01:59 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 08:06:51 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,31 @@ static char	*find_value(const char *envvar)
 {
 	t_env	*tmp_ptr;
 
-	tmp_ptr = g_glob.envlist;
-	while (tmp_ptr)
+	//tmp_ptr = g_glob.envlist;
+	//while (tmp_ptr)
+	//{
+	//	if (ft_strcmp(envvar, tmp_ptr->key) == 0)
+	//		return (tmp_ptr->value);
+	//	tmp_ptr = tmp_ptr->next;
+	//}
+	tmp_ptr = get_key_node(envvar);
+	if (tmp_ptr == NULL)
+		return (NULL);
+	return (tmp_ptr->value);
+}
+
+t_env	*get_key_node(const char *key)
+{
+	t_env	*envlist;
+
+	envlist = g_glob.envlist;
+	while (envlist)
 	{
-		if (ft_strcmp(envvar, tmp_ptr->key) == 0)
-			return (tmp_ptr->value);
-		tmp_ptr = tmp_ptr->next;
+		if (!ft_strcmp(envlist->key, key))
+			break ;
+		envlist = envlist->next;
 	}
-	return (NULL);
+	return (envlist);
 }
 
 void	update_shell_level(void)
@@ -49,13 +66,7 @@ void	update_shell_level(void)
 	char	*new_val;
 	int		shlvl_val;
 
-	envlist = g_glob.envlist;
-	while (envlist)
-	{
-		if (!ft_strcmp(envlist->key, "SHLVL"))
-			break ;
-		envlist = envlist->next;
-	}
+	envlist = get_key_node("SHLVL");
 	if (envlist == NULL)
 		return ;
 	shlvl_val = ft_atoi(envlist->value);

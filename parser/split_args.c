@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 11:42:29 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/23 09:59:27 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 08:30:47 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,19 @@
 //static size_t	getlen(char *args);
 //static void		skip_white_space(char **args);
 
-char	**split_argslist(t_list *argslist)
+char	**split_argslist(t_list *arglist)
 {
 	char	**args_sp;
 	size_t	size;
 	size_t	indx;
 
-	size = ft_lstsize(argslist) + 1;
+	size = ft_lstsize(arglist) + 1;
 	args_sp = ft_calloc(size, sizeof(char *));
 	indx = 0;
-	while (argslist)
+	while (arglist)
 	{
-		args_sp[indx++] = ft_strdup((char *)argslist->lexeme);
-		advance(&argslist);
+		args_sp[indx++] = ft_strdup((char *)arglist->lexeme);
+		advance(&arglist);
 	}
 	args_sp[indx] = NULL;
 	return (args_sp);

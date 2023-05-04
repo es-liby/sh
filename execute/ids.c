@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ids.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yel-hajj <yel-hajj@student.42.fr>          +#+  +:+       +#+        */
+/*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 17:33:14 by yel-hajj          #+#    #+#             */
-/*   Updated: 2023/04/29 17:33:15 by yel-hajj         ###   ########.fr       */
+/*   Updated: 2023/05/04 16:31:18 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	add_id(t_ids **ids, pid_t pid)
 {
 	t_ids	*tmp;
 
-	if (*ids == NULL)
+	if (!(*ids))
 	{
 		*ids = ft_calloc(1, sizeof(t_ids));
 		(*ids)->pid = pid;
@@ -36,7 +36,7 @@ void	wait_pids_and_update_exit_status(t_ids **ids)
 	t_ids	*ids_ptr;
 	int		status;
 
-	if (*ids == NULL)
+	if (!(*ids))
 		return ;
 	ids_ptr = *ids;
 	while (ids_ptr)

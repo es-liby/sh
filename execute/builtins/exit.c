@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:00:39 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/01 15:04:30 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 16:27:02 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@ static bool	is_not_valid_status_number(char *st_number);
 
 int	exitcmd(char **args)
 {
-	if (args[0] != NULL && args[1] != NULL)
+	if (args[0] && args[1])
 	{
 		ft_fprintf(2, "exit\nsh: exit: too many arguments\n");
-		return (update_exit_status(1), EOF);
+		g_glob.exit_status = 1;
+		return (-1);
 	}
-	if (args[0] != NULL)
+	if (args[0])
 	{
 		if (is_not_valid_status_number(args[0]))
 			exit(g_glob.exit_status);
@@ -31,8 +32,8 @@ int	exitcmd(char **args)
 	}
 	else
 		exit_with_last_status_number();
-	update_exit_status(0);
-	return (true);
+	g_glob.exit_status = 0;
+	return (1);
 }
 
 static void	exit_with_status_number(char *st_number)
@@ -40,15 +41,15 @@ static void	exit_with_status_number(char *st_number)
 	long	status_number;
 
 	status_number = ft_atoi(st_number);
-	if (status_number >= LONG_MAX)
+	if (status_number == -1 && ft_strlen(st_number) != 2)
 	{
 		ft_fprintf(2, "exit\n");
 		ft_fprintf(2, "sh: exit: %s: numeric argument required\n", st_number);
-		update_exit_status(255);
+		g_glob.exit_status = 255;
+		exit(g_glob.exit_status);
 	}
-	update_exit_status((unsigned char)status_number);
-	ft_fprintf(1, "exit\n");
-	exit(status_number);
+	g_glob.exit_status = (unsigned char)status_number;
+	exit(g_glob.exit_status);
 }
 
 static void	exit_with_last_status_number(void)
@@ -70,7 +71,8 @@ static bool	is_not_valid_status_number(char *st_number)
 	{
 		ft_fprintf(2, "exit\n");
 		ft_fprintf(2, "sh: exit: %s: numeric argument required\n", st_number);
-		return (update_exit_status(255), true);
+		g_glob.exit_status = 255;
+		return (1);
 	}
-	return (false);
+	return (0);
 }

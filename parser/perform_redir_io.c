@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 23:02:22 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/27 06:41:30 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 09:47:30 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ int	perform_redir_input(t_pipeline **plist, t_list **tokens)
 		return (syn_err(*tokens), EOF);
 	infile = (char *)(*tokens)->lexeme;
 	fd = ft_open(infile, O_RDONLY);
-	if (fd == EOF)
-		return (EOF);
 	(*plist)->in_stream = fd;
 	advance(tokens);
 	if (is_redir_token(*tokens))
@@ -55,8 +53,6 @@ int	perform_redir_output(t_pipeline **plist, t_list **tokens)
 		return (syn_err(*tokens), EOF);
 	outfile = (char *)(*tokens)->lexeme;
 	fd = get_fd_of_output_file(outfile, *tokens);
-	if (fd == EOF)
-		return (EOF);
 	if ((*plist)->out_stream != 1)
 		ft_close((*plist)->out_stream);
 	(*plist)->out_stream = fd;

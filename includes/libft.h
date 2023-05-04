@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 17:34:01 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/02 09:52:44 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 08:28:02 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int			ft_isdigit(int c);
 int			ft_isalnum(int c);
 int			ft_isspace(int c);
 bool		ft_isallblank(const char *str);
+bool		ft_isblank(char c);
 size_t		ft_strlen(const char *s);
 void		*ft_memset(void *b, int c, size_t len);
 void		ft_bzero(void *s, size_t n);

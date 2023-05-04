@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 10:09:44 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/03 21:30:02 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 16:29:51 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	update_cwd(char *arg)
 	char	*cwd;
 
 	cwd = getcwd(NULL, 0);
-	if (cwd == NULL)
+	if (!cwd)
 	{
 		new_cwd = create_cwd(arg);
 		update_pwd_and_oldpwd(new_cwd);
@@ -52,7 +52,7 @@ static void	env_update(char *envvar, char *cwd)
 			break ;
 		envlist = envlist->next;
 	}
-	if (envlist == NULL)
+	if (!envlist)
 	{
 		free(cwd);
 		return ;

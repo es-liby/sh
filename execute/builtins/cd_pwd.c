@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/26 07:20:42 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/27 09:30:35 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 16:22:57 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,16 @@ static int	cd_to_home_directory(void);
 
 int	cdcmd(char **args)
 {
-	if (args[0] == NULL)
+	if (!args[0])
 		return (cd_to_home_directory());
 	if (chdir(args[0]) == -1)
 	{
 		ft_fprintf(2, "sh: %s: No such file or directory\n", args[0]);
-		return (update_exit_status(1), EOF);
+		g_glob.exit_status = 1;
+		return (-1);
 	}
 	update_cwd(args[0]);
-	return (true);
+	return (1);
 }
 
 int	pwdcmd(char **args)
@@ -33,11 +34,11 @@ int	pwdcmd(char **args)
 
 	(void)args;
 	cwd = getcwd(NULL, 0);
-	if (cwd == NULL)
+	if (!cwd)
 		cwd = getenvvar_value("$PWD");
 	printf("%s\n", cwd);
 	free(cwd);
-	return (true);
+	return (1);
 }
 
 static int	cd_to_home_directory(void)
@@ -45,10 +46,13 @@ static int	cd_to_home_directory(void)
 	char	*home_dir;
 
 	home_dir = getenvvar_value("$HOME");
-	if (home_dir == NULL)
-		return (update_exit_status(1), fatal("cd: HOME not set"), EOF);
+	if (!home_dir)
+	{
+		g_glob.exit_status = 1;
+		return (fatal("cd: HOME not set"), -1);
+	}
 	if (chdir(home_dir) == -1)
-		return (perror("sh: cd"), EOF);
+		return (perror("sh: cd"), free(home_dir), -1);
 	update_pwd_and_oldpwd(home_dir);
-	return (true);
+	return (1);
 }

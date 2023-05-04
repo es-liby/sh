@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 16:01:10 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/14 22:45:33 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 08:17:21 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,21 @@ char	*del_quotes(char *ptr, char c)
 	{
 		if (*ptr == c)
 			ptr++;
-		len = 0;
-		while (ptr[len] && ptr[len] != c)
-			len++;
+		len = get_subword_len(ptr, c);
 		tmp = join_subptr_with_tmp(tmp, ptr, len);
 		ptr += len;
 	}
 	return (tmp);
+}
+
+size_t	get_subword_len(const char *ptr, char c)
+{
+	size_t	len;
+
+	len = 0;
+	while (ptr[len] && ptr[len] != c)
+		len++;
+	return (len);
 }
 
 int	is_not_surronded_by_quotes(char *tmp, char c)

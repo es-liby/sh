@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:00:28 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/02 16:24:02 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 16:25:34 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,15 @@ static void	display_current_environment(void);
 
 int	envcmd(char **args)
 {
-	(void)args;
+	if (args[0])
+	{
+		ft_fprintf(2, "env: %s: No such file or directory\n", args[0]);
+		g_glob.exit_status = 127;
+		return (1);
+	}
 	display_current_environment();
-	update_exit_status(0);
-	return (true);
+	g_glob.exit_status = 0;
+	return (1);
 }
 
 static void	display_current_environment(void)
@@ -30,7 +35,7 @@ static void	display_current_environment(void)
 	while (envlist)
 	{
 		ft_fprintf(1, "%s", envlist->key);
-		if (envlist->value != NULL)
+		if (envlist->value)
 			ft_fprintf(1, "=%s", envlist->value);
 		ft_fprintf(1, "\n");
 		envlist = envlist->next;

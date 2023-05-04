@@ -21,11 +21,11 @@ LIBS = $(addprefix $(LIB_DIR),libft.a libftfprintf.a)
 LIBFT_SRCS = $(addprefix $(SRC_DIR)libft/,ft_calloc.c ft_isdigit.c ft_lstadd_back.c ft_lstlast.c \
 ft_memset.c ft_strdup.c ft_strlcpy.c ft_substr.c ft_atoi.c ft_isalnum.c ft_isspace.c ft_lstclear.c \
 ft_lstnew.c ft_split.c ft_strjoin.c ft_strlen.c ft_bzero.c ft_isalpha.c ft_itoa.c ft_lstdelone.c \
-ft_lstsize.c ft_strcmp.c ft_strlcat.c ft_strncmp.c)
+ft_lstsize.c ft_strcmp.c ft_strlcat.c ft_strncmp.c ft_isallblank.c)
 FPRINTF_SRCS = $(addprefix $(SRC_DIR)ft_fprintf/,ft_fprintf.c handle.c sublibft.c)
 
 SCANNER_SRCS = $(addprefix scanner/,scanner.c scanner_utils.c redir_token.c \
-pipe_token.c word_token.c quote_token.c quote.c \
+pipe_token.c word_token.c quote.c \
 sequence.c)
 SCANNER_OBJS = $(patsubst scanner/%.c,obj/scanner/%.o,$(SCANNER_SRCS))
 

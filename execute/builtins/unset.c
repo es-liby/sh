@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 17:27:43 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 16:29:23 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	unsetcmd(char **args)
 	i = -1;
 	while (args[++i])
 		unset_envvar(args[i]);
-	update_exit_status(0);
-	return (true);
+	g_glob.exit_status = 0;
+	return (1);
 }
 
 static void	unset_envvar(char *envvar)
@@ -41,7 +41,7 @@ static void	unset_envvar(char *envvar)
 		tmp_ptr = envlist;
 		envlist = envlist->next;
 	}
-	if (envlist == NULL)
+	if (!envlist)
 		return ;
 	delete_envvar_node(envlist, tmp_ptr);
 }

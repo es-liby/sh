@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:43:43 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/03 21:30:29 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 08:04:07 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	update_shell_level(void);
 /*	getenvvar_utils.c	*/
 char	*find_variable_and_get_value(char **ptr);
 char	*find_variable(char **ptr);
+t_env	*get_key_node(const char *key);
 
 /*	handle_signals.c	*/
 void	handle_signals(void);

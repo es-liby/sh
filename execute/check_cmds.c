@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 17:32:41 by yel-hajj          #+#    #+#             */
-/*   Updated: 2023/05/03 21:27:24 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 16:30:27 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	check_if_valid(t_pipeline *plist, char **paths)
 		if (access(cmd, X_OK) == -1)
 		{
 			ft_fprintf(2, "bash: %s: No such file or directory\n", plist->cmd);
-			return (free(cmd), EOF);
+			return (free(cmd), -1);
 		}
-		return (free(cmd), true);
+		return (free(cmd), 1);
 	}
 	i = -1;
 	while (paths[++i])
@@ -38,11 +38,11 @@ int	check_if_valid(t_pipeline *plist, char **paths)
 		{
 			free(plist->cmd);
 			plist->cmd = res;
-			return (free(cmd), true);
+			return (free(cmd), 1);
 		}
 	}
 	ft_fprintf(2, "bash: %s: command not found\n", cmd);
-	return (free(cmd), EOF);
+	return (free(cmd), -1);
 }
 
 char	**check_cmd_path(char *cmd)
@@ -75,7 +75,7 @@ int	execute_builtin(t_pipeline **plist)
 	int	stdin_dup;
 	int	stdout_dup;
 
-	if (dup_streams(*plist, &stdin_dup, &stdout_dup) == EOF)
+	if (dup_streams(*plist, &stdin_dup, &stdout_dup) == -1)
 		return (*plist = (*plist)->next, 1);
 	if (!ft_strcmp((*plist)->cmd, "pwd"))
 		pwdcmd((*plist)->args + 1);

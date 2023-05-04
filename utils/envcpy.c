@@ -6,12 +6,13 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:16:06 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 13:07:17 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+static t_env	*lastenv(t_env *envlist);
 static size_t	getsize_of_envlist(t_env *env);
 
 t_env	*envcpy(char *envp[])
@@ -32,21 +33,22 @@ t_env	*envcpy(char *envp[])
 	return (env);
 }
 
-void	add_envvar(t_env **env, char *key, char *value)
+void	add_envvar(t_env **envlist, char *key, char *value)
 {
 	t_env	*tmp_ptr;
 
-	if (*env == NULL)
+	if (*envlist == NULL)
 	{
-		*env = ft_calloc(1, sizeof(t_env));
-		(*env)->key = key;
-		(*env)->value = value;
-		(*env)->next = NULL;
+		*envlist = ft_calloc(1, sizeof(t_env));
+		(*envlist)->key = key;
+		(*envlist)->value = value;
+		(*envlist)->next = NULL;
 		return ;
 	}
-	tmp_ptr = *env;
-	while (tmp_ptr && tmp_ptr->next)
-		tmp_ptr = tmp_ptr->next;
+	tmp_ptr = lastenv(*envlist);
+	//tmp_ptr = *env;
+	//while (tmp_ptr && tmp_ptr->next)
+	//	tmp_ptr = tmp_ptr->next;
 	tmp_ptr->next = ft_calloc(1, sizeof(t_env));
 	tmp_ptr->next->key = key;
 	tmp_ptr->next->value = value;
@@ -84,4 +86,11 @@ static size_t	getsize_of_envlist(t_env *env)
 		env = env->next;
 	}
 	return (size);
+}
+
+static t_env	*lastenv(t_env *envlist)
+{
+	while (envlist && envlist->next)
+		envlist = envlist->next;
+	return (envlist);
 }
