@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:02:59 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/04 09:48:10 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 18:14:50 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,6 @@ static char	*get_heredoc_file(int *fd)
 		nbr++;
 	}
 	*fd = ft_open(file, O_RDWR | O_APPEND | O_CREAT);
-	//if (*fd == -1)
-	//	return (perror("open"), free(file), NULL);
 	return (file);
 }
 

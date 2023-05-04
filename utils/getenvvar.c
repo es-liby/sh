@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:16:10 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/04 08:06:51 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 18:14:29 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,6 @@ static char	*find_value(const char *envvar)
 {
 	t_env	*tmp_ptr;
 
-	//tmp_ptr = g_glob.envlist;
-	//while (tmp_ptr)
-	//{
-	//	if (ft_strcmp(envvar, tmp_ptr->key) == 0)
-	//		return (tmp_ptr->value);
-	//	tmp_ptr = tmp_ptr->next;
-	//}
 	tmp_ptr = get_key_node(envvar);
 	if (tmp_ptr == NULL)
 		return (NULL);

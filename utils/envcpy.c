@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:16:06 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/04 13:07:17 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 18:14:18 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,6 @@ void	add_envvar(t_env **envlist, char *key, char *value)
 		return ;
 	}
 	tmp_ptr = lastenv(*envlist);
-	//tmp_ptr = *env;
-	//while (tmp_ptr && tmp_ptr->next)
-	//	tmp_ptr = tmp_ptr->next;
 	tmp_ptr->next = ft_calloc(1, sizeof(t_env));
 	tmp_ptr->next->key = key;
 	tmp_ptr->next->value = value;

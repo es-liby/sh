@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 07:29:22 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/02 22:23:48 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 18:19:34 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,13 @@ void		split_plist(t_pipeline *plist);
 size_t		getsp_size(char **args);
 
 /*	check_cmds.c	*/
-int			check_if_valid(t_pipeline *plist, char **paths);
+int			check_if_valid(t_pipeline *plist);
 char		**check_cmd_path(char *cmd);
+
+/*	execute_builtins.c	*/
 int			execute_builtin(t_pipeline **plist);
 bool		check_if_builtin(char *cmd);
+bool		if_builtin_execute(t_pipeline **plist);
 
 /*	split_args.c	*/
 char		**split_args(char **args);

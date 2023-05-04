@@ -6,14 +6,14 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 12:01:53 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/04 08:35:44 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 18:13:51 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
 static int	set_args(t_pipeline **plist, t_list **tokens);
-//static void	addarg(t_list **arglist, char *lexeme);
+static void	addarg(t_list **arglist, char *arg);
 static int	search_and_set_args(t_pipeline **plist, t_list **tokens);
 
 int	set_cmd_and_args(t_pipeline **plist, t_list **tokens)
@@ -25,8 +25,6 @@ int	set_cmd_and_args(t_pipeline **plist, t_list **tokens)
 	}
 	if (set_args(plist, tokens) == EOF)
 		return (EOF);
-	//if (is_redir_token(*tokens))
-	//	return (set_input_and_output_streams(plist, tokens));
 	return (true);
 }
 
@@ -50,10 +48,9 @@ static int	set_args(t_pipeline **plist, t_list **tokens)
 static int	search_and_set_args(t_pipeline **plist, t_list **tokens)
 {
 	t_list	*arglist;
-	char	*lexeme_dup;
 
 	arglist = NULL;
-	ft_lstadd_back(&arglist, ft_lstnew(ft_strdup((*plist)->cmd), WORD));
+	addarg(&arglist, (*plist)->cmd);
 	while (peek_type(*tokens) != NIL && peek_type(*tokens) != PIPE)
 	{
 		if (is_redir_token(*tokens))
@@ -62,8 +59,7 @@ static int	search_and_set_args(t_pipeline **plist, t_list **tokens)
 				return (ft_lstclear(&arglist, free), EOF);
 			continue ;
 		}
-		lexeme_dup = ft_strdup((*tokens)->lexeme);
-		ft_lstadd_back(&arglist, ft_lstnew(lexeme_dup, WORD));
+		addarg(&arglist, (*tokens)->lexeme);
 		advance(tokens);
 	}
 	if (arglist != NULL)
@@ -72,15 +68,15 @@ static int	search_and_set_args(t_pipeline **plist, t_list **tokens)
 	return (true);
 }
 
-//static void	addarg(t_list **arglist, char *lexeme)
-//{
-//	t_list	*new;
-//	char	*lexeme_dup;
+static void	addarg(t_list **arglist, char *arg)
+{
+	t_list	*new;
+	char	*arg_dup;
 
-//	lexeme_dup = ft_strdup(lexeme);
-//	new = ft_lstnew(lexeme, WORD);
-//	ft_lstadd_back(arglist, new);
-//}
+	arg_dup = ft_strdup(arg);
+	new = ft_lstnew(arg_dup, WORD);
+	ft_lstadd_back(arglist, new);
+}
 
 void	set_pipe(t_pipeline **plist)
 {

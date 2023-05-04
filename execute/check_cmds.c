@@ -6,30 +6,26 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 17:32:41 by yel-hajj          #+#    #+#             */
-/*   Updated: 2023/05/04 16:30:27 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 18:09:37 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
+static int	path_is_executable(char *cmdpath);
 static void	join_withslash(char **res);
 
-int	check_if_valid(t_pipeline *plist, char **paths)
+int	check_if_valid(t_pipeline *plist)
 {
-	int		i;
-	char	*res;
+	char	**paths;
 	char	*cmd;
+	char	*res;
+	int		i;
 
 	cmd = ft_strdup(plist->cmd);
 	if (cmd[0] == '.' || cmd[0] == '/')
-	{
-		if (access(cmd, X_OK) == -1)
-		{
-			ft_fprintf(2, "bash: %s: No such file or directory\n", plist->cmd);
-			return (free(cmd), -1);
-		}
-		return (free(cmd), 1);
-	}
+		return (path_is_executable(cmd));
+	paths = check_cmd_path(plist->cmd);
 	i = -1;
 	while (paths[++i])
 	{
@@ -69,52 +65,16 @@ char	**check_cmd_path(char *cmd)
 	return (paths);
 }
 
-
-int	execute_builtin(t_pipeline **plist)
+static int	path_is_executable(char *cmdpath)
 {
-	int	stdin_dup;
-	int	stdout_dup;
-
-	if (dup_streams(*plist, &stdin_dup, &stdout_dup) == -1)
-		return (*plist = (*plist)->next, 1);
-	if (!ft_strcmp((*plist)->cmd, "pwd"))
-		pwdcmd((*plist)->args + 1);
-	else if (!ft_strcmp((*plist)->cmd, "export"))
-		exportcmd((*plist)->args + 1);
-	else if (!ft_strcmp((*plist)->cmd, "echo"))
-		echocmd((*plist)->args + 1);
-	else if (!ft_strcmp((*plist)->cmd, "cd"))
-		cdcmd((*plist)->args + 1);
-	else if (!ft_strcmp((*plist)->cmd, "env"))
-		envcmd((*plist)->args + 1);
-	else if (!ft_strcmp((*plist)->cmd, "exit"))
-		exitcmd((*plist)->args + 1);
-	else if (!ft_strcmp((*plist)->cmd, "unset"))
-		unsetcmd((*plist)->args + 1);
-	else
-		return (getback_io_streams(*plist, stdin_dup, stdout_dup), 0);
-	getback_io_streams(*plist, stdin_dup, stdout_dup);
-	*plist = (*plist)->next;
+	if (access(cmdpath, X_OK) == -1)
+	{
+		ft_fprintf(2, "sh: %s: No such file or directory\n", cmdpath);
+		free(cmdpath);
+		return (-1);
+	}
+	free(cmdpath);
 	return (1);
-}
-
-bool	check_if_builtin(char *cmd)
-{
-	if (!ft_strcmp(cmd, "pwd"))
-		return (1);
-	else if (!ft_strcmp(cmd, "export"))
-		return (1);
-	else if (!ft_strcmp(cmd, "echo"))
-		return (1);
-	else if (!ft_strcmp(cmd, "cd"))
-		return (1);
-	else if (!ft_strcmp(cmd, "env"))
-		return (1);
-	else if (!ft_strcmp(cmd, "exit"))
-		return (1);
-	else if (!ft_strcmp(cmd, "unset"))
-		return (1);
-	return (0);
 }
 
 static void	join_withslash(char **res)

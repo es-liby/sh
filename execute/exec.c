@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 17:33:01 by yel-hajj          #+#    #+#             */
-/*   Updated: 2023/05/04 16:20:30 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/04 18:19:22 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ void	execute(t_pipeline *plist)
 	head = plist;
 	while (plist)
 	{
-		if (check_if_cmd_null(&plist) || (check_if_builtin(plist->cmd) && execute_builtin(&plist)))
+		if (check_if_cmd_null(&plist) || if_builtin_execute(&plist))
 			continue ;
 		id = ft_fork();
 		if (id < 0)
 		{
 			plist = plist->next;
-			continue ;			
+			continue ;
 		}
 		if (id == 0)
 			child_process(plist, head);
@@ -47,8 +47,6 @@ void	execute(t_pipeline *plist)
 
 static void	child_process(t_pipeline *plist, t_pipeline *head)
 {
-	char		**paths;
-
 	if (plist->in_stream == -1 || plist->out_stream == -1)
 		exit(1);
 	if (*(plist->cmd) == '\0' || ft_isallblank(plist->cmd))
@@ -56,9 +54,8 @@ static void	child_process(t_pipeline *plist, t_pipeline *head)
 		ft_fprintf(2, "sh: %s: command not found\n", plist->cmd);
 		exit(127);
 	}
-	paths = check_cmd_path(plist->cmd);
 	split_plist(plist);
-	if (check_if_valid(plist, paths) == -1)
+	if (check_if_valid(plist) == -1)
 		exit(127);
 	if (cmd_is_a_directory(plist->cmd))
 	{

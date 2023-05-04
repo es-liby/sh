@@ -37,7 +37,7 @@ PARSER_OBJS = $(patsubst parser/%.c,obj/parser/%.o,$(PARSER_SRCS))
 BUILTINS = $(addprefix builtins/,cd_pwd.c echo.c env.c exit.c export_utils.c export.c \
 unset.c update_cwd.c)
  
-EXEC_SRS = $(addprefix execute/,exec.c streams.c ids.c \
+EXEC_SRS = $(addprefix execute/,exec.c streams.c ids.c execute_builtins.c \
 split_plist.c split_args.c check_cmds.c $(BUILTINS))
 EXEC_OBJS = $(patsubst execute/%.c,obj/execute/%.o,$(EXEC_SRS))
  
