@@ -24,12 +24,12 @@ ft_lstnew.c ft_split.c ft_strjoin.c ft_strlen.c ft_bzero.c ft_isalpha.c ft_itoa.
 ft_lstsize.c ft_strcmp.c ft_strlcat.c ft_strncmp.c ft_isallblank.c)
 FPRINTF_SRCS = $(addprefix $(SRC_DIR)ft_fprintf/,ft_fprintf.c handle.c sublibft.c)
 
-SCANNER_SRCS = $(addprefix scanner/,scanner.c scanner_utils.c redir_token.c \
+SCANNER_SRCS = $(addprefix scanner/,scan.c scanner_utils.c redir_token.c \
 pipe_token.c word_token.c quote.c \
 sequence.c)
 SCANNER_OBJS = $(patsubst scanner/%.c,obj/scanner/%.o,$(SCANNER_SRCS))
 
-PARSER_SRCS = $(addprefix parser/,parser.c expand.c quote_sequence.c set_members.c \
+PARSER_SRCS = $(addprefix parser/,parse.c expand.c quote_sequence.c set_members.c \
 perform_redir_io.c getquote_seq.c cmd_and_args.c heredoc.c pipe_fds.c plist_utils.c \
 heredoc_utils.c readlines_heredoc.c print.c split_args.c)
 PARSER_OBJS = $(patsubst parser/%.c,obj/parser/%.o,$(PARSER_SRCS))

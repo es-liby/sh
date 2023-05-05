@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 18:28:59 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/26 18:34:43 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/05 06:18:33 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
 
-int	parser(t_list **tokens, t_pipeline **plist)
+int	parse(t_list **tokens, t_pipeline **plist)
 {
 	t_list		*tmp_ptr_tokens;
 

@@ -6,11 +6,21 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:51:08 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/27 10:20:02 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/05 07:22:04 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <minishell.h>
+
+void	cleanup(t_pipeline **plist, t_list **tokens)
+{
+	unlink_heredoc_file();
+	close_pipes();
+	free_tab(g_glob.envp);
+	clear_plist(plist);
+	ft_lstclear(tokens, free);
+	g_glob.sigint = OFF;
+}
 
 void	clear_plist(t_pipeline **plist)
 {
@@ -24,12 +34,6 @@ void	clear_plist(t_pipeline **plist)
 		free_tab(tmp->args);
 		free(tmp);
 	}
-}
-
-void	clear_gbl(void)
-{
-	clearenv(g_glob.envlist);
-	free_tab(g_glob.envp);
 }
 
 void	clearenv(t_env *envlist)
@@ -59,4 +63,18 @@ void	free_tab(char **tab)
 	while (tab[++i])
 		free(tab[i]);
 	free(tab);
+}
+
+void	unlink_heredoc_file(void)
+{
+	if (g_glob.heredoc_file == NULL)
+		return ;
+	if (unlink(g_glob.heredoc_file) == -1)
+	{
+		free(g_glob.heredoc_file);
+		perror("unlink");
+		return ;
+	}
+	free(g_glob.heredoc_file);
+	g_glob.heredoc_file = NULL;
 }

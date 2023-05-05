@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:43:43 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/04 08:04:07 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/05 06:15:43 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,7 @@
 # define USG_ERR_MSG "\e[1m\x1B[31mUsage:\x1B[0m\e[m"
 
 /*	main.c	*/
-void	prompt(void);
-void	cleanup(t_pipeline **plist, t_list **tokens);
-void	unlink_heredoc_file(void);
+void	runprompt(void);
 
 /*	std.c	*/
 int		ft_open(char *file, int flags);
@@ -75,10 +73,11 @@ char	*getvalue(char *envp);
 char	*join_key_and_value(t_env *env_ptr);
 
 /*	clear.c	*/
+void	cleanup(t_pipeline **plist, t_list **tokens);
 void	clear_plist(t_pipeline **plist);
-void	clear_gbl(void);
 void	clearenv(t_env *envlist);
 void	free_tab(char **tab);
+void	unlink_heredoc_file(void);
 
 /*	error.c	*/
 void	fatal(char *msg);

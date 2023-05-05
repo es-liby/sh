@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 01:54:35 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/26 18:34:38 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/05 06:18:41 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <structs.h>
 
 /*	parser.c	*/
-int			parser(t_list **tokens, t_pipeline **plist);
+int			parse(t_list **tokens, t_pipeline **plist);
 int			p_match(t_list **tokens, t_tokentype type);
 void		advance(t_list **tokens);
 t_tokentype	peek_type(t_list *token);

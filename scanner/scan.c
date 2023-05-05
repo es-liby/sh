@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scanner.c                                          :+:      :+:    :+:   */
+/*   scan.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 14:05:33 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/04/24 14:05:34 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/05 06:18:18 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static t_tokentype	get_next_token(char **pipeline, char **lexeme);
 static t_tokentype	tokenfunc(t_tokentype type, char **pipeline, char **lexeme);
 static t_tokentype	gettype_of_token(char c);
 
-int	scanner(t_list **tokens, char *pipeline)
+int	scan(t_list **tokens, char *pipeline)
 {
 	char		*lexeme;
 	t_tokentype	type;

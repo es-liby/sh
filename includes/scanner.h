@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 18:13:05 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/04 08:20:53 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/05 06:18:45 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <libft.h>
 
 /*	scanner.c	*/
-int			scanner(t_list **tokens, char *cmdline);
+int			scan(t_list **tokens, char *cmdline);
 
 /*	redir_token.c	*/
 t_tokentype	getredir_token(char **pipeline, char **token);
