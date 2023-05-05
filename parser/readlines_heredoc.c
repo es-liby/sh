@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/17 16:58:44 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/04 17:56:04 by iabkadri         ###   ########.fr       */
+/*   Created: 2023/05/05 07:40:06 by iabkadri          #+#    #+#             */
+/*   Updated: 2023/05/05 08:23:57 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	read_and_write_line_to_heredoc_file(t_list *tokens, int fd, int expanded)
 		handle_signals_for_heredoc();
 		line = readline("> ");
 		if (g_glob.sigint == ON)
-			return (free(line), EOF);
+			return (ft_close(fd), free(line), EOF);
 		if (line == NULL || is_end_of_heredoc(line, label))
 			break ;
 		writeline_to_heredoc_file(line, fd, expanded);

@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:43:01 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/05 06:18:31 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/05 08:20:13 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ static int	scan_and_parse(char *pipeline, t_list **tokens, t_pipeline **plist)
 	free(pipeline);
 	g_glob.envp = get_envp();
 	g_glob.sigint = OFF;
+	*plist = NULL;
 	if (parse(tokens, plist) == EOF)
 		return (cleanup(plist, tokens), EOF);
 	return (true);

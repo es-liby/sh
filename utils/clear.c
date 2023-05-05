@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 17:51:08 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/05 07:22:04 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/05 08:03:10 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	cleanup(t_pipeline **plist, t_list **tokens)
 {
 	unlink_heredoc_file();
-	close_pipes();
+	clear_pipes(g_glob.fds);
 	free_tab(g_glob.envp);
 	clear_plist(plist);
 	ft_lstclear(tokens, free);

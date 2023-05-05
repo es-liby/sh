@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/24 12:01:53 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/04 18:13:51 by iabkadri         ###   ########.fr       */
+/*   Created: 2023/05/05 07:38:55 by iabkadri          #+#    #+#             */
+/*   Updated: 2023/05/05 07:38:56 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	set_args(t_pipeline **plist, t_list **tokens)
 	if (peek_type(*tokens) == NIL)
 	{
 		ft_lstadd_back(&arglist, ft_lstnew(ft_strdup((*plist)->cmd), WORD));
-		(*plist)->args = split_argslist(arglist);
+		(*plist)->args = split_arglist(arglist);
 		ft_lstclear(&arglist, free);
 		return (true);
 	}
@@ -63,7 +63,7 @@ static int	search_and_set_args(t_pipeline **plist, t_list **tokens)
 		advance(tokens);
 	}
 	if (arglist != NULL)
-		(*plist)->args = split_argslist(arglist);
+		(*plist)->args = split_arglist(arglist);
 	ft_lstclear(&arglist, free);
 	return (true);
 }

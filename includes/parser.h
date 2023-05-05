@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/11 01:54:35 by iabkadri          #+#    #+#             */
-/*   Updated: 2023/05/05 06:18:41 by iabkadri         ###   ########.fr       */
+/*   Created: 2023/05/05 07:41:27 by iabkadri          #+#    #+#             */
+/*   Updated: 2023/05/05 07:41:28 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ int			perform_redirections_and_set_cmds(t_pipeline **plist,
 int			set_cmd_and_args(t_pipeline **plist, t_list **tokens);
 void		set_pipe(t_pipeline **plist);
 
-/*	split_args.c	*/
-char		**split_argslist(t_list *arglist);
+/*	split_arglist.c	*/
+char		**split_arglist(t_list *arglist);
 
 /*	pipe_fds.c	*/
 t_fds		*count_and_open_pipes(t_list *tokens);

@@ -6,7 +6,7 @@
 /*   By: iabkadri <iabkadri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 17:33:01 by yel-hajj          #+#    #+#             */
-/*   Updated: 2023/05/04 18:19:22 by iabkadri         ###   ########.fr       */
+/*   Updated: 2023/05/05 08:00:47 by iabkadri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	execute(t_pipeline *plist)
 		if (id < 0)
 		{
 			plist = plist->next;
-			continue ;
+			return ;
 		}
 		if (id == 0)
 			child_process(plist, head);

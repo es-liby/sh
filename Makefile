@@ -31,7 +31,7 @@ SCANNER_OBJS = $(patsubst scanner/%.c,obj/scanner/%.o,$(SCANNER_SRCS))
 
 PARSER_SRCS = $(addprefix parser/,parse.c expand.c quote_sequence.c set_members.c \
 perform_redir_io.c getquote_seq.c cmd_and_args.c heredoc.c pipe_fds.c plist_utils.c \
-heredoc_utils.c readlines_heredoc.c print.c split_args.c)
+heredoc_utils.c readlines_heredoc.c print.c split_arglist.c)
 PARSER_OBJS = $(patsubst parser/%.c,obj/parser/%.o,$(PARSER_SRCS))
 
 BUILTINS = $(addprefix builtins/,cd_pwd.c echo.c env.c exit.c export_utils.c export.c \
